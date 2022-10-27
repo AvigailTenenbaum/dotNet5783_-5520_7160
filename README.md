@@ -3,4 +3,3 @@ Hey you
 Welcome Avigail
 my name is Noa
 bye
-finish
