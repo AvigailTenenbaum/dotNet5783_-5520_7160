@@ -36,15 +36,19 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the product name");
                             name = Console.ReadLine();
+                            Console.WriteLine("Enter the product category");
+                            Enums.Category category;
+                            Enums.Category.TryParse(Console.ReadLine(), out category);
                             Console.WriteLine("Enter the product price");
                             double.TryParse(Console.ReadLine(), out price);
                             Console.WriteLine("Enter how many units are in stock");
                             int.TryParse(Console.ReadLine(), out unitsInStock);
+                           
                             Product p1 = new Product();
                             p1.ID = id;
                             p1.Name = name;
                             p1.Price = price;
-                            
+                            p1.Category= category;
                             p1.InStock = unitsInStock; product.AddObject(p1); break; }
                     case 'b':
                         {
@@ -58,6 +62,9 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the product name");
                             name = Console.ReadLine();
+                            Console.WriteLine("Enter the product category");
+                            Enums.Category category;
+                            Enums.Category.TryParse(Console.ReadLine(), out category);
                             Console.WriteLine("Enter the product price");
                             double.TryParse(Console.ReadLine(), out price);
                             Console.WriteLine("Enter how many units are in stock");
@@ -66,6 +73,7 @@ namespace DalTest
                             p1.ID = id;
                             p1.Name = name;
                             p1.Price = price;
+                            p1.Category= category;
                             p1.InStock = unitsInStock; product.UpDateObject(p1); break;
                         }
                     case 'e':
