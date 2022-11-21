@@ -14,14 +14,14 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public int AddObject(Product o1)
     {
-        for (int i = 0; i < DataSource._indexOfProduct; i++)
+        for (int i = 0; i < DataSource.orders.Count; i++)
         {
             if (DataSource.products[i].ID == o1.ID)
             {
                 throw new Exception("ERROR: id is already exist in the array ");
             }
         }
-        DataSource.products[DataSource._indexOfProduct++] = o1;
+        DataSource.products.Add o1;
         return o1.ID;
     }
     /// <summary>
@@ -32,12 +32,11 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public Product GetObject(int id)
     {
-        for(int i=0;i<DataSource._indexOfProduct;i++)
-        {
-            if(DataSource.products[i].ID == id)
-                return DataSource.products[i];
-        }
-        throw new Exception("ERROR: id is not exist in the array ");
+        Product p1=DataSource.products.Find(o=>o.ID == id); 
+        if(p1.Equals(default(Product)))
+            throw new Exception("ERROR: id is not exist in the array ");
+        return p1;
+        
     }
     /// <summary>
     /// A function that returns an array of all objects
@@ -45,10 +44,10 @@ public class DalProduct
     /// <returns></returns>
     public Product[] GetAllObject()
     {
-        Product[] p = new Product[DataSource._indexOfProduct];
+        List<Product> p = new List<Product>();
         for (int i = 0; i < DataSource._indexOfProduct; i++)
         {
-            p[i] = DataSource.products[i];
+            p.Add( DataSource.products[i]);
         }
         return p;
     }
