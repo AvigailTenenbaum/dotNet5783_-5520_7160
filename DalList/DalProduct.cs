@@ -21,7 +21,7 @@ public class DalProduct
                 throw new Exception("ERROR: id is already exist in the array ");
             }
         }
-        DataSource.products.Add o1;
+        DataSource.products.Add( o1);
         return o1.ID;
     }
     /// <summary>
@@ -42,7 +42,7 @@ public class DalProduct
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public Product[] GetAllObject()
+    public List<Product> GetAllObject()
     {
         List<Product> p = new List<Product>();
         for (int i = 0; i < DataSource._indexOfProduct; i++)
@@ -58,14 +58,10 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        int index=Array.FindIndex(DataSource.products,o => o.ID == id);
-        if(index == -1)
+        Product p1=List<Product>FindIndex(DataSource.products,o => o.ID == id);
+        if(p1.Equals(default(Product))
             throw new Exception("ERROR: id is not exist in the array ");
-        if(DataSource._indexOfProduct==index)
-            DataSource.products[index]=default(Product);    
-        else
-            DataSource.products[index] = DataSource.products[DataSource._indexOfProduct-1];
-        DataSource._indexOfProduct--;
+      DataSource.products.Remove(p1);   
     }
     /// <summary>
     /// Function for updating an object if the ID number exists
@@ -74,7 +70,7 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public void UpDateObject(Product p)
     {
-        for (int i = 0; i < DataSource._indexOfProduct; i++)
+        for (int i = 0; i < DataSource.products.Count; i++)
         {
             if (DataSource.products[i].ID == p.ID)
             {
