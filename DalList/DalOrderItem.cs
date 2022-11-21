@@ -14,7 +14,7 @@ public class DalOrderItem
     public int AddObject(OrderItem o1)
     {
         o1.ID = DataSource.getLastOrderItemsID();
-        DataSource.items[DataSource.items.Count] = o1;
+        DataSource.items.Add(o1);
         return o1.ID;
     }
     /// <summary>
@@ -25,7 +25,7 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem GetObject(int id)
     {
-        for (int i = 0; i < DataSource._indexOfOrderItem; i++)
+        for (int i = 0; i < DataSource.orders.Count; i++)
         {
             if (DataSource.items[i].ID == id)
                 return DataSource.items[i];
@@ -38,8 +38,8 @@ public class DalOrderItem
     /// <returns></returns>
     public OrderItem[] GetAllObject()
     {
-        OrderItem[] p = new OrderItem[DataSource._indexOfOrderItem ];
-        for (int i = 0; i < DataSource._indexOfOrderItem; i++)
+        OrderItem[] p = new OrderItem[DataSource.orders.Count ];
+        for (int i = 0; i < DataSource.orders.Count; i++)
         {
             p[i] = DataSource.items[i];
         }
@@ -52,14 +52,10 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        int index = Array.FindIndex(DataSource.items, o => o.ID == id);
-        if (index == -1)
+        OrderItem o1 = DataSource.items.Find(o => o.ID == id);
+        if (o1.Equals(default(OrderItem)))
             throw new Exception("ERROR: id is not exist in the array ");
-        if (DataSource._indexOfOrderItem == index)
-            DataSource.items[index] = default(OrderItem);
-        else
-            DataSource.items[index] = DataSource.items[DataSource._indexOfOrderItem - 1];
-        DataSource._indexOfOrderItem--;
+        DataSource.items.Remove(o1);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists
@@ -68,7 +64,7 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public void UpDateObject(OrderItem o)
     {
-        for (int i = 0; i < DataSource._indexOfOrderItem; i++)
+        for (int i = 0; i < DataSource.items.Count(); i++)
         {
             if (DataSource.items[i].ID == o.ID)
             {
