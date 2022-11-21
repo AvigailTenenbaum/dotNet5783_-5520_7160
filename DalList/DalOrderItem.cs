@@ -14,7 +14,7 @@ public class DalOrderItem
     public int AddObject(OrderItem o1)
     {
         o1.ID = DataSource.getLastOrderItemsID();
-        DataSource.items[DataSource._indexOfOrderItem++] = o1;
+        DataSource.items[DataSource.items.Count] = o1;
         return o1.ID;
     }
     /// <summary>

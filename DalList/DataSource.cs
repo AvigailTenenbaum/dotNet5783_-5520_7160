@@ -9,16 +9,13 @@ namespace Dal;
  static internal class DataSource
 {
     static readonly Random num = new Random();
-    internal static Product[] products = new Product[50];
-    internal static Order[] orders = new Order[100];
-    internal static OrderItem[] items = new OrderItem[200];
+    internal static List<Product> products = new List<Product>();
+    internal static List<Order> orders = new List<Order>();
+    internal static List<OrderItem> items = new List<OrderItem>();
 
     private static int _lastProductID = 100000;
     private static int _lastOrderID = 1;
     private static int _lastOrderItemsID = 1;
-    internal static int _indexOfProduct = 0;
-    internal static int _indexOfOrder = 0;
-    internal static int _indexOfOrderItem = 0;
     internal static int getLastProductID()
     {
         return _lastProductID++;
@@ -51,13 +48,13 @@ namespace Dal;
         {
             Product product = new Product();
             OrderItem orderItem = new OrderItem();
-            product = products[num.Next(0, _indexOfProduct)];
+            product = products[num.Next(0,products.Count)];
             orderItem.ID =getLastOrderID();
             orderItem.ProductID = product.ID;
             orderItem.Amount = num.Next(1, 11);
-            orderItem.OrderID = orders[num.Next(0,_indexOfOrderItem)].ID;
+            orderItem.OrderID = orders[num.Next(0,orders.Count)].ID;
             orderItem.Price =  product.Price;
-            items[_indexOfOrderItem++] = orderItem;
+            items.Add(orderItem);
         }
     }
 
@@ -89,7 +86,7 @@ namespace Dal;
                 order.ShipDate = DateTime.MinValue;
                 order.DeliveryDate = DateTime.MinValue;
             }
-            orders[_indexOfOrder++] = order;
+            orders.Add(order);
         }
     }
     static void initProducts()
@@ -123,7 +120,7 @@ namespace Dal;
                 };
 
                 product.InStock = per-- > 0 ? 0 : num.Next(50, 100);
-                    products[_indexOfProduct++] = product; 
+                    products.Add(product); 
               
             }
         }

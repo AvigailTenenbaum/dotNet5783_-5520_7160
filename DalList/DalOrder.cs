@@ -14,7 +14,7 @@ public class DalOrder
     public int AddObject(Order o1)
     {
         o1.ID = DataSource.getLastOrderID();
-        DataSource.orders[DataSource._indexOfOrder++] = o1;
+        DataSource.orders.Add(o1);
         return o1.ID;
     }
     /// <summary>
@@ -25,7 +25,7 @@ public class DalOrder
     /// <exception cref="Exception"></exception>
     public Order GetObject(int id)
     {
-        for (int i = 0; i < DataSource._indexOfOrder; i++)
+        for (int i = 0; i < DataSource.orders.Count(); i++)
         {
             if (DataSource.orders[i].ID == id)
                 return DataSource.orders[i];
@@ -36,12 +36,12 @@ public class DalOrder
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public Order[] GetAllObject()
+    public List<Order> GetAllObject()
     {
-        Order[] o = new Order[DataSource._indexOfOrder ];
-        for (int i = 0; i < DataSource._indexOfOrder; i++)
+       List<Order> o = new List<Order>();
+        for (int i = 0; i < DataSource.orders.Count(); i++)
         {
-            o[i] = DataSource.orders[i];
+            o.Add(DataSource.orders[i]);
         }
         return o;
     }
@@ -52,14 +52,10 @@ public class DalOrder
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        int index = Array.FindIndex(DataSource.orders, o => o.ID == id);
-        if (index == -1)
+     Order o1=  DataSource.orders.Find(o=>o.ID == id);
+        if(o1.Equals(  default(Order)))
             throw new Exception("ERROR: id is not exist in the array ");
-        if (DataSource._indexOfOrder == index)
-            DataSource.orders[index] = default(Order);
-        else
-            DataSource.orders[index] = DataSource.orders[DataSource._indexOfOrder - 1];
-        DataSource._indexOfOrder--;
+        DataSource.orders.Remove(o1);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists
@@ -68,7 +64,7 @@ public class DalOrder
     /// <exception cref="Exception"></exception>
     public void UpDateObject(Order o)
     {
-        for (int i = 0; i < DataSource._indexOfOrder; i++)
+        for (int i = 0; i < DataSource.orders.Count(); i++)
         {
             if (DataSource.orders[i].ID == o.ID)
             {
