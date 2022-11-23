@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
-{
+namespace BO;
+
     /// <summary>
     /// the entity of cart
     /// </summary>
@@ -40,4 +40,4 @@ Items: {Items}
 TotalPrice {TotalPrice}
 
     }
-}
+
