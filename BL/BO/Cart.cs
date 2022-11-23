@@ -32,12 +32,13 @@ namespace BO;
         /// Total price of an order basket
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString() => $@"
+    public override string ToString() => $@"
 Customr Name: {CustomerName}
 Customer Email: {CustomerEmail}
 Customer Address: {CustomerAdress}
 Items: {Items}
 TotalPrice {TotalPrice}
+";
 
     }
 

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BO;
 
@@ -20,5 +23,10 @@ namespace BO;
     /// A list of dates and the status of the reservation is hosted
     /// </summary>
     public List<Tuple<OrderStatus, DateTime>> TrackingInformation { get; set; }
-    }
+    public override string ToString() => $@"
+Order Tracking ID: {ID}
+order Status: {orderStatus}
+Order Status By Dates: {TrackingInformation}
+";
+}
 

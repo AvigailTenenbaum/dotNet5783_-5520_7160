@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BO;
 
@@ -28,6 +30,12 @@ namespace BO;
     /// total price
     /// </summary>
     public double TotalPrice { get; set; }
-    
+    public override string ToString() => $@"
+Product ID: {ID}
+Customer Name: {CustomerName}
+Order Status: {Status}
+AmountOfItems: {AmountOfItems}
+Total Price: {TotalPrice}
+";
 }
 

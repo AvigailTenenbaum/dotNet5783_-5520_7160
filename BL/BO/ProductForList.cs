@@ -23,7 +23,12 @@ namespace BO;
     /// The product category
     /// </summary>
     public Category Category { get; set; }
+    public override string ToString() => $@"
+ID: {ID}
+Name: {Name}
+Price: {Price}
+Category: {Category}
+";
 
 
-
- }
+}

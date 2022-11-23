@@ -28,5 +28,12 @@ public class ProductItem
     /// Product availability
     /// </summary>
     public bool InStock { get; set; }
+    public override string ToString() => $@"
+Product ID: {ID}
+Product Name: {Name}
+Price: {Price}
+Category: {Category}
+In Stock?: {InStock}
+";
 }
 

@@ -56,7 +56,17 @@ namespace BO;
         /// Total price of order
         /// </summary>
         public double TotalPrice { get; set; }
-
-
+    public override string ToString() => $@"
+Customr Name: {CustomerName}
+Customer Email: {CustumerEmail}
+Customer Address: {custumerAdress}
+Order Date: {OrderDate}
+Status: {Status}
+Payment Day: {PaymentDay}
+Ship Date: {ShipDate}
+Delivery Date: {DeliveryDate}
+items: {items}
+TotalPrice: {TotalPrice}
+";
     }
 
