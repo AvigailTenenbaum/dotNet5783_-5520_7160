@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
-{
+namespace BO;
+
     /// <summary>
     /// entity for product
     /// </summary>
@@ -35,4 +35,4 @@ namespace BO
 
 
     }
-}
+
