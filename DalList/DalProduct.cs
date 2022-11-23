@@ -1,10 +1,11 @@
 ﻿
 
 using DO;
+using DalApi;
 
 namespace Dal;
 
-public class DalProduct
+internal class DalProduct :Iproduct
 {
     /// <summary>
     /// A function for adding an object
@@ -42,14 +43,9 @@ public class DalProduct
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public List<Product> GetAllObject()
+    public IEnumerable<Product> GetAllObject()
     {
-        List<Product> p = new List<Product>();
-        for (int i = 0; i < DataSource._indexOfProduct; i++)
-        {
-            p.Add( DataSource.products[i]);
-        }
-        return p;
+        return DataSource.products.Select(product => product);
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -58,8 +54,8 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        Product p1=List<Product>FindIndex(DataSource.products,o => o.ID == id);
-        if(p1.Equals(default(Product))
+        Product p1 = DataSource.products.Find(o => o.ID == id);
+        if (p1.Equals(default(Product)))
             throw new Exception("ERROR: id is not exist in the array ");
       DataSource.products.Remove(p1);   
     }

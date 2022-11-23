@@ -1,10 +1,10 @@
 ﻿
 
 using DO;
+using DalApi;
 
 namespace Dal;
-
-public class DalOrder
+internal class DalOrder : Iorder
 {
     /// <summary>
     /// A function for adding an object
@@ -36,14 +36,9 @@ public class DalOrder
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public List<Order> GetAllObject()
+    public IEnumerable<Order> GetAllObject()
     {
-       List<Order> o = new List<Order>();
-        for (int i = 0; i < DataSource.orders.Count(); i++)
-        {
-            o.Add(DataSource.orders[i]);
-        }
-        return o;
+        return DataSource.orders.Select(order => order);
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -74,5 +69,7 @@ public class DalOrder
         }
         throw new Exception("ERROR: id is not exist in the array ");
     }
+
+    
 }
 

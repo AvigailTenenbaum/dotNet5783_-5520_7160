@@ -1,10 +1,10 @@
 ﻿
 
 using DO;
-
+using DalApi;
 namespace Dal;
 
-public class DalOrderItem
+internal class DalOrderItem :IorderItem
 {
     /// <summary>
     /// A function for adding an object
@@ -36,14 +36,9 @@ public class DalOrderItem
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public OrderItem[] GetAllObject()
+    public IEnumerable<OrderItem> GetAllObject()
     {
-        OrderItem[] p = new OrderItem[DataSource.orders.Count ];
-        for (int i = 0; i < DataSource.orders.Count; i++)
-        {
-            p[i] = DataSource.items[i];
-        }
-        return p;
+        return DataSource.items.Select(orderItem => orderItem);
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -74,4 +69,38 @@ public class DalOrderItem
         }
         throw new Exception("ERROR: id is not exist in the array ");
     }
+    /// <summary>
+    /// get all the orderItems with this id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+   public List<OrderItem> GetAllOrderItems(int id)
+    {
+        List<OrderItem>l1= new List<OrderItem>();
+        for(int i=0;i<DataSource.items.Count;i++)
+        {
+            if (DataSource.items[i].OrderID==id)
+                l1.Add(DataSource.items[i]);
+        }
+        return l1;
+    }
+    /// <summary>
+    /// get orderItem by two id
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <param name="productId"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+   public OrderItem GetOrderItem(int orderId, int productId)
+    {
+        for(int i=0;i< DataSource.items.Count;i++)
+        {
+            if (DataSource.items[i].ProductID == productId && DataSource.items[i].OrderID==orderId) {
+                return DataSource.items[i];
+            }
+        }
+            throw new Exception("ERROR: orderItem is not exsist");
+    }
+
+   
 }

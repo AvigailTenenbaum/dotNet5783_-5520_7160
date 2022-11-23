@@ -10,6 +10,6 @@ namespace DalApi
     public interface IorderItem: ICrud<OrderItem>
     {
         List<OrderItem> GetAllOrderItems(int id);
-        OrderItem GetOrderItem(int orderId, int productId); 
+        OrderItem GetOrderItem(int orderId, int productId);
     }
 }

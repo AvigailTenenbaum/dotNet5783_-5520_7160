@@ -7,4 +7,7 @@ using System.Threading.Tasks;
 namespace DO
 {
     public class NotExsist:Exception
+    {
+
+    }
 }
