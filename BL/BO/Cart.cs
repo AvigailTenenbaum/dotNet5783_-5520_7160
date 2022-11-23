@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
-{
+namespace BO;
+
     /// <summary>
     /// the entity of cart
     /// </summary>
@@ -34,4 +34,4 @@ namespace BO
         public double TotalPrice { get; set; }
 
     }
-}
+
