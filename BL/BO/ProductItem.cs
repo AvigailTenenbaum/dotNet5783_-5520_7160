@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BO;
- internal class ProductForList
- {
+
+public class ProductItem
+{
     /// <summary>
-    /// A unique identifier for a listed product
+    /// A unique identifier for a product item
     /// </summary>
     public int ID { get; set; }
     /// <summary>
@@ -23,7 +24,9 @@ namespace BO;
     /// The product category
     /// </summary>
     public Category Category { get; set; }
+    /// <summary>
+    /// Product availability
+    /// </summary>
+    public bool InStock { get; set; }
+}
 
-
-
- }
