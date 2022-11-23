@@ -5,5 +5,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BO;
-public enum Status { Approved, shipped, deliveredTotheCustomer };
+public enum OrderStatus { Approved, shipped, deliveredTotheCustomer };
 
