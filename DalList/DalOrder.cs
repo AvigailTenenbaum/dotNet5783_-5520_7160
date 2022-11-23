@@ -30,7 +30,7 @@ internal class DalOrder : Iorder
             if (DataSource.orders[i].ID == id)
                 return DataSource.orders[i];
         }
-        throw new Exception("ERROR: id is not exist in the array ");
+        throw new NotExist();
     }
     /// <summary>
     /// A function that returns an array of all objects
@@ -49,7 +49,7 @@ internal class DalOrder : Iorder
     {
      Order o1=  DataSource.orders.Find(o=>o.ID == id);
         if(o1.Equals(  default(Order)))
-            throw new Exception("ERROR: id is not exist in the array ");
+            throw new NotExist();
         DataSource.orders.Remove(o1);
     }
     /// <summary>
@@ -67,7 +67,7 @@ internal class DalOrder : Iorder
                 return;
             }
         }
-        throw new Exception("ERROR: id is not exist in the array ");
+        throw new NotExist();
     }
 
     

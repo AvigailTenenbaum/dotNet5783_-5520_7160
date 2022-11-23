@@ -30,7 +30,7 @@ internal class DalOrderItem :IorderItem
             if (DataSource.items[i].ID == id)
                 return DataSource.items[i];
         }
-         throw new Exception("ERROR: id is not exist in the array ");
+         throw new NotExist();
     }
     /// <summary>
     /// A function that returns an array of all objects
@@ -49,7 +49,7 @@ internal class DalOrderItem :IorderItem
     {
         OrderItem o1 = DataSource.items.Find(o => o.ID == id);
         if (o1.Equals(default(OrderItem)))
-            throw new Exception("ERROR: id is not exist in the array ");
+            throw new NotExist();
         DataSource.items.Remove(o1);
     }
     /// <summary>
@@ -67,7 +67,7 @@ internal class DalOrderItem :IorderItem
                 return;
             }
         }
-        throw new Exception("ERROR: id is not exist in the array ");
+        throw new NotExist();
     }
     /// <summary>
     /// get all the orderItems with this id
@@ -99,7 +99,7 @@ internal class DalOrderItem :IorderItem
                 return DataSource.items[i];
             }
         }
-            throw new Exception("ERROR: orderItem is not exsist");
+            throw new NotExist();
     }
 
    
