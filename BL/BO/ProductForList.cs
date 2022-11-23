@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BO;
- internal class ProductForList
+ public class ProductForList
  {
     /// <summary>
     /// A unique identifier for a listed product
