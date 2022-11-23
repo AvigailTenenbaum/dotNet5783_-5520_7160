@@ -27,6 +27,7 @@ namespace BO;
     /// <summary>
     /// total price
     /// </summary>
-    public double TotalPrice { get; set; }  
-    }
+    public double TotalPrice { get; set; }
+    
+}
 
