@@ -19,7 +19,7 @@ internal class DalProduct :Iproduct
         {
             if (DataSource.products[i].ID == o1.ID)
             {
-                throw new Exception("ERROR: id is already exist in the array ");
+                throw new AllReadyExist();
             }
         }
         DataSource.products.Add( o1);
@@ -35,7 +35,7 @@ internal class DalProduct :Iproduct
     {
         Product p1=DataSource.products.Find(o=>o.ID == id); 
         if(p1.Equals(default(Product)))
-            throw new Exception("ERROR: id is not exist in the array ");
+            throw new NotExist();
         return p1;
         
     }
@@ -56,7 +56,7 @@ internal class DalProduct :Iproduct
     {
         Product p1 = DataSource.products.Find(o => o.ID == id);
         if (p1.Equals(default(Product)))
-            throw new Exception("ERROR: id is not exist in the array ");
+            throw new NotExist();
       DataSource.products.Remove(p1);   
     }
     /// <summary>
@@ -74,6 +74,6 @@ internal class DalProduct :Iproduct
                 return;
             }
         }
-        throw new Exception("ERROR: id is not exist in the array ");
+        throw new NotExist();
     }
 }
