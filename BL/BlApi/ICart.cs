@@ -18,7 +18,7 @@ public interface ICart
     /// <param name="cart"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Cart AssProductToCart(Cart cart,int id);
+    public BO.Cart AddProductToCart(BO.Cart cart,int id);
     /// <summary>
     /// A method for updating the quantity of a product in the basket, receives a shopping basket, identifies a new product and quantity and returns an updated basket if everything is correct
     /// </summary>

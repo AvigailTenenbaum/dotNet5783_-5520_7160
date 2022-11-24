@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
-using BO;
 using Dal;
 using DalApi;
 
@@ -15,9 +14,9 @@ namespace BlImplementation;
 internal class Product : IProduct
 {
     private IDal _dal = new DalList();
-    public IEnumerable<ProductForList> GetListOfProducts()
+    public IEnumerable<BO.ProductForList> GetListOfProducts()
     {
-        return _dal.Product.GetAllObject().Select(product => new ProductForList { ID = product.ID, Name = product.Name, Category = (Category)product.Category, Price = product.Price });
+        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product.ID, Name = product.Name, Category = (BO.Category)product.Category, Price = product.Price });
     }
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
@@ -37,7 +36,7 @@ internal class Product : IProduct
                 {
                     ID = product.ID,
                     Name = product.Name,
-                    Category = (Category)product.Category,
+                    Category = (BO.Category)product.Category,
                     Price = product.Price,
                     InStock = product.InStock
                 };
@@ -47,7 +46,7 @@ internal class Product : IProduct
 
         }
         else
-            throw new InCorrectData();
+            throw new BO.InCorrectData();
     }
     /// <summary>
     /// A method that receives an ID number and shopping basket of a product and returns product item details if it exists
@@ -55,7 +54,7 @@ internal class Product : IProduct
     /// <param name="id"></param>
     /// <param name="cart"></param>
     /// <returns></returns>
-    public ProductItem GetProductDetails(int id, Cart cart)
+    public BO.ProductItem GetProductDetails(int id, BO.Cart cart)
     {
         if (id > 0)
         {
@@ -71,13 +70,13 @@ internal class Product : IProduct
                     if (orderItem.ID == product.ID)
                         amount = orderItem.Amount;
                 }
-                BO.ProductItem productItem = new ProductItem { ID = product.ID, Name = product.Name, Category = (Category)product.Category, Price = product.Price, InStock = inStock, AmountInCart = amount };
+                BO.ProductItem productItem = new BO.ProductItem { ID = product.ID, Name = product.Name, Category = (BO.Category)product.Category, Price = product.Price, InStock = inStock, AmountInCart = amount };
                 return productItem;
             }
             catch (DO.NotExist e) { throw e; }
         }
         else
-            throw new InCorrectData();
+            throw new BO.InCorrectData();
     }
     /// <summary>
     /// A method that receives a product and adds it to the list if the data is correct
@@ -87,7 +86,7 @@ internal class Product : IProduct
     {
         if (product.ID <= 0 || product.Name == null || product.Price <= 0)
         {
-            throw new InCorrectData();
+            throw new BO.InCorrectData();
         }
         else
         {
@@ -111,7 +110,7 @@ internal class Product : IProduct
             {
                 if (item.ProductID == id)
                 {
-                    throw new NotPossibleToFillRequest();
+                    throw new BO.NotPossibleToFillRequest();
                 }
 
             }
@@ -130,7 +129,7 @@ internal class Product : IProduct
     {
         if (product.ID <= 0 || product.Name == null || product.Price <= 0)
         {
-            throw new InCorrectData();
+            throw new BO.InCorrectData();
         }
         else
             try

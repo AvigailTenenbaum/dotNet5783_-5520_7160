@@ -14,20 +14,20 @@ public interface IProduct
     /// Method for product list request
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<ProductForList> GetListOfProducts();
+    public IEnumerable<BO.ProductForList> GetListOfProducts();
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Product GetProductDetails(int id);
+    public BO.Product GetProductDetails(int id);
     /// <summary>
     /// A method that receives an ID number and shopping basket of a product and returns product item details if it exists
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cart"></param>
     /// <returns></returns>
-    public ProductItem GetProductDetails(int id,Cart cart);
+    public BO.ProductItem GetProductDetails(int id,Cart cart);
     /// <summary>
     /// A method that receives a product and adds it to the list if the data is correct
     /// </summary>
