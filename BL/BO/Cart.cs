@@ -27,7 +27,7 @@ namespace BO;
         /// <summary>
         /// List of order details 
         /// </summary>
-        public OrderItem Items { get; set; }
+        public List<OrderItem> Items { get; set; }
         /// <summary>
         /// Total price of an order basket
         /// </summary>
@@ -36,7 +36,7 @@ namespace BO;
 Customr Name: {CustomerName}
 Customer Email: {CustomerEmail}
 Customer Address: {CustomerAdress}
-Items: {Items}
+OrderDetails: {string.Join('\n',Items)}
 TotalPrice {TotalPrice}
 ";
 

@@ -102,7 +102,7 @@ namespace Dal;
         int size = productsNames.Count();
         for (int i = 0; i < size; i++)
         {
-            Enums.Category category = (Enums.Category)i;
+            Category category = (Category)i;
             int per = (int)(productsNames.Count() * 0.05)+1;
             foreach (var item in productsNames[i])
             {
@@ -112,11 +112,11 @@ namespace Dal;
                 product.Name = item;
                 product.Price = product.Category switch
                 {
-                    Enums.Category.saturday => num.Next(2000,3000),
-                    Enums.Category.holidays => num.Next(3000, 5000),
-                    Enums.Category.toSeferTorah => num.Next(1000, 1700),
-                    Enums.Category.handMade => num.Next(5000, 7000),
-                    Enums.Category.giftsForHome => num.Next(100, 1000),
+                   Category.saturday => num.Next(2000,3000),
+                    Category.holidays => num.Next(3000, 5000),
+                    Category.toSeferTorah => num.Next(1000, 1700),
+                    Category.handMade => num.Next(5000, 7000),
+                    Category.giftsForHome => num.Next(100, 1000),
                 };
 
                 product.InStock = per-- > 0 ? 0 : num.Next(50, 100);

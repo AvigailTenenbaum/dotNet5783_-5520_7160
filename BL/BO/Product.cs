@@ -27,7 +27,7 @@ namespace BO;
         /// <summary>
         /// the category that the product belongs
         /// </summary>
-        public Enums Category { get; set; }
+        public Category Category { get; set; }
         /// <summary>
         /// how much products in stock
         /// </summary>

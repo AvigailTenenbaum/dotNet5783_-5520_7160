@@ -39,8 +39,8 @@ namespace DalTest
                             Console.WriteLine("Enter the product name");
                             name = Console.ReadLine();
                             Console.WriteLine("Enter the product category");
-                            Enums.Category category;
-                            Enums.Category.TryParse(Console.ReadLine(), out category);
+                            Category category;
+                            Category.TryParse(Console.ReadLine(), out category);
                             Console.WriteLine("Enter the product price");
                             double.TryParse(Console.ReadLine(), out price);
                             Console.WriteLine("Enter how many units are in stock");
@@ -66,8 +66,8 @@ namespace DalTest
                             Console.WriteLine("Enter the product name");
                             name = Console.ReadLine();
                             Console.WriteLine("Enter the product category");
-                            Enums.Category category;
-                            Enums.Category.TryParse(Console.ReadLine(), out category);
+                            Category category;
+                            Category.TryParse(Console.ReadLine(), out category);
                             Console.WriteLine("Enter the product price");
                             double.TryParse(Console.ReadLine(), out price);
                             Console.WriteLine("Enter how many units are in stock");

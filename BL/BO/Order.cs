@@ -27,7 +27,7 @@ namespace BO;
         /// <summary>
         /// the adress of the custumer
         /// </summary>
-        public string custumerAdress { get; set; }
+        public string CustumerAdress { get; set; }
         /// <summary>
         /// the date that the order גone
         /// </summary>
@@ -36,10 +36,6 @@ namespace BO;
         /// where the order is found
         /// </summary>
         public OrderStatus Status { get; set; }
-        /// <summary>
-        /// when the custumer pay
-        /// </summary>
-        public DateTime PaymentDay { get; set; }
         /// <summary>
         /// the shipDate for the order
         /// </summary>
@@ -51,7 +47,7 @@ namespace BO;
         /// <summary>
         ///List of order details
         /// </summary>
-        public OrderItem items { get; set; }
+        public List< OrderItem> Items { get; set; }
         /// <summary>
         /// Total price of order
         /// </summary>
@@ -59,13 +55,12 @@ namespace BO;
     public override string ToString() => $@"
 Customr Name: {CustomerName}
 Customer Email: {CustumerEmail}
-Customer Address: {custumerAdress}
+Customer Address: {CustumerAdress}
 Order Date: {OrderDate}
 Status: {Status}
-Payment Day: {PaymentDay}
 Ship Date: {ShipDate}
 Delivery Date: {DeliveryDate}
-items: {items}
+OrderDetails: {string.Join('\n',Items)}
 TotalPrice: {TotalPrice}
 ";
     }

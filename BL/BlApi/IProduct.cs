@@ -32,7 +32,7 @@ public interface IProduct
     /// A method that receives a product and adds it to the list if the data is correct
     /// </summary>
     /// <param name="product"></param>
-    public void AddProduct(Product product);
+    public void AddProduct(DO.Product product);
     /// <summary>
     /// A method that receives a product and deletes it from the list if it is in it and is not found in any order
     /// </summary>
@@ -42,7 +42,7 @@ public interface IProduct
     /// A method that receives a product and updates the product to the received product if the data is correct
     /// </summary>
     /// <param name="product"></param>
-    public void UpdateProduct(Product product);
+    public void UpdateProduct(DO.Product product);
 
 }
 

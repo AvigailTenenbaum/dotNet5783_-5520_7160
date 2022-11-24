@@ -25,15 +25,22 @@ public class ProductItem
     /// </summary>
     public Category Category { get; set; }
     /// <summary>
-    /// Product availability
+    /// if their is a products in stock
     /// </summary>
-    public bool InStock { get; set; }
+    public bool InStock{ get; set; }
+    /// <summary>
+    /// how many products in cart
+    /// </summary>
+      public int AmountInCart { get; set; }
+
+    
     public override string ToString() => $@"
 Product ID: {ID}
 Product Name: {Name}
 Price: {Price}
 Category: {Category}
 In Stock?: {InStock}
+Amount In Cart {AmountInCart}
 ";
 }
 
