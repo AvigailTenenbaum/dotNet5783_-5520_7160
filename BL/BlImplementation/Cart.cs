@@ -106,7 +106,7 @@ namespace BlImplementation;
     /// <param name="cart"></param>
     public void OrderConfirmation(BO.Cart cart)
     {
-        if (cart.CustomerName == null || cart.CustomerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail==null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
+        if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail==null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
             throw new BO.InCorrectData();
         DO.Product product;
         foreach (BO.OrderItem orderItem in cart.Items)
@@ -118,7 +118,7 @@ namespace BlImplementation;
             if (product.InStock- orderItem.Amount<0)
                 throw new BO.NotPossibleToFillRequest();
         }
-        DO.Order newOrder=new DO.Order { CustomerAddress=cart.CustomerAdress,CustomerEmail=cart.CustomerEmail,CustomerName=cart.CustomerName,OrderDate=DateTime.Now};
+        DO.Order newOrder=new DO.Order { CustomerAddress=cart.CostumerAdress,CustomerEmail=cart.CustomerEmail,CustomerName=cart.CustomerName,OrderDate=DateTime.Now};
         int id;
         try { id=_dal.Order.AddObject(newOrder); }
         catch(DO.AllReadyExist e) { throw e; }

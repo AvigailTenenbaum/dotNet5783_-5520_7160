@@ -23,7 +23,7 @@ namespace BO;
         /// <summary>
         /// Buyer's address
         /// </summary>
-        public string CustomerAdress { get; set; }
+        public string CostumerAdress { get; set; }
         /// <summary>
         /// List of order details 
         /// </summary>
@@ -35,7 +35,7 @@ namespace BO;
     public override string ToString() => $@"
 Customr Name: {CustomerName}
 Customer Email: {CustomerEmail}
-Customer Address: {CustomerAdress}
+Customer Address: {CostumerAdress}
 OrderDetails: {string.Join('\n',Items)}
 TotalPrice {TotalPrice}
 ";
