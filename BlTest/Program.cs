@@ -6,7 +6,7 @@ namespace BlTest
     public enum Options {EXIT,PRODUCT,ORDER,CART };
     public enum ActionsOnProducts {EXIT,PRODUCTLIST,GETPRODUCTDETAILS, GETPRODUCTDETAILSFORMANGER,ADDPRODUCT, DELETEPRODUCT,UPDATEPRODUCT};
     public enum ActionOnCart {EXIT, ADDPRODUCTTOCART,UPDATEAMOUNT,CONFIRMORDER}
-    public enum ActionOnOrder { EXIT,ORDERLIST,ORDERDATAILS,ORDERSHIPINGUPDATR,ORDERDALIVERYUPDATE,ORDERTRACKING};
+    public enum ActionOnOrder { EXIT,ORDERLIST,ORDERDATAILS,ORDERSHIPINGUPDATE,ORDERDALIVERYUPDATE,ORDERTRACKING};
     internal class Program
     {
         static IBl s_bl = new Bl();
@@ -83,11 +83,11 @@ namespace BlTest
                         updateProduct.InStock = stock;
                         s_bl.Product.UpdateProduct(updateProduct);
                         break;
-                    case ActionsOnProducts.GETPRODUCTDETAILS:
-                        foreach (var item in bl.Product.GetCatalog())
+                    case ActionsOnProducts.PRODUCTLIST:
+                        foreach (var item in s_bl.Product.GetListOfProducts())
                             Console.WriteLine(item);
                         break;
-                    case ActionsOnProducts.Product_in_Catalog:
+                    case ActionsOnProducts.GETPRODUCTDETAILS:
                         Console.WriteLine("enter id of product:");
                         if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
                         Console.WriteLine(s_bl.Product.GetListOfProducts(newCart, id));
@@ -133,22 +133,22 @@ namespace BlTest
                         case ActionOnOrder.ORDERDATAILS:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(bl.Order.GetOrderByID(id));
+                            Console.WriteLine(s_bl.Order.GetOrderDetails(id));
                             break;
                         case ActionOnOrder.ORDERLIST:
                             Console.WriteLine(String.Join(" ", s_bl.Order.GetListOfOrder()));
                             break;
-                        case ActionOnOrder.Update_Ship:
+                        case ActionOnOrder.ORDERDALIVERYUPDATE:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(bl.Order.UpdateShip(id));
+                            Console.WriteLine(s_bl.Order.OrderDeliveryUpdate(id));
                             break;
-                        case OrderActions.Update_Delivery:
+                        case ActionOnOrder.ORDERSHIPINGUPDATE:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
                             Console.WriteLine(bl.Order.UpdateDelivery(id));
                             break;
-                        case OrderActions.Order_Tracking:
+                        case ActionOnOrder.Order_Tracking:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
                             Console.WriteLine(bl.Order.OrderTracking(id));
