@@ -15,7 +15,7 @@ public interface IOrder
     /// A method for requesting a list of orders
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.OrderForList> GetListOfProducts();
+    public IEnumerable<BO.OrderForList> GetListOfOrder();
     /// <summary>
     /// A method for an order details request that receives the fat identifier and returns its details if the identifier exists
     /// </summary>

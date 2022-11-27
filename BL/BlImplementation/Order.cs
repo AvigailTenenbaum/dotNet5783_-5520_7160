@@ -17,7 +17,7 @@ namespace BlImplementation;
     /// A method for requesting a list of orders
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.OrderForList> GetListOfProducts()
+    public IEnumerable<BO.OrderForList> GetListOfOrder()
     {
       try
         {
