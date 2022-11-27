@@ -21,14 +21,14 @@ public class NotPossibleToFillRequest : Exception
     {
         return Message;
     }
-    public class OutOfStock : Exception
-    {
-        public override string Message => "ERROR: The product you requested is out of stock";
-        public override string ToString()
-        {
-            return Message;
-        }
 
+}
+public class OutOfStock : Exception
+{
+    public override string Message => "ERROR: The product you requested is out of stock";
+    public override string ToString()
+    {
+        return Message;
     }
 
 }

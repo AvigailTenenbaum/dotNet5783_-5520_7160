@@ -2,6 +2,8 @@
 
 using DO;
 using DalApi;
+using System.Collections.Generic;
+
 namespace Dal;
 
 internal class DalOrderItem :IorderItem
@@ -74,7 +76,7 @@ internal class DalOrderItem :IorderItem
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-   public List<OrderItem> GetAllOrderItems(int id)
+   public IEnumerable<OrderItem> GetAllOrderItems(int id)
     {
         List<OrderItem>l1= new List<OrderItem>();
         for(int i=0;i<DataSource.items.Count;i++)
@@ -82,6 +84,8 @@ internal class DalOrderItem :IorderItem
             if (DataSource.items[i].OrderID==id)
                 l1.Add(DataSource.items[i]);
         }
+        if(l1.Count()==0)
+            throw new NotExist();   
         return l1;
     }
     /// <summary>

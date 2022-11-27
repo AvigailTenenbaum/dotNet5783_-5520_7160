@@ -22,7 +22,7 @@ namespace BO;
     /// <summary>
     /// A list of dates and the status of the reservation is hosted
     /// </summary>
-    public List<Tuple<OrderStatus, DateTime>> TrackingInformation { get; set; }
+    public List<Tuple<string, DateTime>> TrackingInformation { get; set; }
     public override string ToString() => $@"
 Order Tracking ID: {ID}
 order Status: {orderStatus}

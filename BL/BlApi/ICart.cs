@@ -26,12 +26,12 @@ public interface ICart
     /// <param name="id"></param>
     /// <param name="amount"></param>
     /// <returns></returns>
-    public Cart UpdateProductAmount(Cart cart,int id,int amount);
+    public BO.Cart UpdateProductAmount(BO.Cart cart,int id,int amount);
     /// <summary>
     /// Method for placing the order, receives a shopping basket and adds the order if everything is in order
     /// </summary>
     /// <param name="cart"></param>
-    public void OrderConfirmation(Cart cart);
+    public void OrderConfirmation(BO.Cart cart);
 }
   
 

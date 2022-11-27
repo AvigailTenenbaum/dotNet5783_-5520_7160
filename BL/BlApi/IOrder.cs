@@ -40,10 +40,5 @@ public interface IOrder
     /// <param name="id"></param>
     /// <returns></returns>
     public BO.OrderTracking OrderTracking(int id);
-    /// <summary>
-    /// A method for updating an order receives an updated order and changes accordingly if everything is correct
-    /// </summary>
-    /// <param name="order"></param>
-    public void UpdateOrder(BO.Order order);
 }
 

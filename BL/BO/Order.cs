@@ -23,11 +23,11 @@ namespace BO;
         /// <summary>
         /// the email of the custumer
         /// </summary>
-        public string CustumerEmail { get; set; }
+        public string CustomerEmail { get; set; }
         /// <summary>
         /// the adress of the custumer
         /// </summary>
-        public string CustumerAdress { get; set; }
+        public string CustomerAdress { get; set; }
         /// <summary>
         /// the date that the order גone
         /// </summary>
@@ -54,8 +54,8 @@ namespace BO;
         public double TotalPrice { get; set; }
     public override string ToString() => $@"
 Customr Name: {CustomerName}
-Customer Email: {CustumerEmail}
-Customer Address: {CustumerAdress}
+Customer Email: {CustomerEmail}
+Customer Address: {CustomerAdress}
 Order Date: {OrderDate}
 Status: {Status}
 Ship Date: {ShipDate}

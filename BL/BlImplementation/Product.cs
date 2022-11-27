@@ -11,7 +11,7 @@ namespace BlImplementation;
 /// <summary>
 /// method for product list request
 /// </summary>
-internal class Product : IProduct
+internal class Product : BlApi.IProduct
 {
     private IDal _dal = new DalList();
     public IEnumerable<BO.ProductForList> GetListOfProducts()
