@@ -27,7 +27,7 @@ public interface IProduct
     /// <param name="id"></param>
     /// <param name="cart"></param>
     /// <returns></returns>
-    public BO.ProductItem GetProductDetails(int id,Cart cart);
+    public BO.ProductItem GetProductDetails(int id,BO.Cart cart);
     /// <summary>
     /// A method that receives a product and adds it to the list if the data is correct
     /// </summary>

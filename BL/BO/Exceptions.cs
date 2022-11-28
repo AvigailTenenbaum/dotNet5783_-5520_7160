@@ -1,35 +1,35 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BO;
-public class InCorrectData : Exception
+public class BlExtptions: Exception
 {
-    public override string Message => "ERROR: One or more of the data you entered is incorrect";
-    public override string ToString()
-    {
-        return Message;
-    }
+    public BlExtptions(string message):base(message){ }
+    public BlExtptions(string message, Exception ex):base(message, ex) { }
+}
+public class InCorrectData : BlExtptions
+{
+    public InCorrectData() : base("ERROR: One or more of the data you entered is incorrect") { }    
 
 }
-public class NotPossibleToFillRequest : Exception
+public class NotPossibleToFillRequest : BlExtptions
 {
-    public override string Message => "ERROR: It is not possible to fill out the request";
-    public override string ToString()
-    {
-        return Message;
-    }
-
+   public NotPossibleToFillRequest() : base("ERROR: It is not possible to fill out the request") { }
 }
-public class OutOfStock : Exception
+public class OutOfStock : BlExtptions
 {
-    public override string Message => "ERROR: The product you requested is out of stock";
-    public override string ToString()
-    {
-        return Message;
-    }
-
+    public OutOfStock() : base("ERROR: The product you requested is out of stock") { }    
+}
+public class NotExist:BlExtptions
+{
+    public NotExist(Exception ex): base("ERROR: entity was not found", ex) { }
+}
+public class AllReadyExist:BlExtptions
+{
+    public AllReadyExist(Exception ex): base("ERROR: entity is allready exist in the list") { }
 }
 

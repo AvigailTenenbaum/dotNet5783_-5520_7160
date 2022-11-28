@@ -6,26 +6,26 @@ namespace BlTest
     public enum Options { EXIT, PRODUCT, ORDER, CART };
     public enum ActionsOnProducts { EXIT, PRODUCTLIST, GETPRODUCTDETAILS, GETPRODUCTDETAILSFORMANGER, ADDPRODUCT, DELETEPRODUCT, UPDATEPRODUCT };
     public enum ActionOnCart { EXIT, ADDPRODUCTTOCART, UPDATEAMOUNT, CONFIRMORDER }
-    public enum ActionOnOrder { EXIT, ORDERLIST, ORDERDATAILS, ORDERSHIPINGUPDATE, ORDERDALIVERYUPDATE, ORDERTRACKING };
+    public enum ActionOnOrder { EXIT, ORDERDATAILS , ORDERLIST, ORDERSHIPINGUPDATE, ORDERDALIVERYUPDATE, ORDERTRACKING };
 
     internal class Program
     {
         static IBl s_bl = new Bl();
 
-        static Cart newCart = new Cart() { CustomerAdress = "", CustomerEmail = "", CustomerName = "", Items = (List<OrderItem>)Enumerable.Empty<BO.OrderItem>(), TotalPrice = 0 };
+        static Cart newCart = new Cart() {Items=new List<OrderItem>()};
         static Product addProduct = new Product();
 
-        public static void ActionOnProductForCostumer()
+        static void ActionOnProduct()
         {
             ActionsOnProducts choice;
             Console.WriteLine(@"Choose one of the following options:
 1: list of products
-2:details of product
-3:add product
-4:delete product
-5:update product
-6:show catalog
-7:Exit");
+2:details of product for manager
+3:details of product for costumer
+4:add product 
+5:delete product
+6:update product
+0:Exit");
             if (!ActionsOnProducts.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
             while (choice != ActionsOnProducts.EXIT)
             {
@@ -46,7 +46,7 @@ namespace BlTest
                             break;
                         case ActionsOnProducts.ADDPRODUCT:
                             double price;
-                            int category;
+                            Category category;
                             int stock;
 
                             Console.WriteLine("enter id of product:");
@@ -58,7 +58,7 @@ namespace BlTest
                             if (!double.TryParse(Console.ReadLine(), out price)) throw new Exception("wrong input type");
                             addProduct.Price = price;
                             Console.WriteLine("enter category of product:");
-                            if (!int.TryParse(Console.ReadLine(), out category)) throw new Exception("wrong input type");
+                            if (!Category.TryParse(Console.ReadLine(), out category)) throw new Exception("wrong input type");
                             addProduct.Category = (Category)(category);
                             Console.WriteLine("enter amount in stock of product:");
                             if (!int.TryParse(Console.ReadLine(), out stock)) throw new Exception("wrong input type");
@@ -70,28 +70,37 @@ namespace BlTest
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
                             s_bl.Product.DeleteProduct(id);
                             break;
+
                         case ActionsOnProducts.UPDATEPRODUCT:
                             Product updateProduct = new Product();
                             Console.WriteLine("enter id of product:");
-                            if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
+
+                            if (!int.TryParse(Console.ReadLine(), out id))
+                                throw new Exception("wrong input type");
+
                             updateProduct.ID = id;
                             Console.WriteLine("enter name of product:");
                             updateProduct.Name = Console.ReadLine();
                             Console.WriteLine("enter price of product:");
-                            if (!double.TryParse(Console.ReadLine(), out price)) throw new Exception("wrong input type");
+
+                            if (!double.TryParse(Console.ReadLine(), out price)) 
+                                throw new Exception("wrong input type");
+
                             updateProduct.Price = price;
                             Console.WriteLine("enter category of product:");
-                            if (!int.TryParse(Console.ReadLine(), out category)) throw new Exception("wrong input type");
+
+                            if (!Category.TryParse(Console.ReadLine(), out category)) throw new Exception("wrong input type");
                             updateProduct.Category = (Category)category;
                             Console.WriteLine("enter amount in stock of product:");
                             if (!int.TryParse(Console.ReadLine(), out stock)) throw new Exception("wrong input type");
                             updateProduct.InStock = stock;
                             s_bl.Product.UpdateProduct(updateProduct);
                             break;
+
                         case ActionsOnProducts.GETPRODUCTDETAILS:
                             Console.WriteLine("enter id of product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            Console.WriteLine(s_bl.Product.GetListOfProducts(newCart, id));
+                            Console.WriteLine(s_bl.Product.GetProductDetails(id, newCart));
                             break;
                         case ActionsOnProducts.EXIT:
                             break;
@@ -100,12 +109,12 @@ namespace BlTest
                     }
                     Console.WriteLine(@"Choose one of the following options:
 1: list of products
-2:details of product
-3:add product
-4:delete product
-5:update product
-6:show catalog
-7:delails of product item");
+2:details of product for manager
+3:details of product for costumer
+4:add product 
+5:delete product
+6:update product
+0:Exit");
                     if (!ActionsOnProducts.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
@@ -115,20 +124,20 @@ namespace BlTest
 
         }
 
-        public static void ActionsOnOrder()
+        static void ActionsOnOrder()
         {
             int id;
-            Console.WriteLine(@"Choose one of the following options:
+            ActionOnOrder choice = ActionOnOrder.EXIT;
+
+            do
+            {
+                Console.WriteLine(@"Choose one of the following options:
 1: order details
 2:list of orders
 3:update ship date 
 4:update delivery date
 5:order tracking
 0:for exit");
-            ActionOnOrder choice = ActionOnOrder.EXIT;
-
-            do
-            {
                 try
                 {
                     if (!ActionOnOrder.TryParse(Console.ReadLine(), out choice)) throw new Exception("wrong input type");
@@ -170,7 +179,7 @@ namespace BlTest
             } while (choice != ActionOnOrder.EXIT);
 
         }
-        public static void ActionsOnCart()
+        static void ActionsOnCart()
         {
             ActionOnCart choice;
             Console.WriteLine(@"Choose one of the following options:
@@ -189,7 +198,7 @@ namespace BlTest
                             Console.WriteLine("please insert name:");
                             newCart.CustomerName = Console.ReadLine();
                             Console.WriteLine("please insert address:");
-                            newCart.CustomerAddress = Console.ReadLine();
+                            newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
                             newCart.CustomerEmail = Console.ReadLine();
                             Console.WriteLine("enter id of product to add to cart:");
@@ -200,14 +209,14 @@ namespace BlTest
                             Console.WriteLine("please insert name:");
                             newCart.CustomerName = Console.ReadLine();
                             Console.WriteLine("please insert address:");
-                            newCart.CustomerAddress = Console.ReadLine();
+                            newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
                             newCart.CustomerEmail = Console.ReadLine();
                             Console.WriteLine("enter id of product to add to cart:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
                             Console.WriteLine("enter new amount of product:");
                             if (!int.TryParse(Console.ReadLine(), out amount)) throw new Exception("wrong input type ");
-                            Console.WriteLine(bl.Cart.UpdateProductInCart(newCart, amount, id));
+                            Console.WriteLine(s_bl.Cart.UpdateProductAmount(newCart, amount, id));
                             break;
                         case ActionOnCart.CONFIRMORDER:
                             Console.WriteLine("please insert name:");
@@ -216,7 +225,7 @@ namespace BlTest
                             newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
                             newCart.CustomerEmail = Console.ReadLine();
-                            s_bl.Cart.OrderConfirmation(newCart, newCart.CustomerName, newCart.CustomerEmail, newCart.CustomerAddress);
+                            s_bl.Cart.OrderConfirmation(newCart);
                             break;
                         case ActionOnCart.EXIT:
                             break;
@@ -236,36 +245,41 @@ namespace BlTest
 
         static void Main(string[] args)
         {
-            Console.WriteLine(@"Choose one of the following options:
-1: Products
-2:Orders
-3:Carts
-0:Exit");
-            Options choice;
-            if (!Options.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
-            while (choice != Options.EXIT)
+            try
             {
-                switch (choice)
-                {
-                    case Options.PRODUCT:
-                        ActionsOnProducts();
-                        break;
-                    case Options.ORDER:
-                        ActionOnOrder();
-                        break;
-                    case Options.CART:
-                        ActionOnCart();
-                        break;
-                    default:
-                        break;
-                }
+                
                 Console.WriteLine(@"Choose one of the following options:
 1: Products
 2:Orders
 3:Carts
 0:Exit");
+                Options choice;
                 if (!Options.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
+                while (choice != Options.EXIT)
+                {
+                    switch (choice)
+                    {
+                        case Options.PRODUCT:
+                            ActionOnProduct();
+                            break;
+                        case Options.ORDER:
+                            ActionsOnOrder();
+                            break;
+                        case Options.CART:
+                           ActionsOnCart();
+                            break;
+                        default:
+                            break;
+                    }
+                    Console.WriteLine(@"Choose one of the following options:
+1: Products
+2:Orders
+3:Carts
+0:Exit");
+                    if (!Options.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
+                }
             }
+            catch(Exception e) { Console.WriteLine(e.Message); }
         }
     }
 }
