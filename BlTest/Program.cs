@@ -12,7 +12,7 @@ namespace BlTest
     {
         static IBl s_bl = new Bl();
 
-        static Cart newCart = new Cart() { CostumerAdress = "", CustomerEmail = "", CustomerName = "", Items = (List<OrderItem>)Enumerable.Empty<BO.OrderItem>(), TotalPrice = 0 };
+        static Cart newCart = new Cart() { CustomerAdress = "", CustomerEmail = "", CustomerName = "", Items = (List<OrderItem>)Enumerable.Empty<BO.OrderItem>(), TotalPrice = 0 };
         static Product addProduct = new Product();
 
         public static void ActionOnProductForCostumer()
