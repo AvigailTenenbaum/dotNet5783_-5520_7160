@@ -26,7 +26,7 @@ namespace BO;
     public override string ToString() => $@"
 Order Tracking ID: {ID}
 order Status: {orderStatus}
-Order Status By Dates: {TrackingInformation}
+Order Status By Dates: {string.Join('\n',TrackingInformation)}
 ";
 }
 

@@ -20,6 +20,7 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
+
         DO.Product product;
         try
         {
@@ -45,7 +46,7 @@ namespace BlImplementation;
         if(product.InStock>0)
         {
             BO.OrderItem newOrderItem=new BO.OrderItem{ProductID=id,Name=product.Name,Price=product.Price,Amount=1,TotalPrice=product.Price};
-            cart.Items.Add(newOrderItem);
+            (cart.Items ??= new List<BO.OrderItem>()).Add(newOrderItem);
             cart.TotalPrice += newOrderItem.TotalPrice;
             return cart;
         }
@@ -68,7 +69,7 @@ namespace BlImplementation;
         {
             product = _dal.Product.GetObject(id);
         }
-        catch (DO.NotExist e) { throw e; }
+        catch (DO.NotExist e) { throw new BO.NotExist(e); }
         foreach (BO.OrderItem orderItem in cart.Items)
         {
 
@@ -112,7 +113,7 @@ namespace BlImplementation;
         foreach (BO.OrderItem orderItem in cart.Items)
         {
             try { product = _dal.Product.GetObject(orderItem.ProductID); }
-            catch(DO.NotExist e) { throw e; }
+            catch(DO.NotExist e) { throw new BO.NotExist(e); }
             if(orderItem.Amount<=0)
                 throw new BO.InCorrectData();
             if (product.InStock- orderItem.Amount<0)
@@ -121,12 +122,12 @@ namespace BlImplementation;
         DO.Order newOrder=new DO.Order { CustomerAddress=cart.CostumerAdress,CustomerEmail=cart.CustomerEmail,CustomerName=cart.CustomerName,OrderDate=DateTime.Now};
         int id;
         try { id=_dal.Order.AddObject(newOrder); }
-        catch(DO.AllReadyExist e) { throw e; }
+        catch(DO.AllReadyExist e) { throw new BO.AllReadyExist(e); }
         foreach (BO.OrderItem orderItem in cart.Items)
         {
             DO.OrderItem newOrderItem = new DO.OrderItem { ProductID = orderItem.ProductID, OrderID = id, Price = orderItem.Price, Amount = orderItem.Amount };
             try { id = _dal.OrderItem.AddObject(newOrderItem); }
-            catch (DO.NotExist e) { throw e; }
+            catch (DO.NotExist e) { throw new BO.NotExist(e); }
             DO.Product product1=_dal.Product.GetObject(orderItem.ProductID);
             product1.InStock -= orderItem.Amount;
             _dal.Product.UpDateObject(product1);
