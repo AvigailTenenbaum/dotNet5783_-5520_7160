@@ -131,6 +131,7 @@ namespace BlImplementation;
             DO.Product product1=_dal.Product.GetObject(orderItem.ProductID);
             product1.InStock -= orderItem.Amount;
             _dal.Product.UpDateObject(product1);
+
         }
 
 
