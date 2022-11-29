@@ -72,16 +72,16 @@ internal class DalOrderItem :IorderItem
         throw new NotExist();
     }
     /// <summary>
-    /// get all the orderItems with this id
+    /// get all the orderItems with this orderId
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="orderId"></param>
     /// <returns></returns>
-   public IEnumerable<OrderItem> GetAllOrderItems(int id)
+   public IEnumerable<OrderItem> GetAllOrderItems(int orderId)
     {
-       return DataSource.items.FindAll(item => item.OrderID == id);
+       return DataSource.items.FindAll(item => item.OrderID == orderId);
     }
     /// <summary>
-    /// get orderItem by two id
+    /// get orderItem by two orderId
     /// </summary>
     /// <param name="orderId"></param>
     /// <param name="productId"></param>
