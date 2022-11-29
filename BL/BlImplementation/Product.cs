@@ -117,16 +117,14 @@ internal class Product : BlApi.IProduct
                 if (item.ProductID == id)
                 {
                     throw new BO.NotPossibleToFillRequest();
-                    return;
                 }
-
             }
         }
         try
         {
             _dal.Product.DeleteObject(id);
         }
-        catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        catch (DO.NotExist ex) { throw new BO.NotExist(ex); }
     }
     /// <summary>
     /// A method that receives a product and updates the product to the received product if the data is correct
@@ -147,7 +145,7 @@ internal class Product : BlApi.IProduct
             }
 
 
-            catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            catch (DO.NotExist e) { throw e; }
         }
     }
 }

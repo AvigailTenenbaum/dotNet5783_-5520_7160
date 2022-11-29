@@ -78,15 +78,7 @@ internal class DalOrderItem :IorderItem
     /// <returns></returns>
    public IEnumerable<OrderItem> GetAllOrderItems(int id)
     {
-        List<OrderItem>l1= new List<OrderItem>();
-        for(int i=0;i<DataSource.items.Count;i++)
-        {
-            if (DataSource.items[i].OrderID==id)
-                l1.Add(DataSource.items[i]);
-        }
-        if(l1.Count()==0)
-            throw new NotExist();   
-        return l1;
+       return DataSource.items.FindAll(item => item.OrderID == id);
     }
     /// <summary>
     /// get orderItem by two id

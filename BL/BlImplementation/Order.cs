@@ -106,7 +106,7 @@ namespace BlImplementation;
         if(order.ShipDate==DateTime.MinValue||!(order.ShipDate<DateTime.Now))
             order.ShipDate= DateTime.Now;
         try { _dal.Order.UpDateObject(order); }catch(DO.NotExist e) { throw new BO.NotExist(e);}
-        BO.Order logicOrder=new BO.Order { ID= order.ID,CustomerName=order.CustomerName, CustomerEmail= order.CustomerEmail,CustomerAdress=order.CustomerAddress,ShipDate=order.ShipDate ,Status=BO.OrderStatus.shipped};
+        BO.Order logicOrder=new BO.Order { ID= order.ID,CustomerName=order.CustomerName, CustomerEmail= order.CustomerEmail,CustomerAdress=order.CustomerAddress,ShipDate=order.ShipDate ,DeliveryDate=order.DeliveryDate,Status=BO.OrderStatus.shipped,Items =new List<BO.OrderItem>(),OrderDate=order.OrderDate};
         return logicOrder;
     }
     /// <summary>
@@ -121,7 +121,7 @@ namespace BlImplementation;
         if (order.DeliveryDate == DateTime.MinValue || !(order.DeliveryDate < DateTime.Now))
             order.DeliveryDate = DateTime.Now;
         try { _dal.Order.UpDateObject(order); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
-        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate, Status = BO.OrderStatus.deliveredTotheCustomer };
+        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate,ShipDate=order.ShipDate, Status = BO.OrderStatus.deliveredTotheCustomer, Items = new List<BO.OrderItem>(), OrderDate = order.OrderDate };
         return logicOrder;
     }
     /// <summary>
