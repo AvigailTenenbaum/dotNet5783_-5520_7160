@@ -20,7 +20,8 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
-
+        if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail == null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
+            throw new BO.InCorrectData();
         DO.Product product;
         try
         {
@@ -62,6 +63,8 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int id, int amount)
     {
+        if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail == null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
+            throw new BO.InCorrectData();
         if (amount < 0)
             throw new BO.InCorrectData();
         DO.Product product;

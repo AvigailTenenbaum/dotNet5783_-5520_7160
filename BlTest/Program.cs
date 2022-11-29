@@ -4,7 +4,7 @@ using BlImplementation;
 namespace BlTest
 {
     public enum Options { EXIT, PRODUCT, ORDER, CART };
-    public enum ActionsOnProducts { EXIT, PRODUCTLIST, GETPRODUCTDETAILS, GETPRODUCTDETAILSFORMANGER, ADDPRODUCT, DELETEPRODUCT, UPDATEPRODUCT };
+    public enum ActionsOnProducts { EXIT, PRODUCTLIST, GETPRODUCTDETAILSFORMANGER, GETPRODUCTDETAILS, ADDPRODUCT, DELETEPRODUCT, UPDATEPRODUCT };
     public enum ActionOnCart { EXIT, ADDPRODUCTTOCART, UPDATEAMOUNT, CONFIRMORDER }
     public enum ActionOnOrder { EXIT, ORDERDATAILS , ORDERLIST, ORDERSHIPINGUPDATE, ORDERDALIVERYUPDATE, ORDERTRACKING };
 
@@ -12,8 +12,8 @@ namespace BlTest
     {
         static IBl s_bl = new Bl();
 
-        static Cart newCart = new Cart() {Items=new List<OrderItem>()};
-        static Product addProduct = new Product();
+        static Cart s_newCart = new Cart() {Items=new List<OrderItem>()};
+        static Product s_addProduct = new Product();
 
         static void ActionOnProduct()
         {
@@ -51,19 +51,19 @@ namespace BlTest
 
                             Console.WriteLine("enter id of product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            addProduct.ID = id;
+                            s_addProduct.ID = id;
                             Console.WriteLine("enter name of product:");
-                            addProduct.Name = Console.ReadLine();
+                            s_addProduct.Name = Console.ReadLine();
                             Console.WriteLine("enter price of product:");
                             if (!double.TryParse(Console.ReadLine(), out price)) throw new Exception("wrong input type");
-                            addProduct.Price = price;
+                            s_addProduct.Price = price;
                             Console.WriteLine("enter category of product:");
                             if (!Category.TryParse(Console.ReadLine(), out category)) throw new Exception("wrong input type");
-                            addProduct.Category = (Category)(category);
+                            s_addProduct.Category = (Category)(category);
                             Console.WriteLine("enter amount in stock of product:");
                             if (!int.TryParse(Console.ReadLine(), out stock)) throw new Exception("wrong input type");
-                            addProduct.InStock = stock;
-                            s_bl.Product.AddProduct(addProduct);
+                            s_addProduct.InStock = stock;
+                            s_bl.Product.AddProduct(s_addProduct);
                             break;
                         case ActionsOnProducts.DELETEPRODUCT:
                             Console.WriteLine("enter id to delete product:");
@@ -100,7 +100,7 @@ namespace BlTest
                         case ActionsOnProducts.GETPRODUCTDETAILS:
                             Console.WriteLine("enter id of product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            Console.WriteLine(s_bl.Product.GetProductDetails(id, newCart));
+                            Console.WriteLine(s_bl.Product.GetProductDetails(id, s_newCart));
                             break;
                         case ActionsOnProducts.EXIT:
                             break;
@@ -196,36 +196,36 @@ namespace BlTest
                         case ActionOnCart.ADDPRODUCTTOCART:
                             int id, amount;
                             Console.WriteLine("please insert name:");
-                            newCart.CustomerName = Console.ReadLine();
+                            s_newCart.CustomerName = Console.ReadLine();
                             Console.WriteLine("please insert address:");
-                            newCart.CostumerAdress = Console.ReadLine();
+                            s_newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
-                            newCart.CustomerEmail = Console.ReadLine();
+                            s_newCart.CustomerEmail = Console.ReadLine();
                             Console.WriteLine("enter id of product to add to cart:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Cart.AddProductToCart(newCart, id));
+                            Console.WriteLine(s_bl.Cart.AddProductToCart(s_newCart, id));
                             break;
                         case ActionOnCart.UPDATEAMOUNT:
                             Console.WriteLine("please insert name:");
-                            newCart.CustomerName = Console.ReadLine();
+                            s_newCart.CustomerName = Console.ReadLine();
                             Console.WriteLine("please insert address:");
-                            newCart.CostumerAdress = Console.ReadLine();
+                            s_newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
-                            newCart.CustomerEmail = Console.ReadLine();
+                            s_newCart.CustomerEmail = Console.ReadLine();
                             Console.WriteLine("enter id of product to add to cart:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
                             Console.WriteLine("enter new amount of product:");
                             if (!int.TryParse(Console.ReadLine(), out amount)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Cart.UpdateProductAmount(newCart, amount, id));
+                            Console.WriteLine(s_bl.Cart.UpdateProductAmount(s_newCart, amount, id));
                             break;
                         case ActionOnCart.CONFIRMORDER:
                             Console.WriteLine("please insert name:");
-                            newCart.CustomerName = Console.ReadLine();
+                            s_newCart.CustomerName = Console.ReadLine();
                             Console.WriteLine("please insert address:");
-                            newCart.CostumerAdress = Console.ReadLine();
+                            s_newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
-                            newCart.CustomerEmail = Console.ReadLine();
-                            s_bl.Cart.OrderConfirmation(newCart);
+                            s_newCart.CustomerEmail = Console.ReadLine();
+                            s_bl.Cart.OrderConfirmation(s_newCart);
                             break;
                         case ActionOnCart.EXIT:
                             break;
