@@ -39,12 +39,6 @@ namespace Dal;
 
         initOrders();
         initOrdersItems();
-
-        products.Add(
-                new()
-                {
-                    ID = 700700
-                });
     }
 
     private static void initOrdersItems()
