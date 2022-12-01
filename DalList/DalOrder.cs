@@ -23,22 +23,22 @@ internal class DalOrder : Iorder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Order GetObject(int id)
+    public Order? GetObject(int id)
     {
-        for (int i = 0; i < DataSource.orders.Count(); i++)
-        {
-            if (DataSource.orders[i].ID == id)
-                return DataSource.orders[i];
-        }
+        return GetObjectByFilter(delegate (Order? order) { return order.Value.ID == id; });
         throw new NotExist();
     }
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Order> GetAllObject()
+    public IEnumerable<Order?> GetAllObject(Func<Order?, bool>? func = null)
     {
-        return DataSource.orders.Select(order => order);
+        if (func == null)
+        {
+            return DataSource.orders.Select(order => order);
+        }
+        return DataSource.orders.Where(order => func(order));
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -47,8 +47,8 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-     Order o1=  DataSource.orders.Find(o=>o.ID == id);
-        if(o1.Equals(  default(Order)))
+        Order o1 = DataSource.orders.Find(o => o.ID == id);
+        if (o1.Equals(default(Order)))
             throw new NotExist();
         DataSource.orders.Remove(o1);
     }
@@ -57,7 +57,7 @@ internal class DalOrder : Iorder
     /// </summary>
     /// <param name="o"></param>
     /// <exception cref="Exception"></exception>
-    public void UpDateObject(Order o)
+    public void UpDateObject(Order? o)
     {
         for (int i = 0; i < DataSource.orders.Count(); i++)
         {
@@ -69,7 +69,22 @@ internal class DalOrder : Iorder
         }
         throw new NotExist();
     }
-
-    
+    /// <summary>
+    /// Accepts a condition and returns the first object that meets this condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    /// <exception cref="CanNotFound"></exception>
+    public Order? GetObjectByFilter(Func<Order?, bool>? func)
+    {
+        foreach(var order in DataSource.orders)
+        {
+            if(func(order))
+            {
+                return order;
+            }
+        }
+        throw new NotExist();
+    }
 }
 

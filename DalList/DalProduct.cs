@@ -13,7 +13,7 @@ internal class DalProduct :Iproduct
     /// <param name="o1"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public int AddObject(Product o1)
+    public int AddObject(Product? o1)
     {
         for (int i = 0; i < DataSource.orders.Count; i++)
         {
@@ -31,21 +31,21 @@ internal class DalProduct :Iproduct
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Product GetObject(int id)
+    public Product? GetObject(int id)
     {
-        Product p1=DataSource.products.Find(o=>o.ID == id); 
-        if(p1.Equals(default(Product)))
-            throw new NotExist();
-        return p1;
-        
+        return GetObjectByFilter(delegate (Product? product) { return product.Value.ID == id; });
     }
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Product> GetAllObject()
+    public IEnumerable<Product?> GetAllObject(Func<Product?, bool>? func=null)
     {
-        return DataSource.products.Select(product => product);
+        if (func == null)
+        {
+            return DataSource.products.Select(product => product);
+        }
+        return DataSource.products.Where(product => func(product));
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -72,6 +72,23 @@ internal class DalProduct :Iproduct
             {
                 DataSource.products[i] = p;
                 return;
+            }
+        }
+        throw new NotExist();
+    }
+    /// <summary>
+    /// Accepts a condition and returns the first object that meets this condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    /// <exception cref="CanNotFound"></exception>
+    public Product? GetObjectByFilter(Func<Product?, bool>? func)
+    {
+        foreach (var product in DataSource.products)
+        {
+            if (func(product))
+            {
+                return product;
             }
         }
         throw new NotExist();

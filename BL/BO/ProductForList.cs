@@ -14,7 +14,7 @@ namespace BO;
     /// <summary>
     /// product name
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
     /// <summary>
     /// product price
     /// </summary>
@@ -22,7 +22,7 @@ namespace BO;
     /// <summary>
     /// The product category
     /// </summary>
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
     public override string ToString() => $@"
 ID: {ID}
 Name: {Name}

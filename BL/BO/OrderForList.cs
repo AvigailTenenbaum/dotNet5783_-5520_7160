@@ -17,11 +17,11 @@ namespace BO;
     /// <summary>
     /// the customer's name
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
     /// <summary>
     /// order status
     /// </summary>
-    public OrderStatus Status { get; set; }
+    public OrderStatus? Status { get; set; }
     /// <summary>
     /// amount of items
     /// </summary>

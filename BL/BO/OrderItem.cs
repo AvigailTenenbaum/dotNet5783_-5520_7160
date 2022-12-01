@@ -18,7 +18,7 @@ namespace BO;
     /// <summary>
     /// product name
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
     /// <summary>
     /// Order Item ID
     /// </summary>

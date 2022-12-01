@@ -25,22 +25,22 @@ internal class DalOrderItem :IorderItem
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem GetObject(int id)
+    public OrderItem? GetObject(int id)
     {
-        for (int i = 0; i < DataSource.orders.Count; i++)
-        {
-            if (DataSource.items[i].ID == id)
-                return DataSource.items[i];
-        }
-         throw new NotExist();
+        return GetObjectByFilter(delegate (OrderItem? orderItem) { return orderItem.Value.ID == id; });
     }
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<OrderItem> GetAllObject()
+    public IEnumerable<OrderItem?> GetAllObject(Func<OrderItem?, bool>? func = null)
     {
-        return DataSource.items.Select(orderItem => orderItem);
+        if(func == null)
+        {
+            return DataSource.items.Select(orderItem => orderItem);
+        }
+        return DataSource.items.Where(orderItem =>func(orderItem));
+
     }
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
@@ -87,7 +87,7 @@ internal class DalOrderItem :IorderItem
     /// <param name="productId"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-   public OrderItem GetOrderItem(int orderId, int productId)
+   public OrderItem? GetOrderItem(int orderId, int productId)
     {
         for(int i=0;i< DataSource.items.Count;i++)
         {
@@ -97,6 +97,22 @@ internal class DalOrderItem :IorderItem
         }
             throw new NotExist();
     }
+    /// <summary>
+    /// Accepts a condition and returns the first object that meets this condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    /// <exception cref="CanNotFound"></exception>
+    public OrderItem? GetObjectByFilter(Func<OrderItem?, bool>? func)
+    {
+        foreach (var orderItem in DataSource.items)
+        {
+            if (func(orderItem))
+            {
+                return orderItem;
+            }
+        }
+        throw new NotExist();
+    }
 
-   
 }

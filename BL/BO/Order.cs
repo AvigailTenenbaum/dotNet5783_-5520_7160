@@ -19,35 +19,35 @@ namespace BO;
         /// <summary>
         /// the name of the custumer who did the order
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// the email of the custumer
         /// </summary>
-        public string CustomerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
         /// <summary>
         /// the adress of the custumer
         /// </summary>
-        public string CustomerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
         /// <summary>
         /// the date that the order גone
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
         /// <summary>
         /// where the order is found
         /// </summary>
-        public OrderStatus Status { get; set; }
+        public OrderStatus? Status { get; set; }
         /// <summary>
         /// the shipDate for the order
         /// </summary>
-        public DateTime ShipDate { get; set; }
+        public DateTime? ShipDate { get; set; }
         /// <summary>
         /// the day of the delivery
         /// </summary>
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         /// <summary>
         ///List of order details
         /// </summary>
-        public List< OrderItem> Items { get; set; }
+        public List< OrderItem?> Items { get; set; }
         /// <summary>
         /// Total price of order
         /// </summary>

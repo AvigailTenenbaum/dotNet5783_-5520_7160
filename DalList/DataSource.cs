@@ -9,9 +9,9 @@ namespace Dal;
  static internal class DataSource
 {
     static readonly Random num = new Random();
-    internal static List<Product> products = new List<Product>();
-    internal static List<Order> orders = new List<Order>();
-    internal static List<OrderItem> items = new List<OrderItem>();
+    internal static List<Product?> products = new List<Product?>();
+    internal static List<Order?> orders = new List<Order?>();
+    internal static List<OrderItem?> items = new List<OrderItem?>();
 
     private static int _lastProductID = 100000;
     private static int _lastOrderID = 1;
@@ -45,8 +45,8 @@ namespace Dal;
     {
         for (int i = 0; i < 40; i++)
         {
-            Product product = new Product();
-            OrderItem orderItem = new OrderItem();
+            Product? product = new Product();
+            OrderItem? orderItem = new OrderItem();
             product = products[num.Next(0,products.Count)];
             orderItem.ID =getLastOrderID();
             orderItem.ProductID = product.ID;
@@ -65,7 +65,7 @@ namespace Dal;
         string[] streets = new string[10] { "Admor Meruzin", "Sechtman", "Booblik", "Hagefen", "Yafo", "Brand", "Chai-Taib", "Gordon", "Gutmacher", "Rojovski" };
         for (int i = 0; i < 20; i++)
         {
-            Order order = new Order();
+            Order? order = new Order();
             order.ID = getLastOrderID();
             order.CustomerName = firstNames[num.Next(0, 10)] + " " + lastNames[num.Next(0, 10)];
             order.CustomerEmail = order.CustomerName.Replace(" ", String.Empty) + "@gmail.com";
@@ -101,11 +101,11 @@ namespace Dal;
         int size = productsNames.Count();
         for (int i = 0; i < size; i++)
         {
-            Category category = (Category)i;
+            Category? category = (Category)i;
             int per = (int)(productsNames.Count() * 0.05)+1;
             foreach (var item in productsNames[i])
             {
-                Product product = new Product();
+                Product? product = new Product();
                 product.ID = getLastProductID();
                 product.Category = category;
                 product.Name = item;

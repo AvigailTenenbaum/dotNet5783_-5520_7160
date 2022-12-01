@@ -29,4 +29,12 @@ namespace DO
             return Message;
         }
     }
+    public class CanNotFound:Exception
+    {
+        public override string Message => "ERROR: No entity was found that matches this filter";
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
 }
