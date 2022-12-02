@@ -25,9 +25,10 @@ internal class DalOrderItem :IorderItem
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem? GetObject(int id)
+    public OrderItem GetObject(int id)
     {
-        return GetObjectByFilter(delegate (OrderItem? orderItem) { return orderItem.Value.ID == id; });
+        OrderItem orderItem = GetObjectByFilter(orderItem => orderItem.Value.ID == id);
+        return orderItem;
     }
     /// <summary>
     /// A function that returns an array of all objects
@@ -49,7 +50,7 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        OrderItem o1 = DataSource.items.Find(o => o.ID == id);
+        OrderItem o1 = DataSource.items.Find(o => o.Value.ID == id).Value;
         if (o1.Equals(default(OrderItem)))
             throw new NotExist();
         DataSource.items.Remove(o1);
@@ -63,7 +64,7 @@ internal class DalOrderItem :IorderItem
     {
         for (int i = 0; i < DataSource.items.Count(); i++)
         {
-            if (DataSource.items[i].ID == o.ID)
+            if (DataSource.items[i].Value.ID == o.ID)
             {
                 DataSource.items[i] = o;
                 return;
@@ -76,9 +77,9 @@ internal class DalOrderItem :IorderItem
     /// </summary>
     /// <param name="orderId"></param>
     /// <returns></returns>
-   public IEnumerable<OrderItem> GetAllOrderItems(int orderId)
+   public IEnumerable<OrderItem?> GetAllOrderItems(int orderId)
     {
-       return DataSource.items.FindAll(item => item.OrderID == orderId);
+       return DataSource.items.FindAll(item => item.Value.OrderID == orderId);
     }
     /// <summary>
     /// get orderItem by two orderId
@@ -87,12 +88,12 @@ internal class DalOrderItem :IorderItem
     /// <param name="productId"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-   public OrderItem? GetOrderItem(int orderId, int productId)
+   public OrderItem GetOrderItem(int orderId, int productId)
     {
         for(int i=0;i< DataSource.items.Count;i++)
         {
-            if (DataSource.items[i].ProductID == productId && DataSource.items[i].OrderID==orderId) {
-                return DataSource.items[i];
+            if (DataSource.items[i].Value.ProductID == productId && DataSource.items[i].Value.OrderID==orderId) {
+                return DataSource.items[i].Value;
             }
         }
             throw new NotExist();
@@ -103,13 +104,13 @@ internal class DalOrderItem :IorderItem
     /// <param name="func"></param>
     /// <returns></returns>
     /// <exception cref="CanNotFound"></exception>
-    public OrderItem? GetObjectByFilter(Func<OrderItem?, bool>? func)
+    public OrderItem GetObjectByFilter(Func<OrderItem?, bool>? func)
     {
         foreach (var orderItem in DataSource.items)
         {
             if (func(orderItem))
             {
-                return orderItem;
+                return orderItem.Value;
             }
         }
         throw new NotExist();

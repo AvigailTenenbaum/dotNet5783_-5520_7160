@@ -59,7 +59,7 @@ namespace DalTest
                             Console.WriteLine("Enter the product id");
                             int.TryParse(Console.ReadLine(), out id); Product p = dal.Product.GetObject(id); Console.WriteLine(p); break;
                         }
-                    case 'c': IEnumerable<Product> pArr = dal.Product.GetAllObject(); foreach (Product p in pArr) Console.WriteLine(p); break;
+                    case 'c': IEnumerable<Product?> pArr = dal.Product.GetAllObject(); foreach (Product p in pArr) Console.WriteLine(p); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the product id");
@@ -136,7 +136,7 @@ namespace DalTest
                             Console.WriteLine("Enter the order id");
                             int.TryParse(Console.ReadLine(), out id); Order o = dal.Order.GetObject(id); Console.WriteLine(o); break;
                         }
-                    case 'c': IEnumerable<Order> oArr = dal.Order.GetAllObject(); foreach (Order o in oArr) Console.WriteLine(o); break;
+                    case 'c': IEnumerable<Order?> oArr = dal.Order.GetAllObject(); foreach (Order o in oArr) Console.WriteLine(o); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the order id");
@@ -200,7 +200,7 @@ namespace DalTest
                             Console.WriteLine("Enter the order Item id");
                             int.TryParse(Console.ReadLine(), out id); OrderItem o = dal.OrderItem.GetObject(id); Console.WriteLine(o); break;
                         }
-                    case 'c': IEnumerable<OrderItem> oArr = dal.OrderItem.GetAllObject(); foreach (OrderItem o in oArr) Console.WriteLine(o); break;
+                    case 'c': IEnumerable<OrderItem?> oArr = dal.OrderItem.GetAllObject(); foreach (OrderItem o in oArr) Console.WriteLine(o); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the order Item id");

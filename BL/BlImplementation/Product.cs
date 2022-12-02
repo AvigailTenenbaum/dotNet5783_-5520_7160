@@ -15,10 +15,10 @@ namespace BlImplementation;
 internal class Product : BlApi.IProduct
 {
     private IDal _dal = new DalList();
-    public IEnumerable<BO.ProductForList> GetListOfProducts()
+    public IEnumerable<BO.ProductForList?> GetListOfProducts()
     {
         var v = _dal.Product.GetAllObject();
-        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product.ID, Name = product.Name, Category = (BO.Category)product.Category, Price = product.Price });
+        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product.Value.ID, Name = product.Value.Name, Category = (BO.Category)product.Value.Category, Price = product.Value.Price });
     }
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
@@ -108,10 +108,10 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     public void DeleteProduct(int id)
     {
-        IEnumerable<DO.Order> orders = _dal.Order.GetAllObject();
+        IEnumerable<DO.Order?> orders = _dal.Order.GetAllObject();
         foreach (DO.Order order in orders)
         {
-            IEnumerable<DO.OrderItem> orderItems = _dal.OrderItem.GetAllOrderItems(order.ID);
+            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.GetAllOrderItems(order.ID);
             foreach (DO.OrderItem item in orderItems)
             {
                 if (item.ProductID == id)

@@ -14,7 +14,7 @@ public interface IProduct
     /// Method for product list request
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList> GetListOfProducts();
+    public IEnumerable<BO.ProductForList?> GetListOfProducts();
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
     /// </summary>

@@ -23,10 +23,10 @@ internal class DalOrder : Iorder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Order? GetObject(int id)
+    public Order GetObject(int id)
     {
-        return GetObjectByFilter(delegate (Order? order) { return order.Value.ID == id; });
-        throw new NotExist();
+        Order order= GetObjectByFilter(order => order.Value.ID == id);
+        return order;
     }
     /// <summary>
     /// A function that returns an array of all objects
@@ -47,7 +47,7 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        Order o1 = DataSource.orders.Find(o => o.ID == id);
+        Order? o1 = DataSource.orders.Find(o => o.Value.ID == id);
         if (o1.Equals(default(Order)))
             throw new NotExist();
         DataSource.orders.Remove(o1);
@@ -57,11 +57,11 @@ internal class DalOrder : Iorder
     /// </summary>
     /// <param name="o"></param>
     /// <exception cref="Exception"></exception>
-    public void UpDateObject(Order? o)
+    public void UpDateObject(Order o)
     {
         for (int i = 0; i < DataSource.orders.Count(); i++)
         {
-            if (DataSource.orders[i].ID == o.ID)
+            if (DataSource.orders[i].Value.ID == o.ID)
             {
                 DataSource.orders[i] = o;
                 return;
@@ -75,13 +75,13 @@ internal class DalOrder : Iorder
     /// <param name="func"></param>
     /// <returns></returns>
     /// <exception cref="CanNotFound"></exception>
-    public Order? GetObjectByFilter(Func<Order?, bool>? func)
+    public Order GetObjectByFilter(Func<Order?, bool>? func)
     {
         foreach(var order in DataSource.orders)
         {
             if(func(order))
             {
-                return order;
+                return order.Value;
             }
         }
         throw new NotExist();

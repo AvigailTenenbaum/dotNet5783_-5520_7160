@@ -46,13 +46,13 @@ namespace Dal;
         for (int i = 0; i < 40; i++)
         {
             Product? product = new Product();
-            OrderItem? orderItem = new OrderItem();
+            OrderItem orderItem = new OrderItem();
             product = products[num.Next(0,products.Count)];
             orderItem.ID =getLastOrderID();
-            orderItem.ProductID = product.ID;
+            orderItem.ProductID = product.Value.ID;
             orderItem.Amount = num.Next(1, 11);
-            orderItem.OrderID = orders[num.Next(0,orders.Count)].ID;
-            orderItem.Price =  product.Price;
+            orderItem.OrderID = orders[num.Next(0,orders.Count)].Value.ID;
+            orderItem.Price =  product.Value.Price;
             items.Add(orderItem);
         }
     }
@@ -65,7 +65,7 @@ namespace Dal;
         string[] streets = new string[10] { "Admor Meruzin", "Sechtman", "Booblik", "Hagefen", "Yafo", "Brand", "Chai-Taib", "Gordon", "Gutmacher", "Rojovski" };
         for (int i = 0; i < 20; i++)
         {
-            Order? order = new Order();
+            Order order = new Order();
             order.ID = getLastOrderID();
             order.CustomerName = firstNames[num.Next(0, 10)] + " " + lastNames[num.Next(0, 10)];
             order.CustomerEmail = order.CustomerName.Replace(" ", String.Empty) + "@gmail.com";
@@ -73,9 +73,9 @@ namespace Dal;
             order.OrderDate = DateTime.Now.AddMinutes(num.Next(-100, -10));
             if (num.Next(0, 100) > 20)
             {
-                order.ShipDate = order.OrderDate.AddMinutes(num.Next(10, 100));
+                order.ShipDate = order.OrderDate.Value.AddMinutes(num.Next(10, 100));
                 if (num.Next(0, 100) > 40)
-                    order.DeliveryDate = order.ShipDate.AddDays(num.Next(1, 4));
+                    order.DeliveryDate = order.ShipDate.Value.AddDays(num.Next(1, 4));
                 else
                     order.DeliveryDate = DateTime.MinValue;
             }
@@ -101,11 +101,11 @@ namespace Dal;
         int size = productsNames.Count();
         for (int i = 0; i < size; i++)
         {
-            Category? category = (Category)i;
+            Category category = (Category)i;
             int per = (int)(productsNames.Count() * 0.05)+1;
             foreach (var item in productsNames[i])
             {
-                Product? product = new Product();
+                Product product = new Product();
                 product.ID = getLastProductID();
                 product.Category = category;
                 product.Name = item;

@@ -17,15 +17,15 @@ namespace BlImplementation;
     /// A method for requesting a list of orders
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.OrderForList> GetListOfOrder()
+    public IEnumerable<BO.OrderForList?> GetListOfOrder()
     {
       try
         {
-            IEnumerable<DO.Order> orders=_dal.Order.GetAllObject();
-            List<OrderForList> orderForLists= new List<OrderForList>();
+            IEnumerable<DO.Order?> orders=_dal.Order.GetAllObject();
+            List<OrderForList?> orderForLists= new List<OrderForList?>();
             foreach(DO.Order order in orders)
             { 
-            IEnumerable<DO.OrderItem> orderItems=_dal.OrderItem.GetAllObject();
+            IEnumerable<DO.OrderItem?> orderItems=_dal.OrderItem.GetAllObject();
                 BO.OrderForList orderForList = new BO.OrderForList
                 {
                   ID = order.ID,
@@ -58,7 +58,7 @@ namespace BlImplementation;
     public BO.Order GetOrderDetails(int id)
     {
         DO.Order order;
-        IEnumerable<DO.OrderItem> orderItems;
+        IEnumerable<DO.OrderItem?> orderItems;
         if (id > 0)
         {
             try
@@ -134,21 +134,21 @@ namespace BlImplementation;
         DO.Order order;
         try { order = _dal.Order.GetObject(id); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         BO.OrderTracking orderTracking = new BO.OrderTracking { ID = order.ID };
-        orderTracking.TrackingInformation = new List<Tuple<string, DateTime>>();
+        orderTracking.TrackingInformation = new List<Tuple<string?, DateTime?>>();
         if (order.OrderDate < DateTime.Now)
         {
             orderTracking.orderStatus = BO.OrderStatus.Approved;
-            orderTracking.TrackingInformation.Add(new Tuple<string, DateTime>("The order has been created", order.OrderDate));
+            orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been created", order.OrderDate));
         }
         if (order.ShipDate < DateTime.Now)
         {
             orderTracking.orderStatus = BO.OrderStatus.shipped;
-            orderTracking.TrackingInformation.Add(new Tuple<string, DateTime>("The order is sent", order.ShipDate));
+            orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order is sent", order.ShipDate));
         }
         if (order.DeliveryDate < DateTime.Now)
         {
             orderTracking.orderStatus = BO.OrderStatus.deliveredTotheCustomer;
-            orderTracking.TrackingInformation.Add(new Tuple<string, DateTime>("The order has been delivered to the customer", order.ShipDate));
+            orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been delivered to the customer", order.ShipDate));
         }
         return orderTracking;
     }

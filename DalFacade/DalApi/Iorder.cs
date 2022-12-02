@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    public interface Iorder:ICrud<Order?>
+    public interface Iorder:ICrud<Order>
     {
     }
 }
