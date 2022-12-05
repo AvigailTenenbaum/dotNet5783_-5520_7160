@@ -50,10 +50,10 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        OrderItem o1 = DataSource.items.Find(o => o.Value.ID == id).Value;
-        if (o1.Equals(default(OrderItem)))
+        OrderItem? o1 = DataSource.items.Find(o => o.Value.ID == id);
+        if (o1==null)
             throw new NotExist();
-        DataSource.items.Remove(o1);
+        DataSource.items.Remove(o1.Value);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists

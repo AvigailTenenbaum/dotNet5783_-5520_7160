@@ -55,10 +55,10 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        Product p1 = DataSource.products.Find(o => o.Value.ID == id).Value;
-        if (p1.Equals(default(Product)))
+        Product? p1 = DataSource.products.Find(o => o.Value.ID == id);
+        if (p1==null)
             throw new NotExist();
-      DataSource.products.Remove(p1);   
+      DataSource.products.Remove(p1.Value);   
     }
     /// <summary>
     /// Function for updating an object if the ID number exists

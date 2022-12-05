@@ -11,7 +11,7 @@ namespace DO
     /// </summary>
     public class NotExist:Exception
     {
-        public override string Message => "ERROR: the entity is not exist in the list";
+        public override string Message => "ERROR: No matching entity was found in the list";
         public override string ToString()
         {
             return Message;
@@ -24,14 +24,6 @@ namespace DO
     public class AllReadyExist:Exception
     {
         public override string Message => "ERROR: the id is allready exist in the list";
-        public override string ToString()
-        {
-            return Message;
-        }
-    }
-    public class CanNotFound:Exception
-    {
-        public override string Message => "ERROR: No entity was found that matches this filter";
         public override string ToString()
         {
             return Message;

@@ -48,9 +48,9 @@ internal class DalOrder : Iorder
     public void DeleteObject(int id)
     {
         Order? o1 = DataSource.orders.Find(o => o.Value.ID == id);
-        if (o1.Equals(default(Order)))
+        if (o1==null)
             throw new NotExist();
-        DataSource.orders.Remove(o1);
+        DataSource.orders.Remove(o1.Value);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists
