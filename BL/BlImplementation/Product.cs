@@ -18,7 +18,7 @@ internal class Product : BlApi.IProduct
     public IEnumerable<BO.ProductForList?> GetListOfProducts()
     {
         var v = _dal.Product.GetAllObject();
-        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product.Value.ID, Name = product.Value.Name, Category = (BO.Category)product.Value.Category, Price = product.Value.Price });
+        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product?.ID??throw new BO.NullData(), Name = product?.Name?? throw new BO.NullData(), Category =(BO.Category)product?.Category?? throw new BO.NullData(), Price = product?.Price?? throw new BO.NullData() });
     }
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists

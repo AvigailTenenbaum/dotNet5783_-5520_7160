@@ -32,4 +32,9 @@ public class AllReadyExist:BlExtptions
 {
     public AllReadyExist(Exception ex): base("ERROR: entity is allready exist in the list") { }
 }
+public class NullData : BlExtptions
+{
+    public NullData() : base("ERROR: One or more of the data you entered is NULL") { }
+
+}
 

@@ -25,7 +25,7 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public Order GetObject(int id)
     {
-        Order order= GetObjectByFilter(order => order.Value.ID == id);
+        Order order= GetObjectByFilter(order => order?.ID == id);
         return order;
     }
     /// <summary>
@@ -47,7 +47,7 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        Order? o1 = DataSource.orders.Find(o => o.Value.ID == id);
+        Order? o1 = DataSource.orders.Find(o => o?.ID == id);
         if (o1==null)
             throw new NotExist();
         DataSource.orders.Remove(o1.Value);
