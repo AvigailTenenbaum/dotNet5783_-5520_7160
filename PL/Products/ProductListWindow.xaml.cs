@@ -21,17 +21,23 @@ namespace PL.Products
     /// </summary>
     public partial class ProductListWindow : Window
     {
+        IBl bl = new Bl();
         public ProductListWindow()
         {
             InitializeComponent();
-            IBl bl = new Bl();
             ProductListview.ItemsSource = bl.Product.GetListOfProducts();
-
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
         }
 
         private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category.Equals(CategorySelector.SelectedItem));
+            CategorySelector.Items.Remove(CategorySelector.SelectedItem);
         }
     }
 }

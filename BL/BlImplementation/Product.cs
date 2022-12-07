@@ -15,10 +15,20 @@ namespace BlImplementation;
 internal class Product : BlApi.IProduct
 {
     private IDal _dal = new DalList();
-    public IEnumerable<BO.ProductForList?> GetListOfProducts()
+    public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.Product?, bool>? func = null)
     {
-        var v = _dal.Product.GetAllObject();
-        return _dal.Product.GetAllObject().Select(product => new BO.ProductForList { ID = product?.ID??throw new BO.NullData(), Name = product?.Name?? throw new BO.NullData(), Category =(BO.Category)product?.Category?? throw new BO.NullData(), Price = product?.Price?? throw new BO.NullData() });
+        //var v = _dal.Product.GetAllObject();
+        IEnumerable<BO.ProductForList?>productList= _dal.Product.GetAllObject().Select(
+            product => new BO.ProductForList
+            { 
+                    ID = product?.ID ?? throw new BO.NullData(),
+                    Name = product?.Name?? throw new BO.NullData(), 
+                    Category =(BO.Category?)product?.Category ?? throw new BO.NullData(), 
+                    Price = product?.Price?? throw new BO.NullData()
+             }
+        );
+        return productList.Where(Product => func(product));
+
     }
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
