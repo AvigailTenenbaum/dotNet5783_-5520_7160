@@ -27,6 +27,7 @@ namespace PL
         {
             IBl bl = new Bl();
             InitializeComponent();
+
         }
         /// <summary>
         /// Clicking on the button will open a product list window

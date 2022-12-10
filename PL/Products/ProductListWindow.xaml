@@ -19,18 +19,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector"
-              HorizontalAlignment= "Stretch"
-              VerticalAlignment="Stretch"
-              Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged"/>
+              Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,0,10,0" FontSize="22"/>
         </Grid>
         <Label
-             Grid.Column="0" Content="Category:" Margin="0,0,400,0"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,46,0,0" x:Name="ProductListview" Grid.RowSpan="2" SelectionChanged="ProductListview_SelectionChanged">
+             Grid.Column="0" Content="Category:" Margin="0,0,400,0" FontSize="22"/>
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductListview" Grid.RowSpan="2" SelectionChanged="ProductListview_SelectionChanged" Grid.Row="1" MouseDoubleClick="ProductListview_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="661,5,0,5" Padding="5" Click="Button_Click"/>
     </Grid>
 </Window>

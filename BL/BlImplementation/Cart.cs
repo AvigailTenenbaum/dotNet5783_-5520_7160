@@ -1,4 +1,5 @@
 ﻿
+using BO;
 using Dal;
 using DalApi;
 using System;
@@ -22,7 +23,7 @@ namespace BlImplementation;
     {
         if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail == null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
             throw new BO.InCorrectData();
-        DO.Product product;
+        DO.Product? product;
         try
         {
              product = _dal.Product.GetObject(id);
@@ -30,9 +31,9 @@ namespace BlImplementation;
         catch (DO.NotExist e) { throw e; }
         foreach(BO.OrderItem orderItem in cart.Items)
         {
-            if(orderItem.ProductID==id)
+            if(orderItem?.ProductID==id)
             {
-                if (product.InStock > 0)
+                if (product?.InStock > 0)
                 {
                     orderItem.Amount++;
                     orderItem.TotalPrice += orderItem.Price;

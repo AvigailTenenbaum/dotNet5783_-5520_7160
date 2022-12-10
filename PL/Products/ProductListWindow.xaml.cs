@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+public enum Category
+{
+   saturday, holidays, toSeferTorah, giftsForHome, handMade, NONE
+};
 namespace PL.Products
 {
     /// <summary>
@@ -26,7 +30,8 @@ namespace PL.Products
         {
             InitializeComponent();
             ProductListview.ItemsSource = bl.Product.GetListOfProducts();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(Category));
+           
         }
 
         private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -36,8 +41,28 @@ namespace PL.Products
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category.Equals(CategorySelector.SelectedItem));
-            CategorySelector.Items.Remove(CategorySelector.SelectedItem);
+
+            if (CategorySelector.SelectedItem.Equals(Category.NONE))
+            {
+                ProductListview.ItemsSource = bl.Product.GetListOfProducts();
+            }
+            else
+            {
+                ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category==(BO.Category) CategorySelector.SelectedItem);
+            }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductWindow(bl).ShowDialog();
+            ProductListview.ItemsSource= bl.Product.GetListOfProducts();
+        }
+        private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new ProductWindow(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
+            ProductListview.ItemsSource = bl.Product.GetListOfProducts();
+        }
+
+
     }
 }

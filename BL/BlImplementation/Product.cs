@@ -15,7 +15,7 @@ namespace BlImplementation;
 internal class Product : BlApi.IProduct
 {
     private IDal _dal = new DalList();
-    public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.Product?, bool>? func = null)
+    public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.ProductForList?, bool>? func = null)
     {
         //var v = _dal.Product.GetAllObject();
         IEnumerable<BO.ProductForList?>productList= _dal.Product.GetAllObject().Select(
@@ -27,7 +27,11 @@ internal class Product : BlApi.IProduct
                     Price = product?.Price?? throw new BO.NullData()
              }
         );
-        return productList.Where(Product => func(product));
+        if (func!=null)
+        {
+            return productList.Where(product => func(product));
+        }
+        return productList;
 
     }
     /// <summary>
@@ -142,7 +146,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     public void UpdateProduct(BO.Product product)
     {
-        if (product.ID <= 0 || product.Name == null || product.Price <= 0)
+        if (product.ID <= 0 || product.Name == null || product.Price <= 0||product.InStock<0)
         {
             throw new BO.InCorrectData();
         }

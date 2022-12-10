@@ -59,9 +59,10 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public void UpDateObject(Order o)
     {
+
         for (int i = 0; i < DataSource.orders.Count(); i++)
         {
-            if (DataSource.orders[i].Value.ID == o.ID)
+            if (DataSource.orders[i]?.ID == o.ID)
             {
                 DataSource.orders[i] = o;
                 return;

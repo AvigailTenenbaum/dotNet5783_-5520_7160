@@ -14,7 +14,7 @@ public interface IProduct
     /// Method for product list request
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.Product?, bool>? func = null);
+    public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.ProductForList?, bool>? func = null);
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
     /// </summary>

@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="addButton"  Content="Add" HorizontalAlignment="Left" Margin="160,346,0,0" VerticalAlignment="Top" Click="addButton_Click"/>
+        <Button x:Name="updateButton"  Content="Update" HorizontalAlignment="Left" Margin="204,346,0,0" VerticalAlignment="Top" Click="updateButton_Click"/>
+        <StackPanel x:Name="stackPanelLabels" Margin="125,60,520,93">
+            <Label x:Name="idLabel" Content="id:" Height="50" Width="66"/>
+            <Label x:Name="nameLabel" Content="name:" Height="50" Width="66"/>
+            <Label x:Name="categoryLabel" Content="category:" Height="50" Width="66"/>
+            <Label x:Name="priceLabel" Content="price:" Height="50" Width="66"/>
+            <Label x:Name="inStockLabel" Content="in stock:" Height="50" Width="66"/>
+        </StackPanel>
+        <TextBox x:Name="idTextBox" TextWrapping="Wrap" Text="" Width="120" Height="40" Margin="340,57,340,337"/>
+        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="" Width="120" Height="40" Margin="340,106,340,288"/>
+        <ComboBox x:Name="categorycomboBox" Height="40" Margin="340,157,340,237"/>
+        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="" Width="120" Height="40" Margin="340,206,340,188"/>
+        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="" Width="120" Height="40" Margin="340,256,340,138"/>
+
     </Grid>
 </Window>

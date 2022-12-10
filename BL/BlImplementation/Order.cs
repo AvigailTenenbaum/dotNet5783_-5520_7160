@@ -23,21 +23,21 @@ namespace BlImplementation;
         {
             IEnumerable<DO.Order?> orders=_dal.Order.GetAllObject();
             List<OrderForList?> orderForLists= new List<OrderForList?>();
-            foreach(DO.Order order in orders)
+            foreach(DO.Order? order in orders)
             { 
             IEnumerable<DO.OrderItem?> orderItems=_dal.OrderItem.GetAllObject();
                 BO.OrderForList orderForList = new BO.OrderForList
                 {
-                  ID = order.ID,
-                  CustomerName = order.CustomerName,
+                  ID = order?.ID??throw new BO.NullData(),
+                  CustomerName = order?.CustomerName ?? throw new BO.NullData(),
                   AmountOfItems = 0,
                  TotalPrice = 0 
                 };
-                if (order.OrderDate < DateTime.Now)
+                if (order?.OrderDate< DateTime.Now)
                     orderForList.Status = BO.OrderStatus.Approved;
-                if (order.ShipDate < DateTime.Now)
+                if (order?.ShipDate < DateTime.Now)
                     orderForList.Status = BO.OrderStatus.shipped;
-                if (order.DeliveryDate < DateTime.Now)
+                if (order?.DeliveryDate < DateTime.Now)
                     orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
                 foreach (DO.OrderItem oi in orderItems)
                 {
