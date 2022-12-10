@@ -57,7 +57,7 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Order GetOrderDetails(int id)
     {
-        DO.Order order;
+        DO.Order? order;
         IEnumerable<DO.OrderItem?> orderItems;
         if (id > 0)
         {
@@ -68,12 +68,12 @@ namespace BlImplementation;
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
             try { orderItems = _dal.OrderItem.GetAllOrderItems(id); }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            BO.Order getOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, OrderDate = order.OrderDate, ShipDate = order.ShipDate, DeliveryDate = order.DeliveryDate,Items=new List<BO.OrderItem>() };
-            if (order.OrderDate < DateTime.Now)
+            BO.Order getOrder = new BO.Order { ID = order?.ID??throw new BO.NullData(), CustomerName = order?.CustomerName??throw new BO.NullData(), CustomerEmail = order?.CustomerEmail??throw new BO.NullData(), CustomerAdress = order?.CustomerAddress??throw new BO.NullData(), OrderDate = order?.OrderDate, ShipDate = order?.ShipDate, DeliveryDate = order?.DeliveryDate,Items=new List<BO.OrderItem?>() };
+            if (order?.OrderDate < DateTime.Now)
                 getOrder.Status = BO.OrderStatus.Approved;
-            if (order.ShipDate < DateTime.Now)
+            if (order?.ShipDate < DateTime.Now)
                 getOrder.Status = BO.OrderStatus.shipped;
-            if (order.DeliveryDate < DateTime.Now)
+            if (order?.DeliveryDate < DateTime.Now)
                 getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
             
             foreach (DO.OrderItem orderItem in orderItems)
@@ -102,11 +102,11 @@ namespace BlImplementation;
     public BO.Order OrderShippingUpdate(int id)
     {
         DO.Order order;
-        try { order = _dal.Order.GetObject(id); }catch(DO.NotExist e) { throw new BO.NotExist(e); }
+        try { order = (DO.Order)_dal.Order.GetObject(id)!; }catch(DO.NotExist e) { throw new BO.NotExist(e); }
         if(order.ShipDate==null||!(order.ShipDate<DateTime.Now))
             order.ShipDate= DateTime.Now;
         try { _dal.Order.UpDateObject(order); }catch(DO.NotExist e) { throw new BO.NotExist(e);}
-        BO.Order logicOrder=new BO.Order { ID= order.ID,CustomerName=order.CustomerName, CustomerEmail= order.CustomerEmail,CustomerAdress=order.CustomerAddress,ShipDate=order.ShipDate ,DeliveryDate=order.DeliveryDate,Status=BO.OrderStatus.shipped,Items =new List<BO.OrderItem>(),OrderDate=order.OrderDate};
+        BO.Order logicOrder=new BO.Order { ID= order.ID,CustomerName=order.CustomerName, CustomerEmail= order.CustomerEmail,CustomerAdress=order.CustomerAddress,ShipDate=order.ShipDate ,DeliveryDate=order.DeliveryDate,Status=BO.OrderStatus.shipped,Items =new List<BO.OrderItem?>(),OrderDate=order.OrderDate};
         return logicOrder;
     }
     /// <summary>
@@ -117,11 +117,11 @@ namespace BlImplementation;
     public BO.Order OrderDeliveryUpdate(int id)
     {
         DO.Order order;
-        try { order = _dal.Order.GetObject(id); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        try { order = (DO.Order)_dal.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         if (order.DeliveryDate == null|| !(order.DeliveryDate < DateTime.Now))
             order.DeliveryDate = DateTime.Now;
         try { _dal.Order.UpDateObject(order); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
-        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate,ShipDate=order.ShipDate, Status = BO.OrderStatus.deliveredTotheCustomer, Items = new List<BO.OrderItem>(), OrderDate = order.OrderDate };
+        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate,ShipDate=order.ShipDate, Status = BO.OrderStatus.deliveredTotheCustomer, Items = new List<BO.OrderItem?>(), OrderDate = order.OrderDate };
         return logicOrder;
     }
     /// <summary>
@@ -132,7 +132,7 @@ namespace BlImplementation;
     public BO.OrderTracking OrderTracking(int id)
     {
         DO.Order order;
-        try { order = _dal.Order.GetObject(id); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        try { order =(DO.Order) _dal.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         BO.OrderTracking orderTracking = new BO.OrderTracking { ID = order.ID };
         orderTracking.TrackingInformation = new List<Tuple<string?, DateTime?>>();
         if (order.OrderDate < DateTime.Now)

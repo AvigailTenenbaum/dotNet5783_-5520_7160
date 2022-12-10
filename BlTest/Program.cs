@@ -12,7 +12,7 @@ namespace BlTest
     {
         static IBl s_bl = new Bl();
 
-        static Cart s_newCart = new Cart() {Items=new List<OrderItem>()};
+        static Cart s_newCart = new Cart() {Items=new List<OrderItem?>()};
         static Product s_addProduct = new Product();
 
         static void ActionOnProduct()

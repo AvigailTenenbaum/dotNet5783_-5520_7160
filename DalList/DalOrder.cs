@@ -23,9 +23,9 @@ internal class DalOrder : Iorder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Order GetObject(int id)
+    public Order? GetObject(int id)
     {
-        Order order= GetObjectByFilter(order => order?.ID == id);
+        Order? order= GetObjectByFilter(order => order?.ID == id);
         return order;
     }
     /// <summary>
@@ -76,13 +76,13 @@ internal class DalOrder : Iorder
     /// <param name="func"></param>
     /// <returns></returns>
     /// <exception cref="CanNotFound"></exception>
-    public Order GetObjectByFilter(Func<Order?, bool>? func)
+    public Order? GetObjectByFilter(Func<Order?, bool>? func)
     {
         foreach(var order in DataSource.orders)
         {
-            if(func(order))
+            if(func!(order))
             {
-                return order.Value;
+                return order;
             }
         }
         throw new NotExist();

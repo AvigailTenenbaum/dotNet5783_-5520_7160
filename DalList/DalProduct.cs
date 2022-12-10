@@ -15,9 +15,9 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public int AddObject(Product o1)
     {
-        for (int i = 0; i < DataSource.orders.Count; i++)
+        for (int i = 0; i < DataSource.products.Count; i++)
         {
-            if (DataSource.products[i].Value.ID == o1.ID)
+            if (DataSource.products[i]?.ID == o1.ID)
             {
                 throw new AllReadyExist();
             }
@@ -31,9 +31,9 @@ internal class DalProduct :Iproduct
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Product GetObject(int id)
+    public Product? GetObject(int id)
     {
-        Product product = GetObjectByFilter(product => product.Value.ID == id);
+        Product? product = GetObjectByFilter(product => product?.ID == id);
         return product;
     }
     /// <summary>
@@ -55,7 +55,7 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        Product? p1 = DataSource.products.Find(o => o.Value.ID == id);
+        Product? p1 = DataSource.products.Find(o => o?.ID == id);
         if (p1==null)
             throw new NotExist();
       DataSource.products.Remove(p1.Value);   
@@ -69,7 +69,7 @@ internal class DalProduct :Iproduct
     {
         for (int i = 0; i < DataSource.products.Count; i++)
         {
-            if (DataSource.products[i].Value.ID == p.ID)
+            if (DataSource.products[i]?.ID == p.ID)
             {
                 DataSource.products[i] = p;
                 return;
@@ -83,13 +83,13 @@ internal class DalProduct :Iproduct
     /// <param name="func"></param>
     /// <returns></returns>
     /// <exception cref="CanNotFound"></exception>
-    public Product GetObjectByFilter(Func<Product?, bool>? func)
+    public Product? GetObjectByFilter(Func<Product?, bool>? func)
     {
         foreach (var product in DataSource.products)
         {
-            if (func(product))
+            if (func!(product))
             {
-                return product.Value;
+                return product;
             }
         }
         throw new NotExist();

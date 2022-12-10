@@ -47,14 +47,14 @@ internal class Product : BlApi.IProduct
 
             try
             {
-                DO.Product product = _dal.Product.GetObject(id);
+                DO.Product? product = _dal.Product.GetObject(id);
                 BO.Product newProduct = new BO.Product
                 {
-                    ID = product.ID,
-                    Name = product.Name,
-                    Category = (BO.Category)product.Category,
-                    Price = product.Price,
-                    InStock = product.InStock
+                    ID = product?.ID??throw new NullData(),
+                    Name = product?.Name?? throw new NullData(),
+                    Category = (BO.Category)product?.Category,
+                    Price = product?.Price?? throw new NullData(),
+                    InStock = product?.InStock??0
                 };
                 return newProduct;
             }
@@ -76,20 +76,20 @@ internal class Product : BlApi.IProduct
         {
             try
             {
-                DO.Product product = _dal.Product.GetObject(id);
+                DO.Product? product = _dal.Product.GetObject(id);
                 bool inStock = false;
-                if (product.InStock > 0)
+                if (product?.InStock > 0)
                     inStock = true;
                 int amount = 0;
                 if (cart.Items.Count > 0)
                 {
-                    foreach (BO.OrderItem orderItem in cart.Items)
+                    foreach (BO.OrderItem? orderItem in cart.Items)
                     {
-                        if (orderItem.ID == product.ID)
-                            amount = orderItem.Amount;
+                        if (orderItem?.ID == product?.ID)
+                            amount = orderItem?.Amount??0;
                     }
                 }
-                BO.ProductItem productItem = new BO.ProductItem { ID = product.ID, Name = product.Name, Category = (BO.Category)product.Category, Price = product.Price, InStock = inStock, AmountInCart = amount };
+                BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
                 return productItem;
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }

@@ -49,10 +49,10 @@ namespace Dal;
             OrderItem orderItem = new OrderItem();
             product = products[num.Next(0,products.Count)];
             orderItem.ID =getLastOrderID();
-            orderItem.ProductID = product.Value.ID;
+            orderItem.ProductID = product?.ID??0;
             orderItem.Amount = num.Next(1, 11);
-            orderItem.OrderID = orders[num.Next(0,orders.Count)].Value.ID;
-            orderItem.Price =  product.Value.Price;
+            orderItem.OrderID = orders[num.Next(0,orders.Count)]?.ID??0;
+            orderItem.Price =  product?.Price??0;
             items.Add(orderItem);
         }
     }

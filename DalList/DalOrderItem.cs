@@ -50,7 +50,7 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        OrderItem? o1 = DataSource.items.Find(o => o.Value.ID == id);
+        OrderItem? o1 = DataSource.items.Find(o => o?.ID == id);
         if (o1==null)
             throw new NotExist();
         DataSource.items.Remove(o1.Value);
@@ -64,7 +64,7 @@ internal class DalOrderItem :IorderItem
     {
         for (int i = 0; i < DataSource.items.Count(); i++)
         {
-            if (DataSource.items[i].Value.ID == o.ID)
+            if (DataSource.items[i]?.ID == o.ID)
             {
                 DataSource.items[i] = o;
                 return;
@@ -79,7 +79,7 @@ internal class DalOrderItem :IorderItem
     /// <returns></returns>
    public IEnumerable<OrderItem?> GetAllOrderItems(int orderId)
     {
-       return DataSource.items.FindAll(item => item.Value.OrderID == orderId);
+       return DataSource.items.FindAll(item => item?.OrderID == orderId);
     }
     /// <summary>
     /// get orderItem by two orderId
@@ -88,12 +88,12 @@ internal class DalOrderItem :IorderItem
     /// <param name="productId"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-   public OrderItem GetOrderItem(int orderId, int productId)
+   public OrderItem? GetOrderItem(int orderId, int productId)
     {
         for(int i=0;i< DataSource.items.Count;i++)
         {
-            if (DataSource.items[i].Value.ProductID == productId && DataSource.items[i].Value.OrderID==orderId) {
-                return DataSource.items[i].Value;
+            if (DataSource.items[i]?.ProductID == productId && DataSource.items[i]?.OrderID==orderId) {
+                return DataSource.items[i];
             }
         }
             throw new NotExist();
