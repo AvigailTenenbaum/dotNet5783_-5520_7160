@@ -60,7 +60,7 @@ namespace PL.Products
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new ProductWindow(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
-            ProductListview.ItemsSource = bl.Product.GetListOfProducts();
+            ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category == (BO.Category)CategorySelector.SelectedItem);
         }
 
 
