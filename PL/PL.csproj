@@ -13,7 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Hazorfimlogo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Hazorfimlogo.jpg" />
   </ItemGroup>
 
 </Project>

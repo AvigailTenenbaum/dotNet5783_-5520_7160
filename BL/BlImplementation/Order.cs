@@ -152,5 +152,33 @@ namespace BlImplementation;
         }
         return orderTracking;
     }
+    public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount)
+    {
+        if (IDOrder < 0)
+            throw new BO.InCorrectData();
+        if (IDProduct < 0)
+            throw new BO.InCorrectData();
+        if (newAmount < 0)
+            throw new BO.InCorrectData();
+        try { _dal.Order.GetObject(IDOrder); }
+        catch (Exception ex)
+        {
+            throw new BO.NotExist(ex);
+        }
+        if (_dal.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
+            throw new BO.NotPossibleToFillRequest();
+        BO.Order order = GetOrderDetails(IDOrder);
+        foreach (BO.OrderItem orderItem in wantedOrder.Items)
+        {
+            if (orderItem.ProductID == IDProduct)
+            {
+                wantedOrder.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
+                orderItem.Amount = newAmount;
+                orderItem.TotalPrice = newAmount * orderItem.Price;
+                wantedOrder.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
+            }
+        }
+        return wantedOrder;
+    }
 }
 

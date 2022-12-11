@@ -40,5 +40,13 @@ public interface IOrder
     /// <param name="id"></param>
     /// <returns></returns>
     public BO.OrderTracking OrderTracking(int id);
+    /// <summary>
+    /// A method for updating an order to the manager
+    /// </summary>
+    /// <param name="IDOrder"></param>
+    /// <param name="IDProduct"></param>
+    /// <param name="newAmount"></param>
+    /// <returns></returns>
+    public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount);
 }
 

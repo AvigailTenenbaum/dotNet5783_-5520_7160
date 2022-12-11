@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="-114,0,0,-219">
-        <Button Content="Admin" HorizontalAlignment="Left" Margin="420,238,0,0" VerticalAlignment="Top" Height="35" Width="126" Name="showProductsButton" Click="btnEnterToSystem_Click"/>
-
+    <Grid Margin="0,0,0,-6">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Hazorfimlogo.jpg"/>
+        </Grid.Background>
+        <Button Content="Admin" HorizontalAlignment="Center" Margin="0,266,0,0" VerticalAlignment="Top" Height="35" Width="126" Name="showProductsButton" Click="btnEnterToSystem_Click" FontWeight="Bold" FontSize="18" FontFamily="Stencil"/>
     </Grid>
 </Window>
