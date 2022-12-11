@@ -49,6 +49,12 @@ namespace PL.Products
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
+            if (idTextBox.Text.Length == 0 || nameTextBox.Text.Length == 0 || inStockTextBox.Text.Length == 0 || priceTextBox.Text.Length == 0)
+            {
+
+                messageBoxResult = MessageBox.Show("One or more of the required data is missing", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             try
             {
                 BO.Product product = new BO.Product()
@@ -72,6 +78,11 @@ namespace PL.Products
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
+            if (nameTextBox.Text.Length == 0 || inStockTextBox.Text.Length == 0 || priceTextBox.Text.Length == 0)
+            {
+                messageBoxResult = MessageBox.Show("One or more of the required data is missing", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             try
             {
                 BO.Product product = new BO.Product()
