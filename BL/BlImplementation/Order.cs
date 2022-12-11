@@ -168,17 +168,17 @@ namespace BlImplementation;
         if (_dal.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
             throw new BO.NotPossibleToFillRequest();
         BO.Order order = GetOrderDetails(IDOrder);
-        foreach (BO.OrderItem orderItem in wantedOrder.Items)
+        foreach (BO.OrderItem orderItem in order.Items)
         {
             if (orderItem.ProductID == IDProduct)
             {
-                wantedOrder.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
+                order.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
                 orderItem.Amount = newAmount;
                 orderItem.TotalPrice = newAmount * orderItem.Price;
-                wantedOrder.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
+                order.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
             }
         }
-        return wantedOrder;
+        return order;
     }
 }
 
