@@ -152,6 +152,16 @@ namespace BlImplementation;
         }
         return orderTracking;
     }
+    /// <summary>
+    /// A method for updating an order to the manager
+    /// </summary>
+    /// <param name="IDOrder"></param>
+    /// <param name="IDProduct"></param>
+    /// <param name="newAmount"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.InCorrectData"></exception>
+    /// <exception cref="BO.NotExist"></exception>
+    /// <exception cref="BO.NotPossibleToFillRequest"></exception>
     public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount)
     {
         if (IDOrder < 0)
@@ -168,17 +178,17 @@ namespace BlImplementation;
         if (_dal.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
             throw new BO.NotPossibleToFillRequest();
         BO.Order order = GetOrderDetails(IDOrder);
-        foreach (BO.OrderItem orderItem in wantedOrder.Items)
+        foreach (BO.OrderItem orderItem in order.Items)
         {
             if (orderItem.ProductID == IDProduct)
             {
-                wantedOrder.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
+                order.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
                 orderItem.Amount = newAmount;
                 orderItem.TotalPrice = newAmount * orderItem.Price;
-                wantedOrder.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
+                order.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
             }
         }
-        return wantedOrder;
+        return order;
     }
 }
 
