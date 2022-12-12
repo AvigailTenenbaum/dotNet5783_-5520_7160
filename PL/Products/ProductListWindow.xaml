@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector"
-              Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"/>
+              Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" FontSize="22" Margin="0,0,10,0"/>
         </Grid>
         <Label
              Grid.Column="0" Content="Category:" Margin="0,0,400,0" FontSize="22"/>

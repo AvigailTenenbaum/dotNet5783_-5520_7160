@@ -39,7 +39,7 @@ namespace DalTest
                             Console.WriteLine("Enter the product id");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the product name");
-                            name = Console.ReadLine();
+                            name = Console.ReadLine() ??throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the product category");
                             Category category;
                             Category.TryParse(Console.ReadLine(), out category);
@@ -67,7 +67,7 @@ namespace DalTest
                             Console.WriteLine("Enter the product id");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the product name");
-                            name = Console.ReadLine();
+                            name = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the product category");
                             Category category;
                             Category.TryParse(Console.ReadLine(), out category);
@@ -113,11 +113,11 @@ namespace DalTest
                     case 'a':
                         {
                             Console.WriteLine("Enter the customer name");
-                            name = Console.ReadLine();
+                            name = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the customer email");
-                            email = Console.ReadLine();
+                            email = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the customer address");
-                            address = Console.ReadLine();
+                            address = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the ship date");
                             DateTime.TryParse(Console.ReadLine(), out orderDate);
                             Order o1 = new Order();
@@ -145,11 +145,11 @@ namespace DalTest
                             Console.WriteLine("Enter the order id");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the customer name");
-                            name = Console.ReadLine();
+                            name = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the customer email");
-                            email = Console.ReadLine();
+                            email = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the customer address");
-                            address = Console.ReadLine();
+                            address = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Order o1 = new Order();
                             o1.ID = id;
                             o1.CustomerName = name;

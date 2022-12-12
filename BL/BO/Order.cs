@@ -52,16 +52,6 @@ namespace BO;
         /// Total price of order
         /// </summary>
         public double TotalPrice { get; set; }
-    public override string ToString() => $@"
-Customr Name: {CustomerName}
-Customer Email: {CustomerEmail}
-Customer Address: {CustomerAdress}
-Order Date: {OrderDate}
-Status: {Status}
-Ship Date: {ShipDate}
-Delivery Date: {DeliveryDate}
-OrderDetails: {string.Join('\n',Items)}
-TotalPrice: {TotalPrice}
-";
+    public override string ToString() => this.ToStringProperty();
     }
 

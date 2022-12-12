@@ -32,13 +32,6 @@ namespace BO;
         /// how much products in stock
         /// </summary>
         public int InStock { get; set; }
-    public override string ToString() => $@"
-Product ID: {ID}
-Product Name: {Name}
-Price: {Price}
-Category: {Category}
-In Stock?: {InStock}
-";
-
+    public override string ToString() => this.ToStringProperty(); 
 }
 

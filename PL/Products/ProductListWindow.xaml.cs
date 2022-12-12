@@ -60,6 +60,7 @@ namespace PL.Products
         }
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if(ProductListview.SelectedItem==null) return;
             new ProductWindow(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
             if(CategorySelector.SelectedItem.Equals(Category.NONE))
                 ProductListview.ItemsSource = bl.Product.GetListOfProducts();

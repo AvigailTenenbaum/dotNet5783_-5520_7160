@@ -79,7 +79,7 @@ internal class DalOrderItem :IorderItem
     /// <returns></returns>
    public IEnumerable<OrderItem?> GetAllOrderItems(int orderId)
     {
-       return DataSource.items.FindAll(item => item?.OrderID == orderId);
+       return GetAllObject(item => item?.OrderID == orderId);
     }
     /// <summary>
     /// get orderItem by two orderId
@@ -90,13 +90,7 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="Exception"></exception>
    public OrderItem? GetOrderItem(int orderId, int productId)
     {
-        for(int i=0;i< DataSource.items.Count;i++)
-        {
-            if (DataSource.items[i]?.ProductID == productId && DataSource.items[i]?.OrderID==orderId) {
-                return DataSource.items[i];
-            }
-        }
-            throw new NotExist();
+        return GetObjectByFilter(item => item?.OrderID == orderId && item?.ProductID == productId);
     }
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition

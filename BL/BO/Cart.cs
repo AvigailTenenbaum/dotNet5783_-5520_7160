@@ -27,18 +27,12 @@ namespace BO;
         /// <summary>
         /// List of order details 
         /// </summary>
-        public List<OrderItem?> Items { get; set; }
+        public List<OrderItem?>? Items { get; set; }
         /// <summary>
         /// Total price of an order basket
         /// </summary>
         public double TotalPrice { get; set; }
-    public override string ToString() => $@"
-Customr Name: {CustomerName}
-Customer Email: {CustomerEmail}
-Customer Address: {CostumerAdress}
-OrderDetails: {string.Join('\n',Items)}
-TotalPrice {TotalPrice}
-";
+    public override string ToString() => this.ToStringProperty();
 
     }
 

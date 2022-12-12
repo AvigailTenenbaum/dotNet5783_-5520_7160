@@ -33,14 +33,7 @@ public class ProductItem
     /// </summary>
       public int AmountInCart { get; set; }
 
-    
-    public override string ToString() => $@"
-Product ID: {ID}
-Product Name: {Name}
-Price: {Price}
-Category: {Category}
-In Stock?: {InStock}
-Amount In Cart {AmountInCart}
-";
+
+    public override string ToString() => this.ToStringProperty();
 }
 
