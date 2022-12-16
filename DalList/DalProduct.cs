@@ -33,8 +33,7 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public Product? GetObject(int id)
     {
-        Product? product = GetObjectByFilter(product => product?.ID == id);
-        return product;
+       return GetObjectByFilter(item => item?.ID == id);
     }
     /// <summary>
     /// A function that returns an array of all objects

@@ -26,13 +26,7 @@ public struct Product
     /// amount in stock
     /// </summary>
     public int InStock { get; set; }
-    public override string ToString() => $@"
-Product ID: {ID}
-Product Name: {Name}
-Price: {Price}
-Category: {Category}
-Amount In Stock: {InStock}
-";
+    public override string ToString() => this.ToStringProperty();
 
 
 }

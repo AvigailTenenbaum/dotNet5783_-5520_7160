@@ -30,12 +30,6 @@ namespace BO;
     /// total price
     /// </summary>
     public double TotalPrice { get; set; }
-    public override string ToString() => $@"
-Product ID: {ID}
-Customer Name: {CustomerName}
-Order Status: {Status}
-AmountOfItems: {AmountOfItems}
-Total Price: {TotalPrice}
-";
+    public override string ToString() => this.ToStringProperty();
 }
 

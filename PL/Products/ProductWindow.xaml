@@ -16,11 +16,11 @@
             <Label x:Name="priceLabel" Content="price:" Height="50" Width="66"/>
             <Label x:Name="inStockLabel" Content="in stock:" Height="50" Width="66"/>
         </StackPanel>
-        <TextBox x:Name="idTextBox" TextWrapping="Wrap" Text="" Margin="340,57,324,333" PreviewKeyDown="idTextBox_PreviewKeyDown"/>
-        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="" Margin="340,106,324,282"/>
-        <ComboBox x:Name="categorycomboBox" Margin="340,157,324,233"/>
-        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="" Margin="340,206,324,183" PreviewKeyDown="priceTextBox_PreviewKeyDown"/>
-        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="" Margin="340,256,324,133" PreviewKeyDown="inStockTextBox_PreviewKeyDown"/>
+        <TextBox x:Name="idTextBox" TextWrapping="Wrap" Text="" Margin="340,57,322,333" PreviewKeyDown="idTextBox_PreviewKeyDown"/>
+        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="" Margin="340,106,322,282"/>
+        <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233"/>
+        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="" Margin="340,206,322,183" PreviewKeyDown="priceTextBox_PreviewKeyDown"/>
+        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="" Margin="340,256,322,133" PreviewKeyDown="inStockTextBox_PreviewKeyDown"/>
 
     </Grid>
 </Window>

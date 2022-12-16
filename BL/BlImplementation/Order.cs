@@ -39,10 +39,10 @@ namespace BlImplementation;
                     orderForList.Status = BO.OrderStatus.shipped;
                 if (order?.DeliveryDate < DateTime.Now)
                     orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
-                foreach (DO.OrderItem oi in orderItems)
+                foreach (DO.OrderItem? oi in orderItems)
                 {
                     orderForList.AmountOfItems++;
-                    orderForList.TotalPrice += oi.Price;
+                    orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
                 }
                 orderForLists.Add(orderForList);
             }
@@ -66,7 +66,8 @@ namespace BlImplementation;
                 order = _dal.Order.GetObject(id);
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            try { orderItems = _dal.OrderItem.GetAllOrderItems(id); }
+            try { orderItems = _dal.OrderItem.GetAllObject(item =>item?.OrderID==id); }
+
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
             BO.Order getOrder = new BO.Order { ID = order?.ID??throw new BO.NullData(), CustomerName = order?.CustomerName??throw new BO.NullData(), CustomerEmail = order?.CustomerEmail??throw new BO.NullData(), CustomerAdress = order?.CustomerAddress??throw new BO.NullData(), OrderDate = order?.OrderDate, ShipDate = order?.ShipDate, DeliveryDate = order?.DeliveryDate,Items=new List<BO.OrderItem?>() };
             if (order?.OrderDate < DateTime.Now)
@@ -76,15 +77,15 @@ namespace BlImplementation;
             if (order?.DeliveryDate < DateTime.Now)
                 getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
             
-            foreach (DO.OrderItem orderItem in orderItems)
+            foreach (DO.OrderItem? orderItem in orderItems)
             {
                 BO.OrderItem orderItem1 = new BO.OrderItem
                 {
-                    ID = orderItem.ID,
-                    ProductID = orderItem.ProductID,
-                    Price = orderItem.Price,
-                    Amount = orderItem.Amount,
-                    TotalPrice = orderItem.Price * orderItem.Amount,
+                    ID = orderItem?.ID?? throw new BO.NullData(),
+                    ProductID = orderItem?.ProductID ?? throw new BO.NullData(),
+                    Price = orderItem?.Price ?? throw new BO.NullData(),
+                    Amount = orderItem?.Amount ?? throw new BO.NullData(),
+                    TotalPrice = orderItem?.Price??0* orderItem?.Amount??0,//can't be null here
                 };
                 getOrder.Items.Add(orderItem1);
                 getOrder.TotalPrice += orderItem1.TotalPrice;
@@ -152,6 +153,16 @@ namespace BlImplementation;
         }
         return orderTracking;
     }
+    /// <summary>
+    /// A method for updating an order to the manager
+    /// </summary>
+    /// <param name="IDOrder"></param>
+    /// <param name="IDProduct"></param>
+    /// <param name="newAmount"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.InCorrectData"></exception>
+    /// <exception cref="BO.NotExist"></exception>
+    /// <exception cref="BO.NotPossibleToFillRequest"></exception>
     public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount)
     {
         if (IDOrder < 0)
@@ -168,9 +179,9 @@ namespace BlImplementation;
         if (_dal.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
             throw new BO.NotPossibleToFillRequest();
         BO.Order order = GetOrderDetails(IDOrder);
-        foreach (BO.OrderItem orderItem in order.Items)
+        foreach (BO.OrderItem? orderItem in order.Items)
         {
-            if (orderItem.ProductID == IDProduct)
+            if (orderItem?.ProductID == IDProduct)
             {
                 order.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
                 orderItem.Amount = newAmount;

@@ -52,7 +52,7 @@ internal class Product : BlApi.IProduct
                 {
                     ID = product?.ID??throw new NullData(),
                     Name = product?.Name?? throw new NullData(),
-                    Category = (BO.Category)product?.Category,
+                    Category = (BO.Category?)product?.Category,
                     Price = product?.Price?? throw new NullData(),
                     InStock = product?.InStock??0
                 };
@@ -81,7 +81,7 @@ internal class Product : BlApi.IProduct
                 if (product?.InStock > 0)
                     inStock = true;
                 int amount = 0;
-                if (cart.Items.Count > 0)
+                if (cart.Items?.Count > 0)
                 {
                     foreach (BO.OrderItem? orderItem in cart.Items)
                     {
@@ -89,7 +89,7 @@ internal class Product : BlApi.IProduct
                             amount = orderItem?.Amount??0;
                     }
                 }
-                BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
+                BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category?)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
                 return productItem;
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
@@ -109,7 +109,7 @@ internal class Product : BlApi.IProduct
         }
         else
         {
-            DO.Product p = new DO.Product() {Category=(DO.Category)product.Category,ID=product.ID,Name=product.Name,Price=product.Price,InStock=product.InStock };
+            DO.Product p = new DO.Product() {Category=(DO.Category?)product.Category,ID=product.ID,Name=product.Name,Price=product.Price,InStock=product.InStock };
             try
             {
                 _dal.Product.AddObject(p);
@@ -123,12 +123,12 @@ internal class Product : BlApi.IProduct
     public void DeleteProduct(int id)
     {
         IEnumerable<DO.Order?> orders = _dal.Order.GetAllObject();
-        foreach (DO.Order order in orders)
+        foreach (DO.Order? order in orders)
         {
-            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.GetAllOrderItems(order.ID);
-            foreach (DO.OrderItem item in orderItems)
+            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
+            foreach (DO.OrderItem? item in orderItems)
             {
-                if (item.ProductID == id)
+                if (item?.ProductID == id)
                 {
                     throw new BO.NotPossibleToFillRequest();
                 }
@@ -152,7 +152,7 @@ internal class Product : BlApi.IProduct
         }
         else
         {
-            DO.Product p = new DO.Product() { Category = (DO.Category)product.Category, ID = product.ID, Name = product.Name, Price = product.Price, InStock = product.InStock };
+            DO.Product p = new DO.Product() { Category = (DO.Category?)product.Category, ID = product.ID, Name = product.Name, Price = product.Price, InStock = product.InStock };
             try
             {
                 _dal.Product.UpDateObject(p);
