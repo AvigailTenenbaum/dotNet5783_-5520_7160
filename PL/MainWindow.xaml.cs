@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using PL.Products;
+﻿using PL.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +23,7 @@ namespace PL
     {
         public MainWindow()
         {
-            IBl bl = new Bl();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
 
         }

@@ -12,11 +12,11 @@ namespace DalTest
 {
     internal class Program
     {
-         static IDal dal=new DalList();
-            //private static DalOrder order = new DalOrder();
+        DalApi.IDal? dal = DalApi.Factory.Get();
+        //private static DalOrder order = new DalOrder();
         //private static DalOrderItem orderItem = new DalOrderItem();
         //private static DalProduct product = new DalProduct();
-        
+
         /// <summary>
         /// A function for operations on a product
         /// </summary>
@@ -53,15 +53,15 @@ namespace DalTest
                             p1.Name = name;
                             p1.Price = price;
                             p1.Category = category;
-                            p1.InStock = unitsInStock; dal.Product.AddObject(p1); break;
+                            p1.InStock = unitsInStock; dal?.Product.AddObject(p1); break;
                         }
                     case 'b':
                         {
                             Console.WriteLine("Enter the product id");
                             int.TryParse(Console.ReadLine(), out id);
-                            Product? p = dal.Product.GetObject(id); Console.WriteLine(p); break;
+                            Product? p = dal?.Product.GetObject(id); Console.WriteLine(p); break;
                         }
-                    case 'c': IEnumerable<Product?> pArr = dal.Product.GetAllObject(); Console.WriteLine(string.Join(" ",pArr));break;
+                    case 'c': IEnumerable<Product?> pArr = dal?.Product.GetAllObject()??throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ",pArr));break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the product id");
@@ -80,12 +80,12 @@ namespace DalTest
                             p1.Name = name;
                             p1.Price = price;
                             p1.Category = category;
-                            p1.InStock = unitsInStock; dal.Product.UpDateObject(p1); break;
+                            p1.InStock = unitsInStock; dal?.Product.UpDateObject(p1); break;
                         }
                     case 'e':
                         {
                             Console.WriteLine("Enter the product id");
-                            int.TryParse(Console.ReadLine(), out id); dal.Product.DeleteObject(id); break;
+                            int.TryParse(Console.ReadLine(), out id); dal?.Product.DeleteObject(id); break;
                         }
                     default: Console.WriteLine("finish"); break;
                 }
@@ -131,15 +131,15 @@ namespace DalTest
 
                             o1.CustomerName = name;
                             o1.CustomerEmail = email;
-                            o1.CustomerAddress = address; dal.Order.AddObject(o1); break;
+                            o1.CustomerAddress = address; dal?.Order.AddObject(o1); break;
                         }
                     case 'b':
                         {
                             Console.WriteLine("Enter the order id");
                             int.TryParse(Console.ReadLine(), out id);
-                            Order? o = dal.Order.GetObject(id); Console.WriteLine(o); break;
+                            Order? o = dal?.Order.GetObject(id); Console.WriteLine(o); break;
                         }
-                    case 'c': IEnumerable<Order?> oArr = dal.Order.GetAllObject(); Console.WriteLine(string.Join(" ", oArr)); break;
+                    case 'c': IEnumerable<Order?> oArr = dal?.Order.GetAllObject()??throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ", oArr)); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the order id");

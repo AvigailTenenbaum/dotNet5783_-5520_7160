@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,47 +23,56 @@ namespace PL.Products
     /// </summary>
     public partial class ProductListWindow : Window
     {
-        IBl bl = new Bl();
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public ProductListWindow()
         {
+            //Initialize the appropriate controls in the window
             InitializeComponent();
             ProductListview.ItemsSource = bl.Product.GetListOfProducts();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(Category));
             CategorySelector.SelectedItem = Category.NONE;
            
         }
-
-        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Select a category to filter the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            if (CategorySelector.SelectedItem.Equals(Category.NONE))
+            if (CategorySelector.SelectedItem.Equals(Category.NONE))//Back to the state where you see the whole list
             {
-                ProductListview.ItemsSource = bl.Product.GetListOfProducts();
+                ProductListview.ItemsSource = bl?.Product.GetListOfProducts();
             }
             else
             {
-                ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category==(BO.Category) CategorySelector.SelectedItem);
+                ProductListview.ItemsSource = bl?.Product.GetListOfProducts
+                    (product => product!.Category==(BO.Category) CategorySelector.SelectedItem);
             }
         }
-
+        /// <summary>
+        /// Button to open a product window for adding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow(bl).ShowDialog();
-            ProductListview.ItemsSource= bl.Product.GetListOfProducts();
+            ProductListview.ItemsSource= bl?.Product.GetListOfProducts();
         }
+        /// <summary>
+        /// Opening a product window for update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(ProductListview.SelectedItem==null) return;
             new ProductWindow(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
             if(CategorySelector.SelectedItem.Equals(Category.NONE))
-                ProductListview.ItemsSource = bl.Product.GetListOfProducts();
+                ProductListview.ItemsSource = bl?.Product.GetListOfProducts();
             else
-                ProductListview.ItemsSource = bl.Product.GetListOfProducts(product => product!.Category == (BO.Category)CategorySelector.SelectedItem);
+                ProductListview.ItemsSource = bl?.Product.GetListOfProducts(product => product!.Category == (BO.Category)CategorySelector.SelectedItem);
 
         }
 

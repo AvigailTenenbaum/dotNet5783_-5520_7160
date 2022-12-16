@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace BlImplementation;
 
-sealed public class Bl : IBl
+sealed internal class Bl : IBl
 {
-    public ICart Cart => new Cart();
-    public IOrder Order => new Order();
-    public IProduct Product => new Product();
+    internal Bl() { }
+    public ICart Cart { get; } = new BlImplementation.Cart();
+    public IOrder Order { get; } = new BlImplementation.Order();
+    public IProduct Product { get; } = new  BlImplementation.Product();
 }
 
 

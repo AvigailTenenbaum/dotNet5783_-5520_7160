@@ -23,7 +23,7 @@
         </Grid>
         <Label
              Grid.Column="0" Content="Category:" Margin="0,0,400,0" FontSize="22"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductListview" Grid.RowSpan="2" SelectionChanged="ProductListview_SelectionChanged" Grid.Row="1" MouseDoubleClick="ProductListview_MouseDoubleClick">
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductListview" Grid.RowSpan="2"  Grid.Row="1" MouseDoubleClick="ProductListview_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

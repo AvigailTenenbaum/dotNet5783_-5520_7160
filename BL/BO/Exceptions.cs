@@ -34,7 +34,7 @@ public class AllReadyExist:BlExtptions
 }
 public class NullData : BlExtptions
 {
-    public NullData() : base("ERROR: One or more of the data you entered is NULL") { }
+    public NullData() : base("ERROR: One or more of the data is NULL") { }
 
 }
 

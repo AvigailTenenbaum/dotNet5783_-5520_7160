@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +19,12 @@ namespace PL.Products
     /// </summary>
     public partial class ProductWindow : Window
     {
-        IBl bl = new Bl();
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public ProductWindow()
         {
             InitializeComponent();
         }
-        public ProductWindow(IBl bl)
+        public ProductWindow(BlApi.IBl? bl)
         {
             InitializeComponent();
             categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
@@ -45,7 +43,11 @@ namespace PL.Products
             priceTextBox.Text = Convert.ToString(product.Price);
             inStockTextBox.Text = Convert.ToString(product.InStock);
         }
-
+        /// <summary>
+        /// Button to try adding a product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
@@ -65,7 +67,7 @@ namespace PL.Products
                 Category = (BO.Category)categorycomboBox.SelectedItem,
                 Price = double.Parse(priceTextBox.Text),
                 };
-             bl.Product.AddProduct(product);
+             bl?.Product.AddProduct(product);
             this.Close();
             }
             catch (BO.InCorrectData ex)
@@ -74,7 +76,11 @@ namespace PL.Products
             }
             catch (BO.AllReadyExist ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
         }
-
+        /// <summary>
+        /// Button to try product update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
@@ -93,13 +99,17 @@ namespace PL.Products
                     Category = (BO.Category)categorycomboBox.SelectedItem,
                     Price = double.Parse(priceTextBox.Text),
                 };
-                bl.Product.UpdateProduct(product);
+                bl?.Product.UpdateProduct(product);
                 this.Close();
             }
             catch(BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
            
         }
-
+        /// <summary>
+        /// Typing option for normal input only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void idTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -127,7 +137,11 @@ namespace PL.Products
 
             return;
         }
-
+        /// <summary>
+        /// Typing option for normal input only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void priceTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -157,7 +171,11 @@ namespace PL.Products
             return;
 
         }
-
+        /// <summary>
+        /// Typing option for normal input only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void inStockTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;

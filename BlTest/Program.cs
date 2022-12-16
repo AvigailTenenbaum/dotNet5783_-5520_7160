@@ -10,7 +10,8 @@ namespace BlTest
 
     internal class Program
     {
-        static IBl s_bl = new Bl();
+        static BlApi.IBl? s_bl = BlApi.Factory.Get();
+
 
         static Cart s_newCart = new Cart() {Items=new List<OrderItem?>()};
         static Product s_addProduct = new Product();
@@ -34,15 +35,15 @@ namespace BlTest
                     switch (choice)
                     {
                         case ActionsOnProducts.PRODUCTLIST:
-                            var lst = s_bl.Product.GetListOfProducts();
-                            foreach (var item in lst)
+                            var lst = s_bl?.Product.GetListOfProducts();
+                            foreach (var item in lst??throw new Exception("ERROR: One or more of the data is NULL"))
                                 Console.WriteLine(item);
                             break;
                         case ActionsOnProducts.GETPRODUCTDETAILSFORMANGER:
                             int id;
                             Console.WriteLine("enter id of product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            Console.WriteLine(s_bl.Product.GetProductDetails(id));
+                            Console.WriteLine(s_bl?.Product.GetProductDetails(id));
                             break;
                         case ActionsOnProducts.ADDPRODUCT:
                             double price;
@@ -63,12 +64,12 @@ namespace BlTest
                             Console.WriteLine("enter amount in stock of product:");
                             if (!int.TryParse(Console.ReadLine(), out stock)) throw new Exception("wrong input type");
                             s_addProduct.InStock = stock;
-                            s_bl.Product.AddProduct(s_addProduct);
+                            s_bl?.Product.AddProduct(s_addProduct);
                             break;
                         case ActionsOnProducts.DELETEPRODUCT:
                             Console.WriteLine("enter id to delete product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            s_bl.Product.DeleteProduct(id);
+                            s_bl?.Product.DeleteProduct(id);
                             break;
 
                         case ActionsOnProducts.UPDATEPRODUCT:
@@ -94,13 +95,13 @@ namespace BlTest
                             Console.WriteLine("enter amount in stock of product:");
                             if (!int.TryParse(Console.ReadLine(), out stock)) throw new Exception("wrong input type");
                             updateProduct.InStock = stock;
-                            s_bl.Product.UpdateProduct(updateProduct);
+                            s_bl?.Product.UpdateProduct(updateProduct);
                             break;
 
                         case ActionsOnProducts.GETPRODUCTDETAILS:
                             Console.WriteLine("enter id of product:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type");
-                            Console.WriteLine(s_bl.Product.GetProductDetails(id, s_newCart));
+                            Console.WriteLine(s_bl?.Product.GetProductDetails(id, s_newCart));
                             break;
                         case ActionsOnProducts.EXIT:
                             break;
@@ -146,25 +147,25 @@ namespace BlTest
                         case ActionOnOrder.ORDERDATAILS:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Order.GetOrderDetails(id));
+                            Console.WriteLine(s_bl?.Order.GetOrderDetails(id));
                             break;
                         case ActionOnOrder.ORDERLIST:
-                            Console.WriteLine(String.Join(" ", s_bl.Order.GetListOfOrder()));
+                            Console.WriteLine(String.Join(" ", s_bl?.Order.GetListOfOrder()??throw new Exception("ERROR: One or more of the data is NULL")));
                             break;
                         case ActionOnOrder.ORDERDALIVERYUPDATE:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Order.OrderDeliveryUpdate(id));
+                            Console.WriteLine(s_bl?.Order.OrderDeliveryUpdate(id));
                             break;
                         case ActionOnOrder.ORDERSHIPINGUPDATE:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Order.OrderShippingUpdate(id));
+                            Console.WriteLine(s_bl?.Order.OrderShippingUpdate(id));
                             break;
                         case ActionOnOrder.ORDERTRACKING:
                             Console.WriteLine("please insert order Id");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Order.OrderTracking(id));
+                            Console.WriteLine(s_bl?.Order.OrderTracking(id));
                             break;
                         case ActionOnOrder.EXIT:
                             break;
@@ -203,7 +204,7 @@ namespace BlTest
                             s_newCart.CustomerEmail = Console.ReadLine();
                             Console.WriteLine("enter id of product to add to cart:");
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Cart.AddProductToCart(s_newCart, id));
+                            Console.WriteLine(s_bl?.Cart.AddProductToCart(s_newCart, id));
                             break;
                         case ActionOnCart.UPDATEAMOUNT:
                             Console.WriteLine("please insert name:");
@@ -216,7 +217,7 @@ namespace BlTest
                             if (!int.TryParse(Console.ReadLine(), out id)) throw new Exception("wrong input type ");
                             Console.WriteLine("enter new amount of product:");
                             if (!int.TryParse(Console.ReadLine(), out amount)) throw new Exception("wrong input type ");
-                            Console.WriteLine(s_bl.Cart.UpdateProductAmount(s_newCart, amount, id));
+                            Console.WriteLine(s_bl?.Cart.UpdateProductAmount(s_newCart, amount, id));
                             break;
                         case ActionOnCart.CONFIRMORDER:
                             Console.WriteLine("please insert name:");
@@ -225,7 +226,7 @@ namespace BlTest
                             s_newCart.CostumerAdress = Console.ReadLine();
                             Console.WriteLine("please insert email address:");
                             s_newCart.CustomerEmail = Console.ReadLine();
-                            s_bl.Cart.OrderConfirmation(s_newCart);
+                            s_bl?.Cart.OrderConfirmation(s_newCart);
                             break;
                         case ActionOnCart.EXIT:
                             break;
