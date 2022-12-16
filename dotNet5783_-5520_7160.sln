@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stage0", "Stage0\Stage0.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4ADAB2B2-EC86-4923-8A6A-87304D5CA93A}"
 	ProjectSection(SolutionItems) = preProject
+		PL\MainWindow.xaml = PL\MainWindow.xaml
+		PL\MainWindow.xaml.cs = PL\MainWindow.xaml.cs
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -26,6 +28,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{9FCEFD5D-D5A7-4201-8F21-47B8C14403D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{9C045408-AAAD-4F14-9F1A-5324C029C81E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5ED29666-CC17-44E1-931F-BD892BDD461B}"
+	ProjectSection(SolutionItems) = preProject
+		xml\dal-config.xml = xml\dal-config.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

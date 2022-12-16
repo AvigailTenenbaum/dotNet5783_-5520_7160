@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
-using Dal;
 using DalApi;
 
 namespace BlImplementation;
@@ -14,11 +13,11 @@ namespace BlImplementation;
 /// </summary>
 internal class Product : BlApi.IProduct
 {
-    private IDal _dal = new DalList();
+    private DalApi.IDal? dal = DalApi.Factory.Get();
     public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.ProductForList?, bool>? func = null)
     {
-        //var v = _dal.Product.GetAllObject();
-        IEnumerable<BO.ProductForList?>productList= _dal.Product.GetAllObject().Select(
+        //var v = dal.Product.GetAllObject();
+        IEnumerable<BO.ProductForList?> productList= dal?.Product.GetAllObject().Select(
             product => new BO.ProductForList
             { 
                     ID = product?.ID ?? throw new BO.NullData(),
@@ -26,7 +25,7 @@ internal class Product : BlApi.IProduct
                     Category =(BO.Category?)product?.Category ?? throw new BO.NullData(), 
                     Price = product?.Price?? throw new BO.NullData()
              }
-        );
+        )??throw new BO.NullData();
         if (func!=null)
         {
             return productList.Where(product => func(product));
@@ -47,7 +46,7 @@ internal class Product : BlApi.IProduct
 
             try
             {
-                DO.Product? product = _dal.Product.GetObject(id);
+                DO.Product? product = dal?.Product.GetObject(id);
                 BO.Product newProduct = new BO.Product
                 {
                     ID = product?.ID??throw new NullData(),
@@ -76,7 +75,7 @@ internal class Product : BlApi.IProduct
         {
             try
             {
-                DO.Product? product = _dal.Product.GetObject(id);
+                DO.Product? product = dal?.Product.GetObject(id);
                 bool inStock = false;
                 if (product?.InStock > 0)
                     inStock = true;
@@ -112,7 +111,7 @@ internal class Product : BlApi.IProduct
             DO.Product p = new DO.Product() {Category=(DO.Category?)product.Category,ID=product.ID,Name=product.Name,Price=product.Price,InStock=product.InStock };
             try
             {
-                _dal.Product.AddObject(p);
+                dal?.Product.AddObject(p);
             }
             catch (DO.AllReadyExist e) { throw new BO.AllReadyExist(e); }
         }
@@ -122,10 +121,10 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     public void DeleteProduct(int id)
     {
-        IEnumerable<DO.Order?> orders = _dal.Order.GetAllObject();
+        IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject()??throw new BO.NullData();
         foreach (DO.Order? order in orders)
         {
-            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
+            IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
             foreach (DO.OrderItem? item in orderItems)
             {
                 if (item?.ProductID == id)
@@ -136,7 +135,7 @@ internal class Product : BlApi.IProduct
         }
         try
         {
-            _dal.Product.DeleteObject(id);
+            dal.Product.DeleteObject(id);
         }
         catch (DO.NotExist ex) { throw new BO.NotExist(ex); }
     }
@@ -155,7 +154,7 @@ internal class Product : BlApi.IProduct
             DO.Product p = new DO.Product() { Category = (DO.Category?)product.Category, ID = product.ID, Name = product.Name, Price = product.Price, InStock = product.InStock };
             try
             {
-                _dal.Product.UpDateObject(p);
+                dal?.Product.UpDateObject(p);
             }
 
 
