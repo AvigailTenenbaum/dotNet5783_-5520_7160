@@ -18,36 +18,57 @@ namespace BlImplementation;
     /// <returns></returns>
     public IEnumerable<BO.OrderForList?> GetListOfOrder()
     {
-      try
-        {
             IEnumerable<DO.Order?> orders=dal?.Order.GetAllObject()??throw new BO.NullData();
-            List<OrderForList?> orderForLists= new List<OrderForList?>();
-            foreach(DO.Order? order in orders)
-            { 
-            IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
-                BO.OrderForList orderForList = new BO.OrderForList
-                {
-                  ID = order?.ID??throw new BO.NullData(),
-                  CustomerName = order?.CustomerName ?? throw new BO.NullData(),
-                  AmountOfItems = 0,
-                 TotalPrice = 0 
-                };
-                if (order?.OrderDate< DateTime.Now)
-                    orderForList.Status = BO.OrderStatus.Approved;
-                if (order?.ShipDate < DateTime.Now)
-                    orderForList.Status = BO.OrderStatus.shipped;
-                if (order?.DeliveryDate < DateTime.Now)
-                    orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
-                foreach (DO.OrderItem? oi in orderItems)
-                {
-                    orderForList.AmountOfItems++;
-                    orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
-                }
-                orderForLists.Add(orderForList);
-            }
-            return orderForLists;
+        IEnumerable<DO.OrderItem?> items = dal.OrderItem.GetAllObject();
+
+            return from DO.Order item in orders
+                   let orderItems = items.Where(items => items?.OrderID == item.ID)
+                   select new BO.OrderForList()
+                   {
+                       ID = item.ID,
+                       CustomerName = item.CustomerName,
+                       Status = GetStatus(item),
+                       AmountOfItems = orderItems.Count(),
+                       TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
+                   };
+            //    List<OrderForList?> orderForLists= new List<OrderForList?>();
+            //    foreach(DO.Order? order in orders)
+            //    { 
+            //    IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
+            //        BO.OrderForList orderForList = new BO.OrderForList
+            //        {
+            //          ID = order?.ID??throw new BO.NullData(),
+            //          CustomerName = order?.CustomerName ?? throw new BO.NullData(),
+            //          AmountOfItems = 0,
+            //         TotalPrice = 0 
+            //        };
+            //        if (order?.OrderDate< DateTime.Now)
+            //            orderForList.Status = BO.OrderStatus.Approved;
+            //        if (order?.ShipDate < DateTime.Now)
+            //            orderForList.Status = BO.OrderStatus.shipped;
+            //        if (order?.DeliveryDate < DateTime.Now)
+            //            orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
+            //        foreach (DO.OrderItem? oi in orderItems)
+            //        {
+            //            orderForList.AmountOfItems++;
+            //            orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
+            //        }
+            //        orderForLists.Add(orderForList);
+            //    }
+            //    return orderForLists;
+            //}
+            //catch (Exception ex) { throw ex; }
         }
-        catch (Exception ex) { throw ex; }
+    /// <summary>
+    /// private function for calculate the status of the order by 3 station (ordered,shipped,deliverd)
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
+
+    private BO.OrderStatus GetStatus(DO.Order order)
+    {
+        return order.DeliveryDate != null ? BO.OrderStatus.deliveredTotheCustomer : order.ShipDate != null
+            ? BO.OrderStatus.shipped : BO.OrderStatus.Approved;
     }
     /// <summary>
     /// A method for an order details request that receives the fat identifier and returns its details if the identifier exists
@@ -56,8 +77,8 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Order GetOrderDetails(int id)
     {
-        DO.Order? order;
-        IEnumerable<DO.OrderItem?> orderItems;
+        DO.Order? order/*=new DO.Order()*/;
+        //IEnumerable<DO.OrderItem?> orderItems;
         if (id > 0)
         {
             try
@@ -65,41 +86,75 @@ namespace BlImplementation;
                 order = dal?.Order.GetObject(id);
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            try { orderItems = dal?.OrderItem.GetAllObject(item =>item?.OrderID==id)??throw new BO.NullData(); }
+            //    try { orderItems = dal?.OrderItem.GetAllObject(item =>item?.OrderID==id)??throw new BO.NullData(); }
 
-            catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            BO.Order getOrder = new BO.Order { ID = order?.ID??throw new BO.NullData(), CustomerName = order?.CustomerName??throw new BO.NullData(), CustomerEmail = order?.CustomerEmail??throw new BO.NullData(), CustomerAdress = order?.CustomerAddress??throw new BO.NullData(), OrderDate = order?.OrderDate, ShipDate = order?.ShipDate, DeliveryDate = order?.DeliveryDate,Items=new List<BO.OrderItem?>() };
-            if (order?.OrderDate < DateTime.Now)
-                getOrder.Status = BO.OrderStatus.Approved;
-            if (order?.ShipDate < DateTime.Now)
-                getOrder.Status = BO.OrderStatus.shipped;
-            if (order?.DeliveryDate < DateTime.Now)
-                getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
-            
-            foreach (DO.OrderItem? orderItem in orderItems)
+            //    catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            //    BO.Order getOrder = new BO.Order { ID = order?.ID??throw new BO.NullData(), CustomerName = order?.CustomerName??throw new BO.NullData(), CustomerEmail = order?.CustomerEmail??throw new BO.NullData(), CustomerAdress = order?.CustomerAddress??throw new BO.NullData(), OrderDate = order?.OrderDate, ShipDate = order?.ShipDate, DeliveryDate = order?.DeliveryDate,Items=new List<BO.OrderItem?>() };
+            //    if (order?.OrderDate < DateTime.Now)
+            //        getOrder.Status = BO.OrderStatus.Approved;
+            //    if (order?.ShipDate < DateTime.Now)
+            //        getOrder.Status = BO.OrderStatus.shipped;
+            //    if (order?.DeliveryDate < DateTime.Now)
+            //        getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
+
+            //    foreach (DO.OrderItem? orderItem in orderItems)
+            //    {
+            //        BO.OrderItem orderItem1 = new BO.OrderItem
+            //        {
+            //            ID = orderItem?.ID?? throw new BO.NullData(),
+            //            ProductID = orderItem?.ProductID ?? throw new BO.NullData(),
+            //            Price = orderItem?.Price ?? throw new BO.NullData(),
+            //            Amount = orderItem?.Amount ?? throw new BO.NullData(),
+            //            TotalPrice = orderItem?.Price??0* orderItem?.Amount??0,//can't be null here
+            //        };
+            //        getOrder.Items.Add(orderItem1);
+            //        getOrder.TotalPrice += orderItem1.TotalPrice;
+            //    }
+            //    return getOrder;
+            //}
+            return new BO.Order()
             {
-                BO.OrderItem orderItem1 = new BO.OrderItem
-                {
-                    ID = orderItem?.ID?? throw new BO.NullData(),
-                    ProductID = orderItem?.ProductID ?? throw new BO.NullData(),
-                    Price = orderItem?.Price ?? throw new BO.NullData(),
-                    Amount = orderItem?.Amount ?? throw new BO.NullData(),
-                    TotalPrice = orderItem?.Price??0* orderItem?.Amount??0,//can't be null here
-                };
-                getOrder.Items.Add(orderItem1);
-                getOrder.TotalPrice += orderItem1.TotalPrice;
-            }
-            return getOrder;
+                ID = order?.ID??throw new BO.NullData(),
+                CustomerName = order?.CustomerName,
+                Status = GetStatus((DO.Order)order),
+                CustomerAdress = order?.CustomerAddress ?? throw new BO.NullData(),
+                CustomerEmail = order?.CustomerEmail ?? throw new BO.NullData(),
+                DeliveryDate = order?.DeliveryDate ?? throw new BO.NullData(),
+                OrderDate = order?.OrderDate ?? throw new BO.NullData(),
+                ShipDate = order?.ShipDate ?? throw new BO.NullData(),
+                Items = (List<BO.OrderItem?>)GetListOfOrderItem(dal?.OrderItem.GetAllObject().Where(x => x?.OrderID == order?.ID)),
+                TotalPrice = GetListOfOrderItem(dal?.OrderItem.GetAllObject().Where(x => x?.OrderID == order?.ID)).Sum(x => x!.TotalPrice),
+            };
         }
         else
             throw new BO.InCorrectData();
     }
-    /// <summary>
-    /// A method for updating an order shipment that receives an order number and updates the ship date if the order exists
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public BO.Order OrderShippingUpdate(int id)
+        /// <summary>
+        /// private function for get the list of the  order item for each order instead of doing it inside the function above 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+
+        private IEnumerable<BO.OrderItem?> GetListOfOrderItem(IEnumerable<DO.OrderItem?> list)
+        {
+            return from DO.OrderItem item in list
+                   select new BO.OrderItem()
+                   {
+                       ID = item.ID,
+                       Name = dal!.Product.GetObject(item.ProductID)?.Name,
+                       Price = item.Price,
+                       Amount = item.Amount,
+                       TotalPrice = item.Price * item.Amount,
+                       ProductID = dal.Product.GetObject(item.ProductID)?.ID ?? throw new BO.NullData()
+                   };
+        }
+
+        /// <summary>
+        /// A method for updating an order shipment that receives an order number and updates the ship date if the order exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public BO.Order OrderShippingUpdate(int id)
     {
         DO.Order order;
         try { order = (DO.Order)dal?.Order.GetObject(id)!; }catch(DO.NotExist e) { throw new BO.NotExist(e); }

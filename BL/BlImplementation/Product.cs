@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlApi;
 using BO;
 using DalApi;
+using DO;
 
 namespace BlImplementation;
 /// <summary>
@@ -73,25 +74,47 @@ internal class Product : BlApi.IProduct
     {
         if (id > 0)
         {
+            DO.Product? product;
+
             try
             {
-                DO.Product? product = dal?.Product.GetObject(id);
-                bool inStock = false;
-                if (product?.InStock > 0)
-                    inStock = true;
-                int amount = 0;
-                if (cart.Items?.Count > 0)
-                {
-                    foreach (BO.OrderItem? orderItem in cart.Items)
-                    {
-                        if (orderItem?.ID == product?.ID)
-                            amount = orderItem?.Amount??0;
-                    }
-                }
-                BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category?)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
-                return productItem;
+                product = dal!.Product.GetObject(id);
             }
-            catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            catch (DO.NotExist ex)//product doesnt exist
+            {
+                throw new BO.NotExist(ex);
+            }
+            /// return the productItem 
+            return new BO.ProductItem()///builiding a productItem
+            {
+                ID = product?.ID ?? throw new BO.NullData(),
+                Name = product?.Name ?? throw new BO.NullData(),
+                InStock = product?.InStock > 0 ? true : false,
+                Category = (BO.Category)(product?.Category ?? throw new BO.NullData()),
+                Price = product?.Price ?? throw new BO.NullData(),
+                AmountInCart = cart.Items is null ? 0 : cart.Items.Where(x => x?.ProductID == id).Sum(x => x!.Amount)
+
+            };
+
+            //try
+            //{
+            //    DO.Product? product = dal?.Product.GetObject(id);
+            //    bool inStock = false;
+            //    if (product?.InStock > 0)
+            //        inStock = true;
+            //    int amount = 0;
+            //    if (cart.Items?.Count > 0)
+            //    {
+            //        foreach (BO.OrderItem? orderItem in cart.Items)
+            //        {
+            //            if (orderItem?.ID == product?.ID)
+            //                amount = orderItem?.Amount??0;
+            //        }
+            //    }
+            //    BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category?)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
+            //    return productItem;
+            //}
+            //catch (DO.NotExist e) { throw new BO.NotExist(e); }
         }
         else
             throw new BO.InCorrectData();

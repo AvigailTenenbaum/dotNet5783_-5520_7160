@@ -62,15 +62,19 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="Exception"></exception>
     public void UpDateObject(OrderItem o)
     {
-        for (int i = 0; i < DataSource.items.Count(); i++)
-        {
-            if (DataSource.items[i]?.ID == o.ID)
-            {
-                DataSource.items[i] = o;
-                return;
-            }
-        }
-        throw new NotExist();
+        int i = DataSource.items.FindIndex(item => item?.ID == o.ID);
+        if (i == -1)
+            throw new NotExist();
+        DataSource.items[i] = o;
+        //for (int i = 0; i < DataSource.items.Count(); i++)
+        //{
+        //    if (DataSource.items[i]?.ID == o.ID)
+        //    {
+        //        DataSource.items[i] = o;
+        //        return;
+        //    }
+        //}
+        //throw new NotExist();
     }
     /// <summary>
     /// get all the orderItems with this orderId
@@ -100,14 +104,17 @@ internal class DalOrderItem :IorderItem
     /// <exception cref="CanNotFound"></exception>
     public OrderItem? GetObjectByFilter(Func<OrderItem?, bool>? func)
     {
-        foreach (var orderItem in DataSource.items)
-        {
-            if (func!(orderItem))
-            {
-                return orderItem;
-            }
-        }
-        throw new NotExist();
+        if (DataSource.items.FirstOrDefault(item => func!(item)) == null)
+            throw new NotExist();
+        return DataSource.items.FirstOrDefault(item => func!(item));
+        //foreach (var orderItem in DataSource.items)
+        //{
+        //    if (func!(orderItem))
+        //    {
+        //        return orderItem;
+        //    }
+        //}
+        //throw new NotExist();
     }
 
 }

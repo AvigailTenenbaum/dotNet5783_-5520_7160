@@ -15,14 +15,16 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public int AddObject(Product o1)
     {
-        for (int i = 0; i < DataSource.products.Count; i++)
-        {
-            if (DataSource.products[i]?.ID == o1.ID)
-            {
-                throw new AllReadyExist();
-            }
-        }
-        DataSource.products.Add( o1);
+        //for (int i = 0; i < DataSource.products.Count; i++)
+        //{
+        //    if (DataSource.products[i]?.ID == o1.ID)
+        //    {
+        //        throw new AllReadyExist();
+        //    }
+        //}
+        if (DataSource.products.FirstOrDefault(item=> item?.ID == o1.ID)!=null)
+            throw new AllReadyExist();
+        DataSource.products.Add(o1);
         return o1.ID;
     }
     /// <summary>
@@ -66,15 +68,19 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public void UpDateObject(Product p)
     {
-        for (int i = 0; i < DataSource.products.Count; i++)
-        {
-            if (DataSource.products[i]?.ID == p.ID)
-            {
-                DataSource.products[i] = p;
-                return;
-            }
-        }
-        throw new NotExist();
+        int i = DataSource.products.FindIndex(item => item?.ID == p.ID);
+        if (i == -1)
+            throw new NotExist();
+        DataSource.products[i] = p;
+        //for (int i = 0; i < DataSource.products.Count; i++)
+        //{
+        //    if (DataSource.products[i]?.ID == p.ID)
+        //    {
+        //        DataSource.products[i] = p;
+        //        return;
+        //    }
+        //}
+        //throw new NotExist();
     }
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
@@ -84,13 +90,16 @@ internal class DalProduct :Iproduct
     /// <exception cref="CanNotFound"></exception>
     public Product? GetObjectByFilter(Func<Product?, bool>? func)
     {
-        foreach (var product in DataSource.products)
-        {
-            if (func!(product))
-            {
-                return product;
-            }
-        }
-        throw new NotExist();
+        if (DataSource.products.FirstOrDefault(item => func!(item)) == null)
+            throw new NotExist();
+        return DataSource.products.FirstOrDefault(item => func!(item));
+        //foreach (var product in DataSource.products)
+        //{
+        //    if (func!(product))
+        //    {
+        //        return product;
+        //    }
+        //}
+        //throw new NotExist();
     }
 }
