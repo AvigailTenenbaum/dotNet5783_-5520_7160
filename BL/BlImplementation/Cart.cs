@@ -238,7 +238,7 @@ namespace BlImplementation;
                                                         Name = item.Name,
                                                         Price = item.Price,
                                                         Category = dal.Product.GetObject(item.ProductID)?.Category,
-                                                        InStock = (dal.Product.GetObject(item.ProductID))?.InStock - item.Amount
+                                                        InStock = (int)(dal.Product.GetObject(item.ProductID))?.InStock - item.Amount
                                                     };
 
 
