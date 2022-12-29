@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace BlImplementation;
 
-    internal class Order: BlApi.IOrder
-    {
+internal class Order : BlApi.IOrder
+{
     private DalApi.IDal? dal = DalApi.Factory.Get();
     /// <summary>
     /// A method for requesting a list of orders
@@ -18,47 +18,48 @@ namespace BlImplementation;
     /// <returns></returns>
     public IEnumerable<BO.OrderForList?> GetListOfOrder()
     {
-            IEnumerable<DO.Order?> orders=dal?.Order.GetAllObject()??throw new BO.NullData();
+        IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject() ?? throw new BO.NullData();
         IEnumerable<DO.OrderItem?> items = dal.OrderItem.GetAllObject();
 
-            return from DO.Order item in orders
-                   let orderItems = items.Where(items => items?.OrderID == item.ID)
-                   select new BO.OrderForList()
-                   {
-                       ID = item.ID,
-                       CustomerName = item.CustomerName,
-                       Status = GetStatus(item),
-                       AmountOfItems = orderItems.Count(),
-                       TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
-                   };
-            //    List<OrderForList?> orderForLists= new List<OrderForList?>();
-            //    foreach(DO.Order? order in orders)
-            //    { 
-            //    IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
-            //        BO.OrderForList orderForList = new BO.OrderForList
-            //        {
-            //          ID = order?.ID??throw new BO.NullData(),
-            //          CustomerName = order?.CustomerName ?? throw new BO.NullData(),
-            //          AmountOfItems = 0,
-            //         TotalPrice = 0 
-            //        };
-            //        if (order?.OrderDate< DateTime.Now)
-            //            orderForList.Status = BO.OrderStatus.Approved;
-            //        if (order?.ShipDate < DateTime.Now)
-            //            orderForList.Status = BO.OrderStatus.shipped;
-            //        if (order?.DeliveryDate < DateTime.Now)
-            //            orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
-            //        foreach (DO.OrderItem? oi in orderItems)
-            //        {
-            //            orderForList.AmountOfItems++;
-            //            orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
-            //        }
-            //        orderForLists.Add(orderForList);
-            //    }
-            //    return orderForLists;
-            //}
-            //catch (Exception ex) { throw ex; }
-        }
+        return from DO.Order item in orders
+               let orderItems = items.Where(items => items?.OrderID == item.ID)
+               select new BO.OrderForList()
+               {
+                   ID = item.ID,
+                   CustomerName = item.CustomerName,
+                   Status = GetStatus(item),
+                   AmountOfItems = orderItems.Count(),
+                   TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
+               };
+        //    List<OrderForList?> orderForLists= new List<OrderForList?>();
+        //    foreach(DO.Order? order in orders)
+        //    { 
+        //    IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
+        //        BO.OrderForList orderForList = new BO.OrderForList
+        //        {
+        //          ID = order?.ID??throw new BO.NullData(),
+        //          CustomerName = order?.CustomerName ?? throw new BO.NullData(),
+        //          AmountOfItems = 0,
+        //         TotalPrice = 0 
+        //        };
+        //        if (order?.OrderDate< DateTime.Now)
+        //            orderForList.Status = BO.OrderStatus.Approved;
+        //        if (order?.ShipDate < DateTime.Now)
+        //            orderForList.Status = BO.OrderStatus.shipped;
+        //        if (order?.DeliveryDate < DateTime.Now)
+        //            orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
+        //        foreach (DO.OrderItem? oi in orderItems)
+        //        {
+        //            orderForList.AmountOfItems++;
+        //            orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
+        //        }
+        //        orderForLists.Add(orderForList);
+        //    }
+        //    return orderForLists;
+        //}
+        //catch (Exception ex) { throw ex; }
+
+    }
     /// <summary>
     /// private function for calculate the status of the order by 3 station (ordered,shipped,deliverd)
     /// </summary>
@@ -77,54 +78,56 @@ namespace BlImplementation;
     /// <returns></returns>
     public BO.Order GetOrderDetails(int id)
     {
-        DO.Order? order/*=new DO.Order()*/;
-        //IEnumerable<DO.OrderItem?> orderItems;
+        DO.Order order = new DO.Order();
+        IEnumerable<DO.OrderItem?> orderItems;
         if (id > 0)
         {
             try
             {
-                order = dal?.Order.GetObject(id);
+                order = dal?.Order.GetObject(id)??throw new BO.NullData();
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            //    try { orderItems = dal?.OrderItem.GetAllObject(item =>item?.OrderID==id)??throw new BO.NullData(); }
+            try { orderItems = dal?.OrderItem.GetAllObject(item => item?.OrderID == id) ?? throw new BO.NullData(); }
 
-            //    catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            //    BO.Order getOrder = new BO.Order { ID = order?.ID??throw new BO.NullData(), CustomerName = order?.CustomerName??throw new BO.NullData(), CustomerEmail = order?.CustomerEmail??throw new BO.NullData(), CustomerAdress = order?.CustomerAddress??throw new BO.NullData(), OrderDate = order?.OrderDate, ShipDate = order?.ShipDate, DeliveryDate = order?.DeliveryDate,Items=new List<BO.OrderItem?>() };
-            //    if (order?.OrderDate < DateTime.Now)
-            //        getOrder.Status = BO.OrderStatus.Approved;
-            //    if (order?.ShipDate < DateTime.Now)
-            //        getOrder.Status = BO.OrderStatus.shipped;
-            //    if (order?.DeliveryDate < DateTime.Now)
-            //        getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
-
-            //    foreach (DO.OrderItem? orderItem in orderItems)
-            //    {
-            //        BO.OrderItem orderItem1 = new BO.OrderItem
-            //        {
-            //            ID = orderItem?.ID?? throw new BO.NullData(),
-            //            ProductID = orderItem?.ProductID ?? throw new BO.NullData(),
-            //            Price = orderItem?.Price ?? throw new BO.NullData(),
-            //            Amount = orderItem?.Amount ?? throw new BO.NullData(),
-            //            TotalPrice = orderItem?.Price??0* orderItem?.Amount??0,//can't be null here
-            //        };
-            //        getOrder.Items.Add(orderItem1);
-            //        getOrder.TotalPrice += orderItem1.TotalPrice;
-            //    }
-            //    return getOrder;
-            //}
-            return new BO.Order()
-            {
-                ID = order?.ID??throw new BO.NullData(),
-                CustomerName = order?.CustomerName,
-                Status = GetStatus((DO.Order)order),
-                CustomerAdress = order?.CustomerAddress ?? throw new BO.NullData(),
-                CustomerEmail = order?.CustomerEmail ?? throw new BO.NullData(),
-                DeliveryDate = order?.DeliveryDate ?? throw new BO.NullData(),
-                OrderDate = order?.OrderDate ?? throw new BO.NullData(),
-                ShipDate = order?.ShipDate ?? throw new BO.NullData(),
-                Items = (List<BO.OrderItem?>)GetListOfOrderItem(dal?.OrderItem.GetAllObject().Where(x => x?.OrderID == order?.ID)),
-                TotalPrice = GetListOfOrderItem(dal?.OrderItem.GetAllObject().Where(x => x?.OrderID == order?.ID)).Sum(x => x!.TotalPrice),
+            catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            BO.Order getOrder = new BO.Order  
+            {   ID = order.ID ,
+                CustomerName = order.CustomerName,
+                CustomerEmail = order.CustomerEmail,
+                CustomerAdress = order.CustomerAddress, 
+                OrderDate = order.OrderDate,
+                ShipDate = order.ShipDate,
+                DeliveryDate = order.DeliveryDate, 
+                Items = new List<BO.OrderItem?>()
             };
+            if (order.OrderDate < DateTime.Now)
+                getOrder.Status = BO.OrderStatus.Approved;
+            if (order.ShipDate < DateTime.Now)
+                getOrder.Status = BO.OrderStatus.shipped;
+            if (order.DeliveryDate < DateTime.Now)
+                getOrder.Status = BO.OrderStatus.deliveredTotheCustomer;
+            IEnumerable<BO.OrderItem?> orderItems1;
+            try
+            {
+                orderItems1 = from oi in orderItems
+                              let OItem = new BO.OrderItem()
+                              {
+                                  ID = oi?.ID ?? throw new BO.NullData(),
+                                  Name = dal.Product.GetObject(oi?.ProductID ?? throw new BO.NullData())?.Name,
+                                  ProductID = oi?.ProductID ?? throw new NullData(),
+                                  Price = oi?.Price ?? throw new NullData(),
+                                  Amount = oi?.Amount ?? throw new NullData(),
+                                  TotalPrice = oi?.Price * oi?.Amount ?? throw new NullData(),
+                              }
+                              select OItem;
+            }
+            catch (Exception ex)
+            {
+                throw new NotPossibleToFillRequest();
+            }
+            getOrder.Items=orderItems1.ToList();
+            getOrder.TotalPrice = getOrder.Items.Sum(o => o?.TotalPrice ?? throw new NullData());
+            return getOrder;
         }
         else
             throw new BO.InCorrectData();

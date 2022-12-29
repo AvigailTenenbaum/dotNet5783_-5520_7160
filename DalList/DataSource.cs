@@ -77,7 +77,7 @@ namespace Dal;
                 if (num.Next(0, 100) > 40)
                     order.DeliveryDate = order.ShipDate.Value.AddDays(num.Next(1, 4));
                 else
-                    order.DeliveryDate = DateTime.MinValue;
+                    order.DeliveryDate =null;
             }
 
             else

@@ -1,5 +1,4 @@
-﻿using PL.Orders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,26 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.Orders
 {
     /// <summary>
-    /// Interaction logic for AdminWindow.xaml
+    /// Interaction logic for OrderWindow.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class OrderWindow : Window
     {
-        BlApi.IBl? bl = BlApi.Factory.Get();
-        public AdminWindow()
+        BlApi.IBl? _bl;
+        public BO.Order Order { set; get; }
+        public OrderWindow(int id, BlApi.IBl? bl)
         {
+            DataContext = this;
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           new OrderListWindow(bl).ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+            _bl = bl;
+            Order=_bl!.Order.GetOrderDetails(id);
 
         }
     }

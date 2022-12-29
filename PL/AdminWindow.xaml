@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="/Hazorfimlogo.jpg"/>
+        </Grid.Background>
+        <Button Content="Product list" HorizontalAlignment="Left" Margin="192,295,0,0" VerticalAlignment="Top" Height="67" Width="155" FontFamily="Broadway" FontSize="18" Click="Button_Click_1"/>
+        <Button Content="Order list" HorizontalAlignment="Left" Margin="480,295,0,0" VerticalAlignment="Top" Height="67" Width="155" FontFamily="Broadway" FontSize="18" Click="Button_Click"/>
     </Grid>
 </Window>

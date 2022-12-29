@@ -75,7 +75,5 @@ namespace PL.Products
                 ProductListview.ItemsSource = bl?.Product.GetListOfProducts(product => product!.Category == (BO.Category)CategorySelector.SelectedItem);
 
         }
-
-
     }
 }
