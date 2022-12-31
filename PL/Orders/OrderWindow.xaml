@@ -20,57 +20,56 @@
         <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="56,284,0,0" VerticalAlignment="Top" Height="31" Width="193" FontFamily="Broadway" FontSize="18"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="56,320,0,0" VerticalAlignment="Top" Height="31" Width="193" FontFamily="Broadway" FontSize="18"/>
         <Label Content="Items:" HorizontalAlignment="Left" Margin="553,32,0,0" VerticalAlignment="Top" Height="31" Width="77" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="{Binding Order.ID}" HorizontalAlignment="Left" Margin="346,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="id" Content="{Binding Order.ID}" HorizontalAlignment="Left" Margin="346,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="119" Height="32" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left"  Margin="346,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="name" Content="{Binding Order.CustomerName}" HorizontalAlignment="Left"  Margin="346,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="119" Height="32" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="{Binding Order.Price}" HorizontalAlignment="Left" Margin="346,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" Height="29" >
+        <Label x:Name="email" Content="{Binding Order.CustomerEmail}" HorizontalAlignment="Left" Margin="346,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="177" Height="29" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="address" Content="{Binding Order.CustomerAdress}" HorizontalAlignment="Left" Margin="346,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="156" Height="32" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="totalPrice" Content="{Binding Order.TotalPrice}" HorizontalAlignment="Left" Margin="346,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="119" Height="36" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="status" Content="{Binding Order.Status}" HorizontalAlignment="Left" Margin="346,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="119" Height="30" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="553,75,29,83">
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="553,75,29,83" ItemsSource="{Binding Order.Items}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="481,0,0,0" VerticalAlignment="Center" Height="21"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="481,243,0,0" VerticalAlignment="Top" Height="21"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="481,284,0,0" VerticalAlignment="Top" Height="20"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Button Content="Update" HorizontalAlignment="Left" Margin="278,248,0,0" VerticalAlignment="Top" Height="21" Visibility="{Binding ElementName=shipdate, Path=Content, Converter={StaticResource nullToVisebilityConverter}}" Click="Button_Click" />
+        <Button Content="Update" HorizontalAlignment="Left" Margin="278,285,0,0" VerticalAlignment="Top" Height="20" Visibility="{Binding ElementName=deliveryDate, Path=Content, Converter={StaticResource nullToVisebilityConverter}}" Click="Button_Click_1" />
+        <Label x:Name="orderDate" Content="{Binding Order.OrderDate}" HorizontalAlignment="Left" Margin="346,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="156" Height="31" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="shipdate" Content="{Binding Order.ShipDate}" HorizontalAlignment="Left" Margin="346,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="156" Height="32" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Label Content="" HorizontalAlignment="Left" Margin="346,280,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="87" >
+        <Label x:Name="deliveryDate" Content="{Binding Order.DeliveryDate}" HorizontalAlignment="Left" Margin="346,280,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="156" Height="30" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>

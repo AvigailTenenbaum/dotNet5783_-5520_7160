@@ -12,9 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-public enum Category
+public enum Category1
 {
-   saturday, holidays, toSeferTorah, giftsForHome, handMade, NONE
+    saturday, holidays, toSeferTorah, giftsForHome, handMade, NONE
 };
 namespace PL.Products
 {
@@ -29,9 +29,9 @@ namespace PL.Products
             //Initialize the appropriate controls in the window
             InitializeComponent();
             ProductListview.ItemsSource = bl.Product.GetListOfProducts();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(Category));
-            CategorySelector.SelectedItem = Category.NONE;
-           
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(global::Category1));
+            CategorySelector.SelectedItem = global::Category1.NONE;
+
         }
         /// <summary>
         /// Select a category to filter the list
@@ -40,14 +40,14 @@ namespace PL.Products
         /// <param name="e"></param>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem.Equals(Category.NONE))//Back to the state where you see the whole list
+            if (CategorySelector.SelectedItem.Equals(global::Category1.NONE))//Back to the state where you see the whole list
             {
                 ProductListview.ItemsSource = bl?.Product.GetListOfProducts();
             }
             else
             {
                 ProductListview.ItemsSource = bl?.Product.GetListOfProducts
-                    (product => product!.Category==(BO.Category) CategorySelector.SelectedItem);
+                    (product => product!.Category == (BO.Category)CategorySelector.SelectedItem);
             }
         }
         /// <summary>
@@ -58,7 +58,7 @@ namespace PL.Products
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow(bl).ShowDialog();
-            ProductListview.ItemsSource= bl?.Product.GetListOfProducts();
+            ProductListview.ItemsSource = bl?.Product.GetListOfProducts();
         }
         /// <summary>
         /// Opening a product window for update
@@ -67,9 +67,9 @@ namespace PL.Products
         /// <param name="e"></param>
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(ProductListview.SelectedItem==null) return;
+            if (ProductListview.SelectedItem == null) return;
             new ProductWindow(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
-            if(CategorySelector.SelectedItem.Equals(Category.NONE))
+            if (CategorySelector.SelectedItem.Equals(global::Category1.NONE))
                 ProductListview.ItemsSource = bl?.Product.GetListOfProducts();
             else
                 ProductListview.ItemsSource = bl?.Product.GetListOfProducts(product => product!.Category == (BO.Category)CategorySelector.SelectedItem);

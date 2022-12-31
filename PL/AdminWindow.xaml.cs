@@ -1,4 +1,5 @@
 ﻿using PL.Orders;
+using PL.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,12 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           new OrderListWindow(bl).ShowDialog();
+           new OrderListWindow().ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            new ProductListWindowFinal().ShowDialog();
         }
     }
 }

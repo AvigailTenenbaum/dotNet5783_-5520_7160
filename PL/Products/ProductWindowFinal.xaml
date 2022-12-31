@@ -1,0 +1,26 @@
+﻿<Window x:Class="PL.Products.ProductWindowFinal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Products"
+        mc:Ignorable="d"
+        Title="ProductWindowFinal" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="addButton"  Content="Add" HorizontalAlignment="Left" Margin="160,346,0,0" VerticalAlignment="Top" Click="addButton_Click" Visibility="{Binding Product.ID, Converter={StaticResource nullToVisebilityConverter}}"/>
+        <Button x:Name="updateButton"  Content="Update" HorizontalAlignment="Left" Margin="204,346,0,0" VerticalAlignment="Top" Click="updateButton_Click" Visibility="{Binding Product, Converter={StaticResource notNullToVisebilityConverter}}"/>
+        <StackPanel x:Name="stackPanelLabels" Margin="125,60,520,93">
+            <Label x:Name="idLabel" Content="id:" Height="50" Width="66"/>
+            <Label x:Name="nameLabel" Content="name:" Height="50" Width="66"/>
+            <Label x:Name="categoryLabel" Content="category:" Height="50" Width="66"/>
+            <Label x:Name="priceLabel" Content="price:" Height="50" Width="66"/>
+            <Label x:Name="inStockLabel" Content="in stock:" Height="50" Width="66"/>
+        </StackPanel>
+        <TextBox x:Name="idTextBox" TextWrapping="Wrap"  Margin="340,57,322,333" Text="{Binding Product.ID}" IsReadOnly="{Binding Product, Converter={StaticResource nullToBooleanConverter}}"/>
+        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="{Binding Product.Name}" Margin="340,106,322,282"/>
+        <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233" ItemsSource="{Binding }" SelectedItem="{Binding Product.Category}" />
+        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="{Binding Product.Price}" Margin="340,206,322,183" />
+        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="{Binding Product.InStock}" Margin="340,256,322,133" />
+
+    </Grid>
+</Window>

@@ -19,15 +19,28 @@ namespace PL.Orders
     /// </summary>
     public partial class OrderWindow : Window
     {
-        BlApi.IBl? _bl;
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public BO.Order Order { set; get; }
-        public OrderWindow(int id, BlApi.IBl? bl)
+        public OrderWindow(int id)
         {
+            Order = bl!.Order.GetOrderDetails(id);
             DataContext = this;
             InitializeComponent();
-            _bl = bl;
-            Order=_bl!.Order.GetOrderDetails(id);
+            
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+             bl!.Order.OrderShippingUpdate((int)id.Content);
+            Order = bl.Order.GetOrderDetails(Order.ID);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+          
+            bl!.Order.OrderDeliveryUpdate((int)id.Content);
+            Order = bl.Order.GetOrderDetails(Order.ID);
         }
     }
 }

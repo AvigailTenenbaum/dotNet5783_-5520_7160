@@ -82,8 +82,8 @@ namespace Dal;
 
             else
             {
-                order.ShipDate = DateTime.MinValue;
-                order.DeliveryDate = DateTime.MinValue;
+                order.ShipDate = null;
+                order.DeliveryDate = null;
             }
             orders.Add(order);
         }
