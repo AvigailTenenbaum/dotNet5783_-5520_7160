@@ -2,11 +2,7 @@
 //Noa Landman 213877160
 //Avigail Tenenbaum 213865520
 //we did the bonus!!!!!!!!!
-using Dal;
 using DO;
-using DalApi;
-using System.Security.Cryptography.X509Certificates;
-using System.Reflection.Metadata;
 
 namespace DalTest
 {
@@ -39,7 +35,7 @@ namespace DalTest
                             Console.WriteLine("Enter the product id");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine("Enter the product name");
-                            name = Console.ReadLine() ??throw new Exception("one or more of the values you entered is missing ");
+                            name = Console.ReadLine() ?? throw new Exception("one or more of the values you entered is missing ");
                             Console.WriteLine("Enter the product category");
                             Category category;
                             Category.TryParse(Console.ReadLine(), out category);
@@ -61,7 +57,7 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out id);
                             Product? p = dal?.Product.GetObject(id); Console.WriteLine(p); break;
                         }
-                    case 'c': IEnumerable<Product?> pArr = dal?.Product.GetAllObject()??throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ",pArr));break;
+                    case 'c': IEnumerable<Product?> pArr = dal?.Product.GetAllObject() ?? throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ", pArr)); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the product id");
@@ -96,7 +92,7 @@ namespace DalTest
         /// </summary>
         void orderFunction()
         {
-           
+
             int id;
             char tav;
             string name;
@@ -139,7 +135,7 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out id);
                             Order? o = dal?.Order.GetObject(id); Console.WriteLine(o); break;
                         }
-                    case 'c': IEnumerable<Order?> oArr = dal?.Order.GetAllObject()??throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ", oArr)); break;
+                    case 'c': IEnumerable<Order?> oArr = dal?.Order.GetAllObject() ?? throw new Exception("ERROR: One or more of the data is NULL"); Console.WriteLine(string.Join(" ", oArr)); break;
                     case 'd':
                         {
                             Console.WriteLine("Enter the order id");
@@ -196,7 +192,7 @@ namespace DalTest
                             oi1.OrderID = orderId;
                             oi1.ProductID = productId;
                             oi1.Price = price;
-                            oi1.Amount = amount;dal.OrderItem.AddObject(oi1); break;
+                            oi1.Amount = amount; dal.OrderItem.AddObject(oi1); break;
                         }
                     case 'b':
                         {

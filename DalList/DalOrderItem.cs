@@ -1,12 +1,11 @@
 ﻿
 
-using DO;
 using DalApi;
-using System.Collections.Generic;
+using DO;
 
 namespace Dal;
 
-internal class DalOrderItem :IorderItem
+internal class DalOrderItem : IorderItem
 {
     /// <summary>
     /// A function for adding an object
@@ -36,11 +35,11 @@ internal class DalOrderItem :IorderItem
     /// <returns></returns>
     public IEnumerable<OrderItem?> GetAllObject(Func<OrderItem?, bool>? func = null)
     {
-        if(func == null)
+        if (func == null)
         {
             return DataSource.items.Select(orderItem => orderItem);
         }
-        return DataSource.items.Where(orderItem =>func(orderItem));
+        return DataSource.items.Where(orderItem => func(orderItem));
 
     }
     /// <summary>
@@ -51,7 +50,7 @@ internal class DalOrderItem :IorderItem
     public void DeleteObject(int id)
     {
         OrderItem? o1 = DataSource.items.Find(o => o?.ID == id);
-        if (o1==null)
+        if (o1 == null)
             throw new NotExist();
         DataSource.items.Remove(o1.Value);
     }
@@ -81,9 +80,9 @@ internal class DalOrderItem :IorderItem
     /// </summary>
     /// <param name="orderId"></param>
     /// <returns></returns>
-   public IEnumerable<OrderItem?> GetAllOrderItems(int orderId)
+    public IEnumerable<OrderItem?> GetAllOrderItems(int orderId)
     {
-       return GetAllObject(item => item?.OrderID == orderId);
+        return GetAllObject(item => item?.OrderID == orderId);
     }
     /// <summary>
     /// get orderItem by two orderId
@@ -92,7 +91,7 @@ internal class DalOrderItem :IorderItem
     /// <param name="productId"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-   public OrderItem? GetOrderItem(int orderId, int productId)
+    public OrderItem? GetOrderItem(int orderId, int productId)
     {
         return GetObjectByFilter(item => item?.OrderID == orderId && item?.ProductID == productId);
     }

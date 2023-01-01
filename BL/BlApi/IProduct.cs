@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BO;
+﻿using BO;
 namespace BlApi;
 /// <summary>
 /// Interface for operations on a product
 /// </summary>
 public interface IProduct
- {
+{
     /// <summary>
     /// Method for product list request
     /// </summary>
     /// <returns></returns>
     public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.ProductForList?, bool>? func = null);
+
+    public IEnumerable<BO.ProductForList?> GetListOfProductsByCondition(IEnumerable<ProductForList?> productForLists, Func<ProductForList?, bool>? func = null);
     /// <summary>
     /// A method that receives a product ID number and returns product details if it exists
     /// </summary>
@@ -27,7 +24,7 @@ public interface IProduct
     /// <param name="id"></param>
     /// <param name="cart"></param>
     /// <returns></returns>
-    public BO.ProductItem GetProductDetails(int id,BO.Cart cart);
+    public BO.ProductItem GetProductDetails(int id, BO.Cart cart);
     /// <summary>
     /// A method that receives a product and adds it to the list if the data is correct
     /// </summary>
@@ -43,6 +40,7 @@ public interface IProduct
     /// </summary>
     /// <param name="product"></param>
     public void UpdateProduct(BO.Product product);
+    public IEnumerable<BO.ProductItem?> GetListOfProductsItem();
 
 }
 

@@ -1,7 +1,7 @@
 ﻿
 
-using DO;
 using DalApi;
+using DO;
 
 namespace Dal;
 internal class DalOrder : Iorder
@@ -25,7 +25,7 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public Order? GetObject(int id)
     {
-        Order? order= GetObjectByFilter(order => order?.ID == id);
+        Order? order = GetObjectByFilter(order => order?.ID == id);
         return order;
     }
     /// <summary>
@@ -48,7 +48,7 @@ internal class DalOrder : Iorder
     public void DeleteObject(int id)
     {
         Order? o1 = DataSource.orders.Find(o => o?.ID == id);
-        if (o1==null)
+        if (o1 == null)
             throw new NotExist();
         DataSource.orders.Remove(o1.Value);
     }
@@ -59,10 +59,10 @@ internal class DalOrder : Iorder
     /// <exception cref="Exception"></exception>
     public void UpDateObject(Order o)
     {
-       int i=DataSource.orders.FindIndex(item=>item?.ID==o.ID);
+        int i = DataSource.orders.FindIndex(item => item?.ID == o.ID);
         if (i == -1)
             throw new NotExist();
-        DataSource.orders[i]= o;
+        DataSource.orders[i] = o;
         //for (int i = 0; i < DataSource.orders.Count(); i++)
         //{
         //    if (DataSource.orders[i]?.ID == o.ID)
@@ -81,8 +81,8 @@ internal class DalOrder : Iorder
     /// <exception cref="CanNotFound"></exception>
     public Order? GetObjectByFilter(Func<Order?, bool>? func)
     {
-        if (DataSource.orders.FirstOrDefault(item => func!(item))==null)
-            throw new NotExist() ;
+        if (DataSource.orders.FirstOrDefault(item => func!(item)) == null)
+            throw new NotExist();
         return DataSource.orders.FirstOrDefault(item => func!(item));
         //foreach(var order in DataSource.orders)
         //{

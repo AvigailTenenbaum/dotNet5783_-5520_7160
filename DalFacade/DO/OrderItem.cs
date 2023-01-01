@@ -9,7 +9,7 @@ public struct OrderItem
     /// <summary>
     /// uniqe id of the item in order
     /// </summary>
-  public  int ID { get; set; }
+    public int ID { get; set; }
     /// <summary>
     /// id of the product
     /// </summary>
@@ -25,7 +25,7 @@ public struct OrderItem
     /// <summary>
     /// amount of products
     /// </summary>
-   public int Amount { get; set; }
+    public int Amount { get; set; }
     public override string ToString() => this.ToStringProperty();
 
 }

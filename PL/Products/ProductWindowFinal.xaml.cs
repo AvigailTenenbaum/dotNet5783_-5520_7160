@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Products
 {
@@ -22,19 +10,17 @@ namespace PL.Products
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         public BO.Product Product { set; get; }
-  
+        public Array array { set; get; } = Enum.GetValues(typeof(BO.Category));
         public ProductWindowFinal()
         {
-            categorycomboBox.DataContext = Enum.GetValues(typeof(BO.Category));
-            DataContext = this;
+            //categorycomboBox.DataContext = Enum.GetValues(typeof(BO.Category));
             InitializeComponent();
         }
         public ProductWindowFinal(int id)
         {
-            DataContext = this;
             Product = bl!.Product.GetProductDetails(id);
             InitializeComponent();
-           categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            // categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)

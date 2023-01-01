@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO;
+﻿namespace BO;
 
 public class ProductItem
 {
@@ -27,11 +21,11 @@ public class ProductItem
     /// <summary>
     /// if their is a products in stock
     /// </summary>
-    public bool InStock{ get; set; }
+    public bool InStock { get; set; }
     /// <summary>
     /// how many products in cart
     /// </summary>
-      public int AmountInCart { get; set; }
+    public int AmountInCart { get; set; }
 
 
     public override string ToString() => this.ToStringProperty();

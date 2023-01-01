@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
-using BO;
-using DalApi;
-using DO;
+﻿using BO;
 
 namespace BlImplementation;
 /// <summary>
@@ -18,16 +10,16 @@ internal class Product : BlApi.IProduct
     public IEnumerable<BO.ProductForList?> GetListOfProducts(Func<BO.ProductForList?, bool>? func = null)
     {
         //var v = dal.Product.GetAllObject();
-        IEnumerable<BO.ProductForList?> productList= dal?.Product.GetAllObject().Select(
+        IEnumerable<BO.ProductForList?> productList = dal?.Product.GetAllObject().Select(
             product => new BO.ProductForList
-            { 
-                    ID = product?.ID ?? throw new BO.NullData(),
-                    Name = product?.Name?? throw new BO.NullData(), 
-                    Category =(BO.Category?)product?.Category ?? throw new BO.NullData(), 
-                    Price = product?.Price?? throw new BO.NullData()
-             }
-        )??throw new BO.NullData();
-        if (func!=null)
+            {
+                ID = product?.ID ?? throw new BO.NullData(),
+                Name = product?.Name ?? throw new BO.NullData(),
+                Category = (BO.Category?)product?.Category ?? throw new BO.NullData(),
+                Price = product?.Price ?? throw new BO.NullData()
+            }
+        ) ?? throw new BO.NullData();
+        if (func != null)
         {
             return productList.Where(product => func(product));
         }
@@ -50,11 +42,11 @@ internal class Product : BlApi.IProduct
                 DO.Product? product = dal?.Product.GetObject(id);
                 BO.Product newProduct = new BO.Product
                 {
-                    ID = product?.ID??throw new NullData(),
-                    Name = product?.Name?? throw new NullData(),
+                    ID = product?.ID ?? throw new NullData(),
+                    Name = product?.Name ?? throw new NullData(),
                     Category = (BO.Category?)product?.Category,
-                    Price = product?.Price?? throw new NullData(),
-                    InStock = product?.InStock??0
+                    Price = product?.Price ?? throw new NullData(),
+                    InStock = product?.InStock ?? 0
                 };
                 return newProduct;
             }
@@ -131,7 +123,7 @@ internal class Product : BlApi.IProduct
         }
         else
         {
-            DO.Product p = new DO.Product() {Category=(DO.Category?)product.Category,ID=product.ID,Name=product.Name,Price=product.Price,InStock=product.InStock };
+            DO.Product p = new DO.Product() { Category = (DO.Category?)product.Category, ID = product.ID, Name = product.Name, Price = product.Price, InStock = product.InStock };
             try
             {
                 dal?.Product.AddObject(p);
@@ -144,7 +136,7 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     public void DeleteProduct(int id)
     {
-        IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject()??throw new BO.NullData();
+        IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject() ?? throw new BO.NullData();
         foreach (DO.Order? order in orders)
         {
             IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
@@ -168,7 +160,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     public void UpdateProduct(BO.Product product)
     {
-        if (product.ID <= 0 || product.Name == null || product.Price <= 0||product.InStock<0)
+        if (product.ID <= 0 || product.Name == null || product.Price <= 0 || product.InStock < 0)
         {
             throw new BO.InCorrectData();
         }
@@ -184,5 +176,21 @@ internal class Product : BlApi.IProduct
             catch (DO.NotExist e) { throw e; }
         }
     }
+    public IEnumerable<BO.ProductItem?> GetListOfProductsItem()
+    {
+        return from DO.Product? product1 in dal!.Product.GetAllObject()
+               select new BO.ProductItem
+               {
+                   ID = product1?.ID ?? throw new NullData(),
+                   Name = product1?.Name ?? throw new NullData(),
+                   Category = (BO.Category)(product1?.Category ?? throw new NullData()),
+                   Price = product1?.Price ?? throw new NullData(),
+                   InStock = product1?.InStock > 0 ? true : false,
+                   AmountInCart = 0
+               };
+    }
+
+    public IEnumerable<ProductForList?> GetListOfProductsByCondition(IEnumerable<ProductForList?> productForLists, Func<ProductForList?, bool>? func)
+    => productForLists.Where(func);
 }
 

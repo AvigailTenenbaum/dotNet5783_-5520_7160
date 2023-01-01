@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO;
- public class ProductForList
- {
+﻿namespace BO;
+public class ProductForList
+{
     /// <summary>
     /// A unique identifier for a listed product
     /// </summary>

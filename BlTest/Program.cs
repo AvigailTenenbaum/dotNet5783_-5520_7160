@@ -1,19 +1,17 @@
 ﻿using BO;
-using BlApi;
-using BlImplementation;
 namespace BlTest
 {
     public enum Options { EXIT, PRODUCT, ORDER, CART };
     public enum ActionsOnProducts { EXIT, PRODUCTLIST, GETPRODUCTDETAILSFORMANGER, GETPRODUCTDETAILS, ADDPRODUCT, DELETEPRODUCT, UPDATEPRODUCT };
     public enum ActionOnCart { EXIT, ADDPRODUCTTOCART, UPDATEAMOUNT, CONFIRMORDER }
-    public enum ActionOnOrder { EXIT, ORDERDATAILS , ORDERLIST, ORDERSHIPINGUPDATE, ORDERDALIVERYUPDATE, ORDERTRACKING };
+    public enum ActionOnOrder { EXIT, ORDERDATAILS, ORDERLIST, ORDERSHIPINGUPDATE, ORDERDALIVERYUPDATE, ORDERTRACKING };
 
     internal class Program
     {
         static BlApi.IBl? s_bl = BlApi.Factory.Get();
 
 
-        static Cart s_newCart = new Cart() {Items=new List<OrderItem?>()};
+        static Cart s_newCart = new Cart() { Items = new List<OrderItem?>() };
         static Product s_addProduct = new Product();
 
         static void ActionOnProduct()
@@ -36,7 +34,7 @@ namespace BlTest
                     {
                         case ActionsOnProducts.PRODUCTLIST:
                             var lst = s_bl?.Product.GetListOfProducts();
-                            foreach (var item in lst??throw new Exception("ERROR: One or more of the data is NULL"))
+                            foreach (var item in lst ?? throw new Exception("ERROR: One or more of the data is NULL"))
                                 Console.WriteLine(item);
                             break;
                         case ActionsOnProducts.GETPRODUCTDETAILSFORMANGER:
@@ -84,7 +82,7 @@ namespace BlTest
                             updateProduct.Name = Console.ReadLine();
                             Console.WriteLine("enter price of product:");
 
-                            if (!double.TryParse(Console.ReadLine(), out price)) 
+                            if (!double.TryParse(Console.ReadLine(), out price))
                                 throw new Exception("wrong input type");
 
                             updateProduct.Price = price;
@@ -150,7 +148,7 @@ namespace BlTest
                             Console.WriteLine(s_bl?.Order.GetOrderDetails(id));
                             break;
                         case ActionOnOrder.ORDERLIST:
-                            Console.WriteLine(String.Join(" ", s_bl?.Order.GetListOfOrder()??throw new Exception("ERROR: One or more of the data is NULL")));
+                            Console.WriteLine(String.Join(" ", s_bl?.Order.GetListOfOrder() ?? throw new Exception("ERROR: One or more of the data is NULL")));
                             break;
                         case ActionOnOrder.ORDERDALIVERYUPDATE:
                             Console.WriteLine("please insert order Id");
@@ -248,7 +246,7 @@ namespace BlTest
         {
             try
             {
-                
+
                 Console.WriteLine(@"Choose one of the following options:
 1: Products
 2:Orders
@@ -267,7 +265,7 @@ namespace BlTest
                             ActionsOnOrder();
                             break;
                         case Options.CART:
-                           ActionsOnCart();
+                            ActionsOnCart();
                             break;
                         default:
                             break;
@@ -280,7 +278,7 @@ namespace BlTest
                     if (!Options.TryParse(Console.ReadLine(), out choice)) throw new Exception("This option not exist!");
                 }
             }
-            catch(Exception e) { Console.WriteLine(e.Message); }
+            catch (Exception e) { Console.WriteLine(e.Message); }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Stage0
+﻿namespace Stage0
 {
     partial class Program
     {

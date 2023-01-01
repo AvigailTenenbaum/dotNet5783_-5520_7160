@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Products
 {
@@ -28,18 +19,18 @@ namespace PL.Products
         {
             InitializeComponent();
             categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            updateButton.Visibility=Visibility.Collapsed;
+            updateButton.Visibility = Visibility.Collapsed;
         }
         public ProductWindow(int id)
         {
             InitializeComponent();
             categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
             addButton.Visibility = Visibility.Collapsed;
-            BO.Product product=bl.Product.GetProductDetails(id);
-            idTextBox.Text =Convert.ToString(product.ID);
-            idTextBox.IsReadOnly= true;
+            BO.Product product = bl.Product.GetProductDetails(id);
+            idTextBox.Text = Convert.ToString(product.ID);
+            idTextBox.IsReadOnly = true;
             nameTextBox.Text = product.Name;
-            categorycomboBox.SelectedItem= product.Category;
+            categorycomboBox.SelectedItem = product.Category;
             priceTextBox.Text = Convert.ToString(product.Price);
             inStockTextBox.Text = Convert.ToString(product.InStock);
         }
@@ -61,18 +52,18 @@ namespace PL.Products
             {
                 BO.Product product = new BO.Product()
                 {
-                ID = int.Parse(idTextBox.Text),
-                Name = nameTextBox.Text,
-                InStock = int.Parse(inStockTextBox.Text),
-                Category = (BO.Category)categorycomboBox.SelectedItem,
-                Price = double.Parse(priceTextBox.Text),
+                    ID = int.Parse(idTextBox.Text),
+                    Name = nameTextBox.Text,
+                    InStock = int.Parse(inStockTextBox.Text),
+                    Category = (BO.Category)categorycomboBox.SelectedItem,
+                    Price = double.Parse(priceTextBox.Text),
                 };
-             bl?.Product.AddProduct(product);
-            this.Close();
+                bl?.Product.AddProduct(product);
+                this.Close();
             }
             catch (BO.InCorrectData ex)
             {
-                messageBoxResult= MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK,MessageBoxImage.Information);
+                messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (BO.AllReadyExist ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
         }
@@ -102,8 +93,8 @@ namespace PL.Products
                 bl?.Product.UpdateProduct(product);
                 this.Close();
             }
-            catch(BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
-           
+            catch (BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
+
         }
         /// <summary>
         /// Typing option for normal input only

@@ -1,16 +1,7 @@
-﻿using DO;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿namespace BO;
 
-namespace BO;
-
-    public class OrderTracking
-    {
+public class OrderTracking
+{
     /// <summary>
     /// Unique ID for shipment tracking
     /// </summary>

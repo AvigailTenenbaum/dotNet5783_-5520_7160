@@ -1,11 +1,11 @@
 ﻿
 
-using DO;
 using DalApi;
+using DO;
 
 namespace Dal;
 
-internal class DalProduct :Iproduct
+internal class DalProduct : Iproduct
 {
     /// <summary>
     /// A function for adding an object
@@ -22,7 +22,7 @@ internal class DalProduct :Iproduct
         //        throw new AllReadyExist();
         //    }
         //}
-        if (DataSource.products.FirstOrDefault(item=> item?.ID == o1.ID)!=null)
+        if (DataSource.products.FirstOrDefault(item => item?.ID == o1.ID) != null)
             throw new AllReadyExist();
         DataSource.products.Add(o1);
         return o1.ID;
@@ -35,13 +35,13 @@ internal class DalProduct :Iproduct
     /// <exception cref="Exception"></exception>
     public Product? GetObject(int id)
     {
-       return GetObjectByFilter(item => item?.ID == id);
+        return GetObjectByFilter(item => item?.ID == id);
     }
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Product?> GetAllObject(Func<Product?, bool>? func=null)
+    public IEnumerable<Product?> GetAllObject(Func<Product?, bool>? func = null)
     {
         if (func == null)
         {
@@ -57,9 +57,9 @@ internal class DalProduct :Iproduct
     public void DeleteObject(int id)
     {
         Product? p1 = DataSource.products.Find(o => o?.ID == id);
-        if (p1==null)
+        if (p1 == null)
             throw new NotExist();
-      DataSource.products.Remove(p1.Value);   
+        DataSource.products.Remove(p1.Value);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists

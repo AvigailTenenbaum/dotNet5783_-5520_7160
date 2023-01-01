@@ -1,11 +1,4 @@
 ﻿using BO;
-using DalApi;
-using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlImplementation;
 
@@ -84,20 +77,21 @@ internal class Order : BlApi.IOrder
         {
             try
             {
-                order = dal?.Order.GetObject(id)??throw new BO.NullData();
+                order = dal?.Order.GetObject(id) ?? throw new BO.NullData();
             }
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
             try { orderItems = dal?.OrderItem.GetAllObject(item => item?.OrderID == id) ?? throw new BO.NullData(); }
 
             catch (DO.NotExist e) { throw new BO.NotExist(e); }
-            BO.Order getOrder = new BO.Order  
-            {   ID = order.ID ,
+            BO.Order getOrder = new BO.Order
+            {
+                ID = order.ID,
                 CustomerName = order.CustomerName,
                 CustomerEmail = order.CustomerEmail,
-                CustomerAdress = order.CustomerAddress, 
+                CustomerAdress = order.CustomerAddress,
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
-                DeliveryDate = order.DeliveryDate, 
+                DeliveryDate = order.DeliveryDate,
                 Items = new List<BO.OrderItem?>()
             };
             if (order.OrderDate < DateTime.Now)
@@ -125,46 +119,46 @@ internal class Order : BlApi.IOrder
             {
                 throw new NotPossibleToFillRequest();
             }
-            getOrder.Items=orderItems1.ToList();
+            getOrder.Items = orderItems1.ToList();
             getOrder.TotalPrice = getOrder.Items.Sum(o => o?.TotalPrice ?? throw new NullData());
             return getOrder;
         }
         else
             throw new BO.InCorrectData();
     }
-        /// <summary>
-        /// private function for get the list of the  order item for each order instead of doing it inside the function above 
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
+    /// <summary>
+    /// private function for get the list of the  order item for each order instead of doing it inside the function above 
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
 
-        private IEnumerable<BO.OrderItem?> GetListOfOrderItem(IEnumerable<DO.OrderItem?> list)
-        {
-            return from DO.OrderItem item in list
-                   select new BO.OrderItem()
-                   {
-                       ID = item.ID,
-                       Name = dal!.Product.GetObject(item.ProductID)?.Name,
-                       Price = item.Price,
-                       Amount = item.Amount,
-                       TotalPrice = item.Price * item.Amount,
-                       ProductID = dal.Product.GetObject(item.ProductID)?.ID ?? throw new BO.NullData()
-                   };
-        }
+    private IEnumerable<BO.OrderItem?> GetListOfOrderItem(IEnumerable<DO.OrderItem?> list)
+    {
+        return from DO.OrderItem item in list
+               select new BO.OrderItem()
+               {
+                   ID = item.ID,
+                   Name = dal!.Product.GetObject(item.ProductID)?.Name,
+                   Price = item.Price,
+                   Amount = item.Amount,
+                   TotalPrice = item.Price * item.Amount,
+                   ProductID = dal.Product.GetObject(item.ProductID)?.ID ?? throw new BO.NullData()
+               };
+    }
 
-        /// <summary>
-        /// A method for updating an order shipment that receives an order number and updates the ship date if the order exists
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public BO.Order OrderShippingUpdate(int id)
+    /// <summary>
+    /// A method for updating an order shipment that receives an order number and updates the ship date if the order exists
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public BO.Order OrderShippingUpdate(int id)
     {
         DO.Order order;
-        try { order = (DO.Order)dal?.Order.GetObject(id)!; }catch(DO.NotExist e) { throw new BO.NotExist(e); }
-        if(order.ShipDate==null||!(order.ShipDate<DateTime.Now))
-            order.ShipDate= DateTime.Now;
-        try { dal.Order.UpDateObject(order); }catch(DO.NotExist e) { throw new BO.NotExist(e);}
-        BO.Order logicOrder=new BO.Order { ID= order.ID,CustomerName=order.CustomerName, CustomerEmail= order.CustomerEmail,CustomerAdress=order.CustomerAddress,ShipDate=order.ShipDate ,DeliveryDate=order.DeliveryDate,Status=BO.OrderStatus.shipped,Items =new List<BO.OrderItem?>(),OrderDate=order.OrderDate};
+        try { order = (DO.Order)dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        if (order.ShipDate == null || !(order.ShipDate < DateTime.Now))
+            order.ShipDate = DateTime.Now;
+        try { dal.Order.UpDateObject(order); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, ShipDate = order.ShipDate, DeliveryDate = order.DeliveryDate, Status = BO.OrderStatus.shipped, Items = new List<BO.OrderItem?>(), OrderDate = order.OrderDate };
         return logicOrder;
     }
     /// <summary>
@@ -176,10 +170,10 @@ internal class Order : BlApi.IOrder
     {
         DO.Order order;
         try { order = (DO.Order)dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
-        if (order.DeliveryDate == null|| !(order.DeliveryDate < DateTime.Now))
+        if (order.DeliveryDate == null || !(order.DeliveryDate < DateTime.Now))
             order.DeliveryDate = DateTime.Now;
         try { dal.Order.UpDateObject(order); } catch (DO.NotExist e) { throw new BO.NotExist(e); }
-        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate,ShipDate=order.ShipDate, Status = BO.OrderStatus.deliveredTotheCustomer, Items = new List<BO.OrderItem?>(), OrderDate = order.OrderDate };
+        BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, DeliveryDate = order.DeliveryDate, ShipDate = order.ShipDate, Status = BO.OrderStatus.deliveredTotheCustomer, Items = new List<BO.OrderItem?>(), OrderDate = order.OrderDate };
         return logicOrder;
     }
     /// <summary>
@@ -190,7 +184,7 @@ internal class Order : BlApi.IOrder
     public BO.OrderTracking OrderTracking(int id)
     {
         DO.Order order;
-        try { order =(DO.Order) dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
+        try { order = (DO.Order)dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         BO.OrderTracking orderTracking = new BO.OrderTracking { ID = order.ID };
         orderTracking.TrackingInformation = new List<Tuple<string?, DateTime?>>();
         if (order.OrderDate < DateTime.Now)
@@ -236,7 +230,7 @@ internal class Order : BlApi.IOrder
         if (dal?.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
             throw new BO.NotPossibleToFillRequest();
         BO.Order order = GetOrderDetails(IDOrder);
-        foreach (BO.OrderItem? orderItem in order.Items??throw new BO.NullData())
+        foreach (BO.OrderItem? orderItem in order.Items ?? throw new BO.NullData())
         {
             if (orderItem?.ProductID == IDProduct)
             {

@@ -8,15 +8,15 @@ public struct Product
     /// <summary>
     /// uniqe of the id product
     /// </summary>
-  public  int ID { get; set; }
+    public int ID { get; set; }
     /// <summary>
     /// name of the product
     /// </summary>
-  public  string? Name { get; set; }
+    public string? Name { get; set; }
     /// <summary>
     /// price of product
     /// </summary>
-   public double Price { get; set; }
+    public double Price { get; set; }
     /// <summary>
     /// category of the product
     /// </summary>

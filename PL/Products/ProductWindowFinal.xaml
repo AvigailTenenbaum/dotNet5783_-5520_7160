@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductWindowFinal" Height="450" Width="800">
+        Title="ProductWindowFinal" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
         <Button x:Name="addButton"  Content="Add" HorizontalAlignment="Left" Margin="160,346,0,0" VerticalAlignment="Top" Click="addButton_Click" Visibility="{Binding Product.ID, Converter={StaticResource nullToVisebilityConverter}}"/>
         <Button x:Name="updateButton"  Content="Update" HorizontalAlignment="Left" Margin="204,346,0,0" VerticalAlignment="Top" Click="updateButton_Click" Visibility="{Binding Product, Converter={StaticResource notNullToVisebilityConverter}}"/>
@@ -18,7 +19,7 @@
         </StackPanel>
         <TextBox x:Name="idTextBox" TextWrapping="Wrap"  Margin="340,57,322,333" Text="{Binding Product.ID}" IsReadOnly="{Binding Product, Converter={StaticResource nullToBooleanConverter}}"/>
         <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="{Binding Product.Name}" Margin="340,106,322,282"/>
-        <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233" ItemsSource="{Binding }" SelectedItem="{Binding Product.Category}" />
+        <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233" ItemsSource="{Binding array }" SelectedItem="{Binding Product.Category}" />
         <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="{Binding Product.Price}" Margin="340,206,322,183" />
         <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="{Binding Product.InStock}" Margin="340,256,322,133" />
 

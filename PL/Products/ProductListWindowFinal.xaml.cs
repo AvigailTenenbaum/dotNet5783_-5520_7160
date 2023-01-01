@@ -3,16 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 
 namespace PL.Products
@@ -25,19 +18,21 @@ namespace PL.Products
     {
         saturday, holidays, toSeferTorah, giftsForHome, handMade, NONE
     };
-
     public partial class ProductListWindowFinal : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-       
-        
+        public ObservableCollection<ProductForList?> ProductsForLists { get; set; }
+
+        private IEnumerable<ProductForList?> productsForLists { get; }
+        public Array array { get; set; } = Enum.GetValues(typeof(Category));
         public ProductListWindowFinal()
         {
+
+            productsForLists = bl!.Product.GetListOfProducts();
+            ProductsForLists = new ObservableCollection<ProductForList?>(productsForLists);
+
             InitializeComponent();
-            ObservableCollection<ProductForList?> productsForLists = new ObservableCollection<ProductForList?>(bl!.Product.GetListOfProducts());
-            DataContext = productsForLists;
-            CategorySelector.DataContext = Enum.GetValues(typeof(Category));
-    }
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -46,16 +41,34 @@ namespace PL.Products
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ObservableCollection<ProductForList?> productsForLists;
-            if (CategorySelector.SelectedItem.Equals(Category.NONE))//Back to the state where you see the whole list
+            Category? category = CategorySelector.SelectedItem as Category?;
+            if (category != null)
             {
-                productsForLists = new ObservableCollection<ProductForList?>(bl!.Product.GetListOfProducts());
-                DataContext = productsForLists;
+
+                if (category.Equals(Category.NONE))//Back to the state where you see the whole list
+                {
+                    var products = bl!.Product.GetListOfProducts().ToList();
+                    addProducts(products);
+
+                }
+                else
+                {
+                    var products = bl!.Product.GetListOfProductsByCondition(productsForLists, product => product.Category == (BO.Category)category).ToList();
+                    addProducts(products);
+                }
             }
-            else
+
+        }
+
+        private void addProducts(IEnumerable<ProductForList> products)
+        {
+            if (products.Any())
             {
-                productsForLists = new ObservableCollection<ProductForList?>(bl!.Product.GetListOfProducts(x => x!.Category == (BO.Category)CategorySelector.SelectedItem));
-                DataContext = productsForLists;
+                ProductsForLists.Clear();
+                foreach (var item in products)
+                {
+                    ProductsForLists.Add(item);
+                }
             }
         }
 

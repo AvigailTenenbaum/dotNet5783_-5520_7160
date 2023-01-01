@@ -1,12 +1,9 @@
 ﻿
 using DO;
-using System.IO;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Dal;
 
- static internal class DataSource
+static internal class DataSource
 {
     static readonly Random num = new Random();
     internal static List<Product?> products = new List<Product?>();
@@ -34,7 +31,7 @@ namespace Dal;
     }
     static private void s_Initialize()
     {
-        
+
         initProducts();
 
         initOrders();
@@ -47,12 +44,12 @@ namespace Dal;
         {
             Product? product = new Product();
             OrderItem orderItem = new OrderItem();
-            product = products[num.Next(0,products.Count)];
-            orderItem.ID =getLastOrderID();
-            orderItem.ProductID = product?.ID??0;
+            product = products[num.Next(0, products.Count)];
+            orderItem.ID = getLastOrderID();
+            orderItem.ProductID = product?.ID ?? 0;
             orderItem.Amount = num.Next(1, 11);
-            orderItem.OrderID = orders[num.Next(0,orders.Count)]?.ID??0;
-            orderItem.Price =  product?.Price??0;
+            orderItem.OrderID = orders[num.Next(0, orders.Count)]?.ID ?? 0;
+            orderItem.Price = product?.Price ?? 0;
             items.Add(orderItem);
         }
     }
@@ -77,7 +74,7 @@ namespace Dal;
                 if (num.Next(0, 100) > 40)
                     order.DeliveryDate = order.ShipDate.Value.AddDays(num.Next(1, 4));
                 else
-                    order.DeliveryDate =null;
+                    order.DeliveryDate = null;
             }
 
             else
@@ -102,7 +99,7 @@ namespace Dal;
         for (int i = 0; i < size; i++)
         {
             Category category = (Category)i;
-            int per = (int)(productsNames.Count() * 0.05)+1;
+            int per = (int)(productsNames.Count() * 0.05) + 1;
             foreach (var item in productsNames[i])
             {
                 Product product = new Product();
@@ -111,7 +108,7 @@ namespace Dal;
                 product.Name = item;
                 product.Price = product.Category switch
                 {
-                   Category.saturday => num.Next(2000,3000),
+                    Category.saturday => num.Next(2000, 3000),
                     Category.holidays => num.Next(3000, 5000),
                     Category.toSeferTorah => num.Next(1000, 1700),
                     Category.handMade => num.Next(5000, 7000),
@@ -119,8 +116,8 @@ namespace Dal;
                 };
 
                 product.InStock = per-- > 0 ? 0 : num.Next(50, 100);
-                    products.Add(product); 
-              
+                products.Add(product);
+
             }
         }
     }

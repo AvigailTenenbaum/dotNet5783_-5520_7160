@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlApi;
+﻿namespace BlApi;
 /// <summary>
 /// A main interface that will bring together all the interfaces of the layer
 /// </summary>
 public interface IBl
-    {
+{
     /// <summary>
     /// attribute for a shopping cart entity
     /// </summary>
@@ -23,5 +17,5 @@ public interface IBl
     /// </summary>
     public IProduct Product { get; }
 
-    }
+}
 

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductListWindowFinal" Height="450" Width="800">
+        Title="ProductListWindowFinal" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+    
     <Grid Name="MainGrid" HorizontalAlignment="Left" Width="800">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="377*"/>
@@ -22,11 +24,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector"
-              Grid.Column="1"  FontSize="22" Margin="0,0,10,0" ItemsSource="{Binding}" SelectionChanged="CategorySelector_SelectionChanged"/>
+              Grid.Column="1"  FontSize="22" Margin="0,0,10,0" ItemsSource="{Binding array}" SelectionChanged="CategorySelector_SelectionChanged"/>
         </Grid>
         <Label
              Grid.Column="0" Content="Category:" Margin="0,1,354,1" FontSize="14"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductListview" Grid.RowSpan="2" ItemsSource="{Binding}" Grid.ColumnSpan="2" Margin="0,29,0,0"  MouseDoubleClick="ProductListview_MouseDoubleClick" >
+        <ListView  x:Name="ProductListview" Grid.RowSpan="2" ItemsSource="{Binding ProductsForLists}" Grid.ColumnSpan="2" Margin="0,29,0,0"  MouseDoubleClick="ProductListview_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

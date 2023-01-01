@@ -1,12 +1,4 @@
-﻿using BO;
-using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlApi;
+﻿namespace BlApi;
 /// <summary>
 /// An interface for performing operations on a shopping basket
 /// </summary>
@@ -18,7 +10,7 @@ public interface ICart
     /// <param name="cart"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public BO.Cart AddProductToCart(BO.Cart cart,int id);
+    public BO.Cart AddProductToCart(BO.Cart cart, int id);
     /// <summary>
     /// A method for updating the quantity of a product in the basket, receives a shopping basket, identifies a new product and quantity and returns an updated basket if everything is correct
     /// </summary>
@@ -26,12 +18,12 @@ public interface ICart
     /// <param name="id"></param>
     /// <param name="amount"></param>
     /// <returns></returns>
-    public BO.Cart UpdateProductAmount(BO.Cart cart,int id,int amount);
+    public BO.Cart UpdateProductAmount(BO.Cart cart, int id, int amount);
     /// <summary>
     /// Method for placing the order, receives a shopping basket and adds the order if everything is in order
     /// </summary>
     /// <param name="cart"></param>
     public void OrderConfirmation(BO.Cart cart);
 }
-  
+
 

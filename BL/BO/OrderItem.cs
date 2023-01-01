@@ -1,16 +1,9 @@
-﻿using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO;
+﻿namespace BO;
 /// <summary>
 /// the entity for the orderItem
 /// </summary>
-    public class OrderItem
-    {
+public class OrderItem
+{
     /// <summary>
     /// the id for the orderItem
     /// </summary>

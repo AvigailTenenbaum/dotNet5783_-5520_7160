@@ -1,16 +1,9 @@
-﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlApi;
+﻿namespace BlApi;
 /// <summary>
 /// Interface for on-order operations
 /// </summary>
 public interface IOrder
- {
+{
     /// <summary>
     /// A method for requesting a list of orders
     /// </summary>

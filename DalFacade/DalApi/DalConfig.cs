@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DalApi;
+﻿namespace DalApi;
 
 using DO;
 using System.Xml.Linq;
-    static class DalConfig
-    {
+static class DalConfig
+{
 
     internal static string? s_dalName;
     internal static Dictionary<string, string> s_dalPackages;
