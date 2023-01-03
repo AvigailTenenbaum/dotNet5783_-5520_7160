@@ -22,7 +22,7 @@ namespace PL.Products
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
-            ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
+            ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -32,13 +32,32 @@ namespace PL.Products
             {
                 if (category.Equals(Category.NONE))//Back to the state where you see the whole list
                 {
-                    ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
+                    var productsI = bl!.Product.GetListOfProductsItem().ToList();
+                    addProductsItem(productsI);
                 }
                 else
                 {
-                    ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem().Where(x => x!.Category == (BO.Category)CategorySelector.SelectedItem));
+                    var productsI = bl!.Product.GetListOfProductsItem().Where(product => product!.Category == (BO.Category)category).ToList();
+                    addProductsItem(productsI);
                 }
             }
+        }
+        private void addProductsItem(IEnumerable<ProductItem> productsItems)
+        {
+            if (productsItems.Any())
+            {
+                ProductsItemList.Clear();
+                foreach (var item in productsItems)
+                {
+                    ProductsItemList.Add(item);
+                }
+            }
+        }
+
+        private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (ProductsListView.SelectedItem == null) return;
+            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem)).ShowDialog();
         }
     }
 }

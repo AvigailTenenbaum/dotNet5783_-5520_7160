@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BO;
+using System.Windows;
 
 namespace PL.Products
 {
@@ -7,8 +8,10 @@ namespace PL.Products
     /// </summary>
     public partial class ProductDetailsWindow : Window
     {
-        public ProductDetailsWindow()
+        public ProductItem ProductItem { get; set; }
+        public ProductDetailsWindow(ProductItem productItem)
         {
+            ProductItem= productItem;
             InitializeComponent();
         }
     }
