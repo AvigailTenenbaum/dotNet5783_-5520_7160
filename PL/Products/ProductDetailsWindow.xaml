@@ -5,14 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductDetailsWindow" Height="450" Width="800">
+        Title="ProductDetailsWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
         <Label Content="ID :" HorizontalAlignment="Left" Margin="89,43,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="Name :" HorizontalAlignment="Left" Margin="89,85,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="Price :" HorizontalAlignment="Left" Margin="89,127,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="In Stock :" HorizontalAlignment="Left" Margin="89,217,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="Category :" HorizontalAlignment="Left" Margin="89,281,0,0" VerticalAlignment="Top" Height="37" Width="122" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="Amount In Cart :" HorizontalAlignment="Left" Margin="89,343,0,0" VerticalAlignment="Top" Height="38" Width="194" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
+        <Label Content="Name :" HorizontalAlignment="Left" Margin="89,93,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
+        <Label Content="Price :" HorizontalAlignment="Left" Margin="89,149,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
+        <Label Content="In Stock :" HorizontalAlignment="Left" Margin="89,211,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
+        <Label Content="Category :" HorizontalAlignment="Left" Margin="89,267,0,0" VerticalAlignment="Top" Height="37" Width="122" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18" Grid.RowSpan="2"/>
+        <Label Content="Amount In Cart :" HorizontalAlignment="Left" Margin="89,48,0,0" VerticalAlignment="Top" Height="38" Width="194" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18" Grid.Row="1"/>
+        <Label Name="idLbl" Content="{Binding ProductItem.ID}" HorizontalAlignment="Left" Margin="282,43,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
+        <Label Name="nameLbl" Content="{Binding ProductItem.Name}" HorizontalAlignment="Left" Margin="282,97,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
+        <Label Name="priceLbl" Content="{Binding ProductItem.Price}" HorizontalAlignment="Left" Margin="282,153,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
+        <Label Name="inStockLbl" Content="{Binding ProductItem.InStock}" HorizontalAlignment="Left" Margin="282,213,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
+        <Label Name="categoryLbl" Content="{Binding ProductItem.Category}" HorizontalAlignment="Left" Margin="282,267,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.RowSpan="2"/>
+        <Label Name="amountLbl" Content="{Binding ProductItem.AmountInCart}" HorizontalAlignment="Left" Margin="282,50,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.Row="1"/>
 
     </Grid>
 </Window>

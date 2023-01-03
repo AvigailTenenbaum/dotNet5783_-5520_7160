@@ -21,16 +21,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
                 <ComboBox Name="CategorySelector"
-              Grid.Column="1" FontSize="22" Margin="0,0,10,0" ItemsSource="{Binding array}" SelectionChanged="CategorySelector_SelectionChanged"/>
+              Grid.Column="1" FontSize="18" Margin="0,0,10,0" ItemsSource="{Binding array}" SelectionChanged="CategorySelector_SelectionChanged"/>
             </Grid>
             <Label
-             Grid.Column="0" Content="Category:" Margin="0,0,400,0" FontSize="22"/>
-            <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding ProductsItemList}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
+             Grid.Column="0" Content="Category:" Margin="0,0,400,0" FontSize="18"/>
+            <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick">
             </ListView>
         </Grid>
     </Grid>

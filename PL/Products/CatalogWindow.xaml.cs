@@ -1,5 +1,6 @@
 ﻿using BO;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -17,21 +18,46 @@ namespace PL.Products
 
         public Cart cart { get; set; }
         public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
+        private IEnumerable<ProductItem?> productsItemList { get; }
         public CatalogWindow()
         {
-            ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
+            productsItemList = bl!.Product.GetListOfProductsItem();
+            ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem.Equals(Category.NONE))//Back to the state where you see the whole list
+            Category? category = CategorySelector.SelectedItem as Category?;
+            if (category != null)
             {
-                ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
+                if (category.Equals(Category.NONE))//Back to the state where you see the whole list
+                {
+                    var productsI = bl!.Product.GetListOfProductsItem().ToList();
+                    addProductsItem(productsI);
+                }
+                else
+                {
+                    var productsI = bl!.Product.GetListOfProductsItem().Where(product => product!.Category == (BO.Category)category).ToList();
+                    addProductsItem(productsI);
+                }
             }
-            else
+        }
+        private void addProductsItem(IEnumerable<ProductItem> productsItems)
+        {
+            if (productsItems.Any())
             {
-                ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem().Where(x => x!.Category == (BO.Category)CategorySelector.SelectedItem));
+                ProductsItemList.Clear();
+                foreach (var item in productsItems)
+                {
+                    ProductsItemList.Add(item);
+                }
             }
+        }
+
+        private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (ProductsListView.SelectedItem == null) return;
+            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem)).ShowDialog();
         }
     }
 }
