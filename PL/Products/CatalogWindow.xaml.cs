@@ -16,13 +16,14 @@ namespace PL.Products
         BlApi.IBl? bl = BlApi.Factory.Get();
         public Array array { get; set; } = Enum.GetValues(typeof(Category));
 
-        public Cart cart { get; set; }
+        public Cart Cart { get; set; }
         public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
         private IEnumerable<ProductItem?> productsItemList { get; }
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
+            Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,7 +58,12 @@ namespace PL.Products
         private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (ProductsListView.SelectedItem == null) return;
-            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem)).ShowDialog();
+            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem),Cart).ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new CartWindow(Cart).ShowDialog();
         }
     }
 }

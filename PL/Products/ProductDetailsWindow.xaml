@@ -18,12 +18,14 @@
         <Label Content="In Stock :" HorizontalAlignment="Left" Margin="89,211,0,0" VerticalAlignment="Top" Height="37" Width="98" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18"/>
         <Label Content="Category :" HorizontalAlignment="Left" Margin="89,267,0,0" VerticalAlignment="Top" Height="37" Width="122" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18" Grid.RowSpan="2"/>
         <Label Content="Amount In Cart :" HorizontalAlignment="Left" Margin="89,48,0,0" VerticalAlignment="Top" Height="38" Width="194" RenderTransformOrigin="0.342,1.66" FontFamily="Broadway" FontSize="18" Grid.Row="1"/>
-        <Label Name="idLbl" Content="{Binding ProductItem.ID}" HorizontalAlignment="Left" Margin="282,43,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
-        <Label Name="nameLbl" Content="{Binding ProductItem.Name}" HorizontalAlignment="Left" Margin="282,97,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
-        <Label Name="priceLbl" Content="{Binding ProductItem.Price}" HorizontalAlignment="Left" Margin="282,153,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
-        <Label Name="inStockLbl" Content="{Binding ProductItem.InStock}" HorizontalAlignment="Left" Margin="282,213,0,0" VerticalAlignment="Top" Height="37" Width="78"/>
-        <Label Name="categoryLbl" Content="{Binding ProductItem.Category}" HorizontalAlignment="Left" Margin="282,267,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.RowSpan="2"/>
-        <Label Name="amountLbl" Content="{Binding ProductItem.AmountInCart}" HorizontalAlignment="Left" Margin="282,50,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.Row="1"/>
+        <Label Name="idLbl" Content="{Binding ProductItem.ID}" HorizontalAlignment="Left" Margin="282,43,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Label Name="nameLbl" Content="{Binding ProductItem.Name}" HorizontalAlignment="Left" Margin="282,97,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Label Name="priceLbl" Content="{Binding ProductItem.Price}" HorizontalAlignment="Left" Margin="282,153,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Label Name="inStockLbl" Content="{Binding ProductItem.InStock}" HorizontalAlignment="Left" Margin="282,213,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Label Name="categoryLbl" Content="{Binding ProductItem.Category}" HorizontalAlignment="Left" Margin="282,267,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.RowSpan="2" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Label Name="amountLbl" Content="{Binding ProductItem.AmountInCart}" HorizontalAlignment="Left" Margin="282,50,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.Row="1" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Button Content="Add To Cart" HorizontalAlignment="Left" Margin="548,50,0,0" VerticalAlignment="Top" Height="55" Width="189" FontFamily="Broadway" FontSize="16" Grid.Row="1" Click="Button_Click"/>
+        <Button Content="Remove From Cart" HorizontalAlignment="Left" Margin="548,252,0,0" VerticalAlignment="Top" Height="55" Width="189" FontFamily="Broadway" FontSize="16" Grid.RowSpan="2" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

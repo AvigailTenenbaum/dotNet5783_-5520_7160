@@ -43,11 +43,12 @@ internal class Cart : BlApi.ICart
                         TotalPrice = product?.Price ?? throw new BO.NullData(),
                         ProductID = product?.ID ?? throw new BO.NullData()
                     };
-                    cart.Items = (List<BO.OrderItem?>?)cart.Items!.Append(newOrderItem);
+
+                    cart.Items!.Add(newOrderItem); /*=cart.Items!.Append(newOrderItem);*/
                 }
                 else
                 {
-                    throw new BO.InCorrectData();// חריגה שהמוצר לא במלאי
+                    throw new BO.OutOfStock();// חריגה שהמוצר לא במלאי
 
                 }
             }
