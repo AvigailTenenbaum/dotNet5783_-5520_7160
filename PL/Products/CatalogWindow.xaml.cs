@@ -1,5 +1,6 @@
 ﻿using BO;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -17,20 +18,26 @@ namespace PL.Products
 
         public Cart cart { get; set; }
         public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
+        private IEnumerable<ProductItem?> productsItemList { get; }
         public CatalogWindow()
         {
+            productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem.Equals(Category.NONE))//Back to the state where you see the whole list
+            Category? category = CategorySelector.SelectedItem as Category?;
+            if (category != null)
             {
-                ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
-            }
-            else
-            {
-                ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem().Where(x => x!.Category == (BO.Category)CategorySelector.SelectedItem));
+                if (category.Equals(Category.NONE))//Back to the state where you see the whole list
+                {
+                    ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem());
+                }
+                else
+                {
+                    ProductsItemList = new ObservableCollection<ProductItem?>(bl!.Product.GetListOfProductsItem().Where(x => x!.Category == (BO.Category)CategorySelector.SelectedItem));
+                }
             }
         }
     }
