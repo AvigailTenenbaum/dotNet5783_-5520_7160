@@ -77,6 +77,7 @@ namespace PL.Products
             }
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }
+            
         }
     }
 }
