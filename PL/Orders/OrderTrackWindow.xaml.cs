@@ -36,9 +36,10 @@ namespace PL.Orders
             }
             catch(Exception ex)
             {
-                Order = null;
                 MessageBox.Show(ex.Message);
             }
+            
+
         }
     }
 }

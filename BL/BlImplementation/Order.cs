@@ -200,7 +200,7 @@ internal class Order : BlApi.IOrder
         if (order.DeliveryDate != null)
         {
             orderTracking.orderStatus = BO.OrderStatus.deliveredTotheCustomer;
-            orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been delivered to the customer", order.ShipDate));
+            orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been delivered to the customer", order.DeliveryDate));
         }
         return orderTracking;
     }

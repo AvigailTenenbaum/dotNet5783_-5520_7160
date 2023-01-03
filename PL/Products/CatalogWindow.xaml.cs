@@ -19,11 +19,17 @@ namespace PL.Products
         public Cart Cart { get; set; }
         public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
         private IEnumerable<ProductItem?> productsItemList { get; }
+        public ObservableCollection<IGrouping< BO.Category?,ProductItem?>> CategoryG { get; set; }
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
             Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+            CategoryG = new ObservableCollection<IGrouping<BO.Category?, ProductItem?>>
+                (from product in ProductsItemList
+                 orderby product.Category
+                 group product by product.Category into group1
+                 select group1);
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

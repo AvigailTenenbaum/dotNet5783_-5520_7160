@@ -22,12 +22,16 @@
                 </Grid.ColumnDefinitions >
                 <ComboBox Name="CategorySelector"
               Grid.Column="1" FontSize="18" Margin="0,0,10,0" ItemsSource="{Binding array}" SelectionChanged="CategorySelector_SelectionChanged"/>
+                <CheckBox Name="IsGroupByCategory" Content="CheckBox" HorizontalAlignment="Left" Margin="44,10,0,0" VerticalAlignment="Top"/>
             </Grid>
             <Label
              Grid.Column="0" Content="Category:" Margin="296,-2,400,0" FontSize="18"/>
             <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick">
             </ListView>
-            <Button Margin="59,4,657,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click"/>
+            <Button Margin="159,4,557,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click"/>
+        </Grid>
+        <Grid x:Name="GroupByCategory" Grid.Row="1" Grid.Column="0" Visibility="{Binding ElementName=IsGroupByCategory,Path=IsChecked, Converter={StaticResource notNullToVisebilityConverter}}">
+            
         </Grid>
     </Grid>
 </Window>
