@@ -20,6 +20,7 @@ namespace PL.Products
     /// </summary>
     public partial class CartWindow : Window
     {
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public BO.Cart Cart
         {
             get { return (BO.Cart)GetValue(CartProperty); }
@@ -33,6 +34,49 @@ namespace PL.Products
         {
             InitializeComponent();
             Cart = myCart;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Cart.CustomerName = Nametxt.Text;
+                Cart.CustomerEmail = Emailtxt.Text;
+                Cart.CostumerAdress = AddressTxt.Text;
+                bl!.Cart.OrderConfirmation(Cart);
+                MessageBox.Show("Thank you, your order has been successfully placed!");
+                Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                FrameworkElement? framework = sender as FrameworkElement;
+                OrderItem? orderItem = (OrderItem?)framework?.DataContext;
+                int productId = orderItem!.ProductID;
+                int amount= orderItem.Amount;
+                Cart=bl!.Cart.UpdateProductAmount(Cart, productId, amount);
+                OrderItem oI = new OrderItem()
+                {
+                    ID=productId,
+                    Amount=amount,
+                    ProductID=productId,
+                    Name=orderItem.Name,
+                    Price=orderItem.Price,
+                    TotalPrice=Cart.Items!.FirstOrDefault(item=>item!.ID==orderItem.ID)!.TotalPrice,
+                };
+                Cart.Items![Cart.Items.IndexOf(orderItem)]=oI;
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message); }
         }
     }
 }

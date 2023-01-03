@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using System;
+using System.Linq;
 using System.Windows;
 
 namespace PL.Products
@@ -10,14 +12,17 @@ namespace PL.Products
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         public BO.Product Product { set; get; }
+        private Action<ProductForList> action;
         public Array array { set; get; } = Enum.GetValues(typeof(BO.Category));
-        public ProductWindowFinal()
+        public ProductWindowFinal(Action<ProductForList> action)
         {
             //categorycomboBox.DataContext = Enum.GetValues(typeof(BO.Category));
+            this.action = action;  
             InitializeComponent();
         }
-        public ProductWindowFinal(int id)
+        public ProductWindowFinal(int id, Action<ProductForList> action)
         {
+            this.action = action;
             Product = bl!.Product.GetProductDetails(id);
             InitializeComponent();
             // categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
@@ -71,6 +76,7 @@ namespace PL.Products
                     Price = double.Parse(priceTextBox.Text),
                 };
                 bl?.Product.UpdateProduct(product);
+                action(bl?.Product.GetListOfProducts(p=>p.ID== product?.ID).FirstOrDefault());
                 this.Close();
             }
             catch (BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }

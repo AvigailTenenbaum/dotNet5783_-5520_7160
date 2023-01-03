@@ -187,17 +187,17 @@ internal class Order : BlApi.IOrder
         try { order = (DO.Order)dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         BO.OrderTracking orderTracking = new BO.OrderTracking { ID = order.ID };
         orderTracking.TrackingInformation = new List<Tuple<string?, DateTime?>>();
-        if (order.OrderDate < DateTime.Now)
+        if (order.OrderDate !=null)
         {
             orderTracking.orderStatus = BO.OrderStatus.Approved;
             orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been created", order.OrderDate));
         }
-        if (order.ShipDate < DateTime.Now)
+        if (order.ShipDate != null)
         {
             orderTracking.orderStatus = BO.OrderStatus.shipped;
             orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order is sent", order.ShipDate));
         }
-        if (order.DeliveryDate < DateTime.Now)
+        if (order.DeliveryDate != null)
         {
             orderTracking.orderStatus = BO.OrderStatus.deliveredTotheCustomer;
             orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been delivered to the customer", order.ShipDate));

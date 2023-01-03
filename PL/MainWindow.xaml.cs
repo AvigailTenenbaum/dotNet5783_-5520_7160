@@ -1,5 +1,8 @@
-﻿using PL.Products;
+﻿using PL.Orders;
+using PL.Products;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -23,6 +26,11 @@ namespace PL
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             new AdminWindow().ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new OrderTrackWindow(Convert.ToInt32( idtxt.Text)).ShowDialog();
         }
     }
 }
