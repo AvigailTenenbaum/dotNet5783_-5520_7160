@@ -8,7 +8,7 @@
         Title="CartWindow" Height="450" Width="800"
         DataContext="{Binding Cart,RelativeSource={RelativeSource Self}}">
     <Grid>
-        <ListView ItemsSource="{Binding Items}">
+        <ListView ItemsSource="{Binding Items}" Margin="0,0,370,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

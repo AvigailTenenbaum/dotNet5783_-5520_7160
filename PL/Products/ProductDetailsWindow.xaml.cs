@@ -1,5 +1,6 @@
 ﻿using BO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL.Products
 {
@@ -45,6 +46,10 @@ namespace PL.Products
                 MessageBox.Show(ex.Message);
             }
             catch (BO.OutOfStock ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(BO.NotPossibleToFillRequest ex)
             {
                 MessageBox.Show(ex.Message);
             }
