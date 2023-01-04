@@ -31,6 +31,10 @@ namespace PL.Products
             {
                 MessageBox.Show(ex.Message);
             }
+            catch (BO.OutOfStock ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

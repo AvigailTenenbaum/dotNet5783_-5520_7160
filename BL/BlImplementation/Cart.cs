@@ -26,7 +26,7 @@ internal class Cart : BlApi.ICart
                 if (product?.InStock > 0)
                 {
                     orderItem.Amount += 1;
-                    orderItem.TotalPrice = product?.Price ?? throw new BO.NullData();
+                    orderItem.TotalPrice += product?.Price ?? throw new BO.NullData();
                 }
             }
             else///if the item is not exist in the cart
@@ -190,85 +190,87 @@ internal class Cart : BlApi.ICart
     public void OrderConfirmation(BO.Cart cart)
     {
         ///check the details 
-        if (cart.CustomerName == null)
-            throw new BO.NullData();
-        if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
+        //        if (cart.CustomerName == null)
+        //            throw new BO.NullData();
+        //        if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
+        //            throw new BO.InCorrectData();
+        //        if (cart.CostumerAdress == null)
+        //            throw new BO.NullData();
+        //        if (cart.Items!.Count() == 0)//no items in cart
+        //            throw new BO.NullData();
+        //        DO.Order order = new DO.Order()
+        //        {
+        //            CustomerName = cart.CustomerName,
+        //            CustomerEmail = cart.CustomerEmail,
+        //            CustomerAddress = cart.CostumerAdress,
+        //            OrderDate = DateTime.Now,
+        //            DeliveryDate = null,
+        //            ShipDate = null,
+
+        //        };
+
+        //        try
+        //        {
+        //            int orderID = dal!.Order.AddObject(order);
+
+        //            IEnumerable<int> orderItemsID = from item in cart.Items
+        //                                            select dal.OrderItem.AddObject(
+        //                                                new DO.OrderItem
+        //                                                {
+        //                                                    OrderID = orderID,
+        //                                                    Price = item.Price,
+        //                                                    ProductID = item.ProductID,
+        //                                                    Amount = item.Amount,
+        //                                                    ID = item.ID
+        //                                                });
+
+        //            IEnumerable<DO.Product> productUpdate = from item in cart.Items
+        //                                                    select new DO.Product
+        //                                                    {
+        //                                                        ID = item.ProductID,
+        //                                                        Name = item.Name,
+        //                                                        Price = item.Price,
+        //                                                        Category = dal.Product.GetObject(item.ProductID)?.Category,
+        //                                                        InStock = (int)(dal.Product.GetObject(item.ProductID))?.InStock - item.Amount
+        //                                                    };
+
+
+        //            productUpdate.ToList().ForEach(x => dal.Product.UpDateObject(x));
+        //        }
+        //        catch (DO.NotExist ex)
+        //        {
+        //            throw new BO.NotExist(ex);
+        //        }
+        //    }
+        //}
+        if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail == null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
             throw new BO.InCorrectData();
-        if (cart.CostumerAdress == null)
-            throw new BO.NullData();
-        if (cart.Items!.Count() == 0)//no items in cart
-            throw new BO.NullData();
-        DO.Order order = new DO.Order()
+        DO.Product? product;
+        foreach (BO.OrderItem? orderItem in cart?.Items ?? throw new BO.NullData())
         {
-            CustomerName = cart.CustomerName,
-            CustomerEmail = cart.CustomerEmail,
-            CustomerAddress = cart.CostumerAdress,
-            OrderDate = DateTime.Now,
-            DeliveryDate = null,
-            ShipDate = null,
-        };
-
-        try
-        {
-            int orderID = dal!.Order.AddObject(order);
-
-            IEnumerable<int> orderItemsID = from item in cart.Items
-                                            select dal.OrderItem.AddObject(
-                                                new DO.OrderItem
-                                                {
-                                                    OrderID = orderID,
-                                                    Price = item.Price,
-                                                    ProductID = item.ProductID,
-                                                    Amount = item.Amount,
-                                                    ID = item.ID
-                                                });
-
-            IEnumerable<DO.Product> productUpdate = from item in cart.Items
-                                                    select new DO.Product
-                                                    {
-                                                        ID = item.ProductID,
-                                                        Name = item.Name,
-                                                        Price = item.Price,
-                                                        Category = dal.Product.GetObject(item.ProductID)?.Category,
-                                                        InStock = (int)(dal.Product.GetObject(item.ProductID))?.InStock - item.Amount
-                                                    };
-
-
-            productUpdate.ToList().ForEach(x => dal.Product.UpDateObject(x));
+            try { product = dal?.Product.GetObject(orderItem?.ProductID ?? throw new BO.NullData()); }
+            catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            if (orderItem?.Amount <= 0)
+                throw new BO.InCorrectData();
+            if (product?.InStock - orderItem?.Amount < 0)
+                throw new BO.NotPossibleToFillRequest();
         }
-        catch (DO.NotExist ex)
+        DO.Order newOrder = new DO.Order { CustomerAddress = cart.CostumerAdress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now };
+        int id;
+        try { id = dal?.Order.AddObject(newOrder) ?? throw new BO.NullData(); }
+        catch (DO.AllReadyExist e) { throw new BO.AllReadyExist(e); }
+        foreach (BO.OrderItem? orderItem in cart.Items)
         {
-            throw new BO.NotExist(ex);
+            DO.OrderItem newOrderItem = new DO.OrderItem { ProductID = orderItem?.ProductID ?? throw new BO.NullData(), OrderID = id, Price = orderItem?.Price ?? throw new BO.NullData(), Amount = orderItem?.Amount ?? throw new BO.NullData() };
+            try { id = dal.OrderItem.AddObject(newOrderItem); }
+            catch (DO.NotExist e) { throw new BO.NotExist(e); }
+            DO.Product product1 = (DO.Product)dal.Product.GetObject(orderItem.ProductID)!;
+            product1.InStock -= orderItem.Amount;
+            dal.Product.UpDateObject(product1);
+
         }
+
+
     }
 }
-//    if (cart.CustomerName == null || cart.CostumerAdress == null || cart.CustomerEmail == null || cart.CustomerEmail==null || !cart.CustomerEmail.Contains('@') || cart.CustomerEmail.Contains(' ') || cart.CustomerEmail.IndexOf('@') == 0 || cart.CustomerEmail.IndexOf('@') == cart.CustomerEmail.Length - 1)
-//        throw new BO.InCorrectData();
-//    DO.Product? product;
-//    foreach (BO.OrderItem? orderItem in cart?.Items??throw new BO.NullData())
-//    {
-//        try { product = dal?.Product.GetObject(orderItem?.ProductID ?? throw new BO.NullData()); }
-//        catch(DO.NotExist e) { throw new BO.NotExist(e); }
-//        if(orderItem?.Amount<=0)
-//            throw new BO.InCorrectData();
-//        if (product?.InStock- orderItem?.Amount<0)
-//            throw new BO.NotPossibleToFillRequest();
-//    }
-//    DO.Order newOrder=new DO.Order { CustomerAddress=cart.CostumerAdress,CustomerEmail=cart.CustomerEmail,CustomerName=cart.CustomerName,OrderDate=DateTime.Now};
-//    int id;
-//    try { id=dal?.Order.AddObject(newOrder)??throw new BO.NullData(); }
-//    catch(DO.AllReadyExist e) { throw new BO.AllReadyExist(e); }
-//    foreach (BO.OrderItem? orderItem in cart.Items)
-//    {
-//        DO.OrderItem newOrderItem = new DO.OrderItem { ProductID = orderItem?.ProductID??throw new BO.NullData(), OrderID = id, Price = orderItem?.Price??throw new BO.NullData(), Amount = orderItem?.Amount??throw new BO.NullData() };
-//        try { id = dal.OrderItem.AddObject(newOrderItem); }
-//        catch (DO.NotExist e) { throw new BO.NotExist(e); }
-//       DO.Product product1=(DO.Product)dal.Product.GetObject(orderItem.ProductID)!;
-//        product1.InStock -= orderItem.Amount;
-//        dal.Product.UpDateObject(product1);
-
-//    }
-
-
-//}
 

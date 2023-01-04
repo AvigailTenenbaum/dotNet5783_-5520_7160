@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BO;
+using System.Windows;
 
 namespace PL.Orders
 {
@@ -11,8 +12,14 @@ namespace PL.Orders
         public BO.Order Order { set; get; }
         public OrderWindow(int id)
         {
-            Order = bl!.Order.GetOrderDetails(id);
-            DataContext = this;
+            try
+            {
+                Order = bl!.Order.GetOrderDetails(id);
+            }
+            catch(NotExist ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             InitializeComponent();
 
 

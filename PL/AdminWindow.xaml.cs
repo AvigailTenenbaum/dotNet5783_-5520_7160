@@ -1,4 +1,5 @@
-﻿using PL.Orders;
+﻿using BO;
+using PL.Orders;
 using PL.Products;
 using System.Windows;
 
@@ -24,5 +25,6 @@ namespace PL
         {
             new ProductListWindowFinal().ShowDialog();
         }
+       
     }
 }

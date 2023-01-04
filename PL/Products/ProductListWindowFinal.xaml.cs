@@ -36,7 +36,7 @@ namespace PL.Products
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductWindowFinal().ShowDialog();
+            new ProductWindowFinal(addProduct).ShowDialog();
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,7 +75,14 @@ namespace PL.Products
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ProductListview.SelectedItem == null) return;
-            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID).ShowDialog();
+            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID,UpdateProduct).ShowDialog();
+        }
+        private void addProduct(ProductForList product) =>ProductsForLists?.Add(product);
+        private void UpdateProduct(ProductForList product)
+        {
+            var p = ProductsForLists?.FirstOrDefault(item => item?.ID == product.ID);
+            int i = ProductsForLists.IndexOf(p);
+            ProductsForLists[i]= product;
         }
     }
 

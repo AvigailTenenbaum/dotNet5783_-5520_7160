@@ -23,9 +23,9 @@
         <Label Name="priceLbl" Content="{Binding ProductItem.Price}" HorizontalAlignment="Left" Margin="282,153,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
         <Label Name="inStockLbl" Content="{Binding ProductItem.InStock}" HorizontalAlignment="Left" Margin="282,213,0,0" VerticalAlignment="Top" Height="37" Width="78" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
         <Label Name="categoryLbl" Content="{Binding ProductItem.Category}" HorizontalAlignment="Left" Margin="282,267,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.RowSpan="2" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
-        <Label Name="amountLbl" Content="{Binding ProductItem.AmountInCart}" HorizontalAlignment="Left" Margin="282,50,0,0" VerticalAlignment="Top" Height="37" Width="78" Grid.Row="1" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
-        <Button Content="Add To Cart" HorizontalAlignment="Left" Margin="548,50,0,0" VerticalAlignment="Top" Height="55" Width="189" FontFamily="Broadway" FontSize="16" Grid.Row="1" Click="Button_Click"/>
-        <Button x:Name="removebtn" Content="Remove From Cart" HorizontalAlignment="Left" Margin="548,252,0,0" VerticalAlignment="Top" Height="55" Width="189" FontFamily="Broadway" FontSize="16" Grid.RowSpan="2" Click="Button_Click_1"/>
+        <Label Name="amountLbl" Content="{Binding ProductItem.AmountInCart}" HorizontalAlignment="Left" Margin="317,50,0,0" VerticalAlignment="Top" Height="37" Width="39" Grid.Row="1" Background="#00000000" BorderThickness="3,3,3,3" BorderBrush="Black"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="365,59,0,0" VerticalAlignment="Top" Height="20" Width="20" FontFamily="Broadway" FontSize="16" Grid.Row="1" Click="Button_Click"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="287,59,0,0" VerticalAlignment="Top" Height="20" Width="20" FontFamily="Broadway" FontSize="16" Click="Button_Click_1" Grid.Row="1"/>
 
     </Grid>
 </Window>

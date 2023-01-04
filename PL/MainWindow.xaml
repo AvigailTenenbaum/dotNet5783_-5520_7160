@@ -13,8 +13,8 @@
         <Button Content="Admin" HorizontalAlignment="Left" Margin="118,323,0,0" VerticalAlignment="Top" Height="43" Width="119" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click_1"/>
         <Button Content="new order" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Height="43" Width="148" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click"/>
         <StackPanel Margin="534,267,70,13" Background="#FFDDDDDD">
-            <TextBox TextWrapping="Wrap" Text="" Width="155" Height="33" Margin="20"/>
-            <Button Content="Track" Height="32" Width="114" FontFamily="Broadway"  FontSize="20" />
+            <TextBox Name="idtxt" TextWrapping="Wrap" Text="" Width="155" Height="33" Margin="20"/>
+            <Button Content="Track" Height="32" Width="114" FontFamily="Broadway"  FontSize="20" Click="Button_Click_2" />
         </StackPanel>
     </Grid>
 </Window>
