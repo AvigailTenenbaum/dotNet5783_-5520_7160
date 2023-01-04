@@ -55,7 +55,7 @@ namespace PL.Products
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -64,16 +64,17 @@ namespace PL.Products
                 int productId = orderItem!.ProductID;
                 int amount= orderItem.Amount;
                 Cart=bl!.Cart.UpdateProductAmount(Cart, productId, amount);
-                OrderItem oI = new OrderItem()
-                {
-                    ID=productId,
-                    Amount=amount,
-                    ProductID=productId,
-                    Name=orderItem.Name,
-                    Price=orderItem.Price,
-                    TotalPrice=Cart.Items!.FirstOrDefault(item=>item!.ID==orderItem.ID)!.TotalPrice,
-                };
-                Cart.Items![Cart.Items.IndexOf(orderItem)]=oI;
+                ProductsInCart.Items.Refresh();
+                //OrderItem oI = new OrderItem()
+                //{
+                //    ID=productId,
+                //    Amount=amount,
+                //    ProductID=productId,
+                //    Name=orderItem.Name,
+                //    Price=orderItem.Price,
+                //    TotalPrice=Cart.Items!.FirstOrDefault(item=>item!.ID==orderItem.ID)!.TotalPrice,
+                //};
+                //Cart.Items![Cart.Items.IndexOf(orderItem)]=oI;
             }
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }

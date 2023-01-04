@@ -26,12 +26,36 @@
             </Grid>
             <Label
              Grid.Column="0" Content="Category:" Margin="296,-2,400,0" FontSize="18"/>
-            <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick">
+            <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick"
+                      Visibility="{Binding ElementName=IsGroupByCategory, Path=IsChecked, Converter={StaticResource notBoolToVisebilityConverter}}">
             </ListView>
+            <Grid x:Name="GroupByCategory" Grid.Row="1" Grid.Column="0" 
+              Visibility="{Binding ElementName=IsGroupByCategory,Path=IsChecked, Converter={StaticResource boolToVisebilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                    <RowDefinition Height="83.3*"/>
+                </Grid.RowDefinitions>
+                <Label Content="saturday:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+                <ListView x:Name="saturday" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding CategoryG[0]}" MouseDoubleClick="ProductsListView_MouseDoubleClick"/>
+                <Label Content="holidays:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center"/>
+                <ListView x:Name="holidays" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding CategoryG[1]}" MouseDoubleClick="ProductsListView_MouseDoubleClick"/>
+                <Label Content="toSeferTorah:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center"/>
+                <ListView x:Name="toSeferTorah" Grid.Row="5" Grid.Column="0" ItemsSource="{Binding CategoryG[2]}" MouseDoubleClick="ProductsListView_MouseDoubleClick"/>
+                <Label Content="giftsForHome:" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
+                <ListView x:Name="giftsForHome" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CategoryG[3]}" MouseDoubleClick="ProductsListView_MouseDoubleClick"/>
+                <Label Content="handMade:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"/>
+                <ListView x:Name="handMade" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding CategoryG[4]}" MouseDoubleClick="ProductsListView_MouseDoubleClick"/>
+            </Grid>
             <Button Margin="159,4,557,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click"/>
-        </Grid>
-        <Grid x:Name="GroupByCategory" Grid.Row="1" Grid.Column="0" Visibility="{Binding ElementName=IsGroupByCategory,Path=IsChecked, Converter={StaticResource notNullToVisebilityConverter}}">
-            
         </Grid>
     </Grid>
 </Window>

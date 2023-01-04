@@ -7,5 +7,7 @@
         <local:NullToVisebilityConverter x:Key="nullToVisebilityConverter"/>
         <local:NotNullToVisebilityConverter x:Key="notNullToVisebilityConverter"/>
         <local:NullToBooleanConverter x:Key="nullToBooleanConverter"/>
+        <local:BoolToVisebilityConverter x:Key="boolToVisebilityConverter"/>
+        <local:NotBoolToVisebilityConverter x:Key="notBoolToVisebilityConverter"/>
     </Application.Resources>
 </Application>

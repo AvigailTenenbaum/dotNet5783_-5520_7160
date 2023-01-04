@@ -8,7 +8,7 @@
         Title="CartWindow" Height="450" Width="800"
         DataContext="{Binding Cart,RelativeSource={RelativeSource Self}}">
     <Grid>
-        <ListView ItemsSource="{Binding Items}" Margin="400,0,0,0" >
+        <ListView x:Name="ProductsInCart" ItemsSource="{Binding Items}" Margin="400,0,0,0" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Product ID" Width="auto" x:Name="ID" DisplayMemberBinding="{Binding ProductID}"></GridViewColumn>
@@ -17,7 +17,7 @@
                     <GridViewColumn Header="Amount">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Amount}" />
+                                <TextBox Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Width="auto" LostFocus="TextBox_TextChanged"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
