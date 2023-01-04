@@ -21,7 +21,7 @@
             <Label Content="Double-click an order to see its details" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="32" Width="800" FontFamily="Broadway" FontSize="20" Background="#FFF7DA1D"/>
         </Grid>
         <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="OrderListview" Grid.RowSpan="2"  Grid.Row="1" ItemsSource="{Binding}" 
-                   MouseDoubleClick="OrderListview_MouseDoubleClick">
+                   MouseDoubleClick="OrderListview_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

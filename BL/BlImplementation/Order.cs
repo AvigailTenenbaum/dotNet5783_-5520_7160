@@ -227,7 +227,7 @@ internal class Order : BlApi.IOrder
         {
             throw new BO.NotExist(ex);
         }
-        if (dal?.Order.GetObject(IDOrder)?.ShipDate <= DateTime.Now)
+        if (dal?.Order.GetObject(IDOrder)?.ShipDate !=null)
             throw new BO.NotPossibleToFillRequest();
         BO.Order order = GetOrderDetails(IDOrder);
         foreach (BO.OrderItem? orderItem in order.Items ?? throw new BO.NullData())

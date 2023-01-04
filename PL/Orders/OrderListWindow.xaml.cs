@@ -31,5 +31,7 @@ namespace PL.Orders
             new OrderWindow(((OrderForList)OrderListview.SelectedItem).ID).ShowDialog();
 
         }
+
+   
     }
 }
