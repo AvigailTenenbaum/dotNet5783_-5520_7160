@@ -12,11 +12,12 @@ namespace PL.Orders
     public partial class OrderListWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        public ObservableCollection<OrderForList?> OrderForLists { get; set; }
+
         public OrderListWindow()
         {
+            OrderForLists = new ObservableCollection<OrderForList?>(bl!.Order.GetListOfOrder());
             InitializeComponent();
-            ObservableCollection<OrderForList?> orderForLists = new ObservableCollection<OrderForList?>(bl!.Order.GetListOfOrder());
-            DataContext = orderForLists;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

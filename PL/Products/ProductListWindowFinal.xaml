@@ -31,10 +31,22 @@
         <ListView  x:Name="ProductListview" Grid.RowSpan="2" ItemsSource="{Binding ProductsForLists}" Grid.ColumnSpan="2" Margin="0,29,0,0"  MouseDoubleClick="ProductListview_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="ID" Width="auto" x:Name="id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name }"></GridViewColumn>
+                    <GridViewColumn Header="Price" Width="auto" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                    <GridViewColumn Header="Category" Width="auto" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
+                        <!--<GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Width="auto" LostFocus="TextBox_TextChanged"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Total Price" Width="auto" DisplayMemberBinding="{Binding TotalPrice}"/>
+                    <GridViewColumn/>-->
                 </GridView>
             </ListView.View>
         </ListView>
+
         <Button Content="Add new Product" Grid.Row="1" HorizontalAlignment="Left" Margin="661,0,0,5" Padding="5" Click="Button_Click" Grid.ColumnSpan="2" Height="28" VerticalAlignment="Bottom" />
     </Grid>
 </Window>
