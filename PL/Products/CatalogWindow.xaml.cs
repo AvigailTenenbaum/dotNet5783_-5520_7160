@@ -63,8 +63,9 @@ namespace PL.Products
 
         private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (ProductsListView.SelectedItem == null) return;
-            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem),Cart).ShowDialog();
+            ListView list=sender as ListView;
+            if (list.SelectedItem == null) return;
+            new ProductDetailsWindow(((ProductItem)list.SelectedItem),Cart).ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

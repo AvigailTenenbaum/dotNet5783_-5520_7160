@@ -1,4 +1,5 @@
 ﻿using BO;
+using System;
 using System.Windows;
 
 namespace PL.Orders
@@ -36,6 +37,12 @@ namespace PL.Orders
 
             bl!.Order.OrderDeliveryUpdate((int)id.Content);
             Order = bl.Order.GetOrderDetails(Order.ID);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Order = bl!.Order.UpdateOrder((int)id.Content,Convert.ToInt32( productIdTxt.Text),Convert.ToInt32( Amounttxt.Text));
+            lvProducts.Items.Refresh();
         }
     }
 }
