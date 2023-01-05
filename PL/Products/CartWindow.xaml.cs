@@ -65,16 +65,6 @@ namespace PL.Products
                 int amount= orderItem.Amount;
                 Cart=bl!.Cart.UpdateProductAmount(Cart, productId, amount);
                 ProductsInCart.Items.Refresh();
-                //OrderItem oI = new OrderItem()
-                //{
-                //    ID=productId,
-                //    Amount=amount,
-                //    ProductID=productId,
-                //    Name=orderItem.Name,
-                //    Price=orderItem.Price,
-                //    TotalPrice=Cart.Items!.FirstOrDefault(item=>item!.ID==orderItem.ID)!.TotalPrice,
-                //};
-                //Cart.Items![Cart.Items.IndexOf(orderItem)]=oI;
             }
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }

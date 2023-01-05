@@ -12,7 +12,7 @@ namespace PL.Orders
     public partial class OrderListWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public ObservableCollection<OrderForList?> OrderForLists { get; set; }
+        //public ObservableCollection<OrderForList?> OrderForLists { get; set; }
 
         public OrderListWindow()
         {
@@ -32,5 +32,7 @@ namespace PL.Orders
             new OrderWindow(((OrderForList)OrderListview.SelectedItem).ID).ShowDialog();
 
         }
+
+   
     }
 }

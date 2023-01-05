@@ -47,6 +47,20 @@ public class NullToBooleanConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+public class NotNullToBooleanConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value == null)
+            return true;
+        else
+            return false;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 public class BoolToVisebilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
