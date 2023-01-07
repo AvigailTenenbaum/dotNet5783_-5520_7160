@@ -9,5 +9,6 @@
         <local:NullToBooleanConverter x:Key="nullToBooleanConverter"/>
         <local:BoolToVisebilityConverter x:Key="boolToVisebilityConverter"/>
         <local:NotBoolToVisebilityConverter x:Key="notBoolToVisebilityConverter"/>
+        <local:NotNullToBooleanConverter x:Key="notNullToBooleanConverter"/>
     </Application.Resources>
 </Application>
