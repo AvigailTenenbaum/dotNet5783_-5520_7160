@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using System;
 using System.Linq;
 using System.Windows;
@@ -12,25 +13,40 @@ namespace PL.Products
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         public BO.Product Product { set; get; }
-        private Action<ProductForList> action;
+        private Action<ProductForList> action;//Variable for performing actions in the previous window
+        private Action action1;//Variable for performing actions in the previous window
         public Array array { set; get; } = Enum.GetValues(typeof(BO.Category));
+        /// <summary>
+        /// Opening the window in insert mode
+        /// </summary>
+        /// <param name="action"></param>
         public ProductWindowFinal(Action<ProductForList> action)
         {
-            //categorycomboBox.DataContext = Enum.GetValues(typeof(BO.Category));
             this.action = action;  
             InitializeComponent();
         }
-        public ProductWindowFinal(int id, Action<ProductForList> action)
+        /// <summary>
+        /// Opening the window in update mode
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="action"></param>
+        /// <param name="action1"></param>
+        public ProductWindowFinal(int id, Action<ProductForList> action, Action action1)
         {
             this.action = action;
+            this.action1 = action1;
             Product = bl!.Product.GetProductDetails(id);
             InitializeComponent();
-            // categorycomboBox.ItemsSource = Enum.GetValues(typeof(BO.Category));
         }
-
+        /// <summary>
+        /// Adding a new product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
+            //Checking the correctness of the details
             if (idTextBox.Text.Length == 0 || nameTextBox.Text.Length == 0 || inStockTextBox.Text.Length == 0 || priceTextBox.Text.Length == 0)
             {
 
@@ -48,6 +64,7 @@ namespace PL.Products
                     Price = double.Parse(priceTextBox.Text),
                 };
                 bl?.Product.AddProduct(product);
+                action(bl?.Product.GetListOfProducts(p => p.ID == product?.ID).FirstOrDefault());
                 this.Close();
             }
             catch (BO.InCorrectData ex)
@@ -56,10 +73,16 @@ namespace PL.Products
             }
             catch (BO.AllReadyExist ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
         }
-
+        /// <summary>
+        /// Update an existing product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult;
+            //Checking the correctness of the details
+
             if (nameTextBox.Text.Length == 0 || inStockTextBox.Text.Length == 0 || priceTextBox.Text.Length == 0)
             {
                 messageBoxResult = MessageBox.Show("One or more of the required data is missing", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -80,6 +103,25 @@ namespace PL.Products
                 this.Close();
             }
             catch (BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        /// <summary>
+        /// Deleting an existing product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            try
+            {
+                bl?.Product.DeleteProduct(Product.ID);
+                action1();
+                this.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -28,12 +28,15 @@ namespace PL.Products
         }
         public static readonly DependencyProperty CartProperty =
             DependencyProperty.Register("Cart", typeof(BO.Cart), typeof(Window), new PropertyMetadata(null));
+        public Action Action;
+        public Action<ProductItem,Cart> Action1;
 
-
-        public CartWindow(Cart myCart)
+        public CartWindow(Cart myCart,Action action, Action<ProductItem,Cart> action1)
         {
             InitializeComponent();
             Cart = myCart;
+            this.Action = action;
+            this.Action1 = action1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,7 +48,7 @@ namespace PL.Products
                 Cart.CostumerAdress = AddressTxt.Text;
                 bl!.Cart.OrderConfirmation(Cart);
                 MessageBox.Show("Thank you, your order has been successfully placed!");
-                Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+                Action();
                 this.Close();
 
             }
@@ -54,7 +57,11 @@ namespace PL.Products
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Changing the quantity of a product in the cart
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
             try
@@ -65,6 +72,13 @@ namespace PL.Products
                 int amount= orderItem.Amount;
                 Cart=bl!.Cart.UpdateProductAmount(Cart, productId, amount);
                 ProductsInCart.Items.Refresh();
+                ProductItem p = new ProductItem()
+                {
+                    ID = productId,
+                    AmountInCart = amount,
+
+                };
+                Action1(p,Cart);
             }
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }

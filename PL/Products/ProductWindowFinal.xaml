@@ -22,6 +22,7 @@
         <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233" ItemsSource="{Binding array }" SelectedItem="{Binding Product.Category}" />
         <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="{Binding Product.Price}" Margin="340,206,322,183" />
         <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="{Binding Product.InStock}" Margin="340,256,322,133" />
+        <Button   Content="Delete" HorizontalAlignment="Left" Margin="264,346,0,0" VerticalAlignment="Top"  Visibility="{Binding Product, Converter={StaticResource notNullToVisebilityConverter}}" Click="Button_Click"/>
 
     </Grid>
 </Window>

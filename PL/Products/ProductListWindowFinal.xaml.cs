@@ -33,7 +33,11 @@ namespace PL.Products
 
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Opening a product details window for adding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindowFinal(addProduct).ShowDialog();
@@ -59,7 +63,10 @@ namespace PL.Products
             }
 
         }
-
+        /// <summary>
+        /// Private function for updating the list after a change in category filtering
+        /// </summary>
+        /// <param name="products"></param>
         private void addProducts(IEnumerable<ProductForList> products)
         {
             if (products.Any())
@@ -71,13 +78,33 @@ namespace PL.Products
                 }
             }
         }
-
+        /// <summary>
+        /// Opening a product details window for update and delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ProductListview.SelectedItem == null) return;
-            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID,UpdateProduct).ShowDialog();
+            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID,UpdateProduct,delProduct).ShowDialog();
         }
+        /// <summary>
+        /// A private function for updating the list after adding in the next window
+        /// </summary>
+        /// <param name="product"></param>
         private void addProduct(ProductForList product) =>ProductsForLists?.Add(product);
+        /// <summary>
+        /// Private function for updating the list after deletion in the next window
+        /// </summary>
+        private void delProduct()
+        {
+            ProductForList p = ProductListview.SelectedItem as ProductForList;
+            ProductsForLists?.Remove(p);
+        }
+        /// <summary>
+        /// Private function for updating the list after updating in the next window
+        /// </summary>
+        /// <param name="product"></param>
         private void UpdateProduct(ProductForList product)
         {
             var p = ProductsForLists?.FirstOrDefault(item => item?.ID == product.ID);

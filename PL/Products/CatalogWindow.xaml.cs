@@ -16,15 +16,21 @@ namespace PL.Products
         BlApi.IBl? bl = BlApi.Factory.Get();
         public Array array { get; set; } = Enum.GetValues(typeof(Category));
 
-        public Cart Cart { get; set; }
-        public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
-        private IEnumerable<ProductItem?> productsItemList { get; }
+        public BO.Cart Cart1
+        {
+            get { return (BO.Cart)GetValue(Cart1Property); }
+            set { SetValue(Cart1Property, value); }
+        }
+        public static readonly DependencyProperty Cart1Property =
+            DependencyProperty.Register("Cart1", typeof(BO.Cart), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<ProductItem?> ProductsItemList { get; set; }//List of all products in the display
+        private IEnumerable<ProductItem?> productsItemList { get; }//Private product list for filtering changes
         public ObservableCollection<IGrouping< BO.Category?,ProductItem?>> CategoryG { get; set; }
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
-            Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+            Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
             CategoryG = new ObservableCollection<IGrouping<BO.Category?, ProductItem?>>
                 (from product in ProductsItemList
                  orderby product.Category
@@ -49,6 +55,10 @@ namespace PL.Products
                 }
             }
         }
+        /// <summary>
+        /// Private function for updating the list after changes made in category filtering
+        /// </summary>
+        /// <param name="productsItems"></param>
         private void addProductsItem(IEnumerable<ProductItem> productsItems)
         {
             if (productsItems.Any())
@@ -65,12 +75,30 @@ namespace PL.Products
         {
             ListView list=sender as ListView;
             if (list.SelectedItem == null) return;
-            new ProductDetailsWindow(((ProductItem)list.SelectedItem),Cart).ShowDialog();
+            new ProductDetailsWindow(((ProductItem)list.SelectedItem),Cart1,UpdateProduct).ShowDialog();
+            ProductsListView.Items.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow(Cart).ShowDialog();
+            new CartWindow(Cart1,DelCart, UpdateProduct).ShowDialog();
+            ProductsListView.Items.Refresh();
+        }
+        /// <summary>
+        /// Private function for deleting the basket after placing the order in the next window
+        /// </summary>
+        private void DelCart()
+        {
+            this.Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+            var productsI = bl!.Product.GetListOfProductsItem().ToList();
+            addProductsItem(productsI);
+        }
+        private void UpdateProduct(ProductItem product,Cart c)
+        {
+            var p = ProductsItemList?.FirstOrDefault(item => item?.ID == product.ID);
+            int i = ProductsItemList.IndexOf(p);
+            ProductsItemList[i].AmountInCart = product.AmountInCart;
+            this.Cart1 = c;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using DalApi;
 
 namespace BlImplementation;
@@ -231,11 +232,18 @@ internal class Order : BlApi.IOrder
         }
         if (dal?.Order.GetObject(orderId)?.ShipDate!=null)
             throw new NotPossibleToFillRequest();
+     
         BO.Order? order = GetOrderDetails(orderId);
+      
         BO.OrderItem? oi = order?.Items?.FirstOrDefault(oi => oi?.ProductID == productId);
         if (dal!.Product.GetObject(productId)?.InStock < 0 || dal.Product.GetObject(productId)?.InStock < newAmount)
-            throw new InCorrectData();
+            throw new NotPossibleToFillRequest();
+        if (newAmount == 0)
+        {
+            int x = order.Items!.ToList().FindIndex(x => x?.ProductID == productId);
+            ((List<BO.OrderItem?>)order.Items!).RemoveAt(x);
 
+        }
         if (oi == null)//if he product is not in the order, add it
         {
             oi = new OrderItem()
@@ -259,7 +267,6 @@ internal class Order : BlApi.IOrder
             dal?.OrderItem.AddObject(add);
             return order;
         }
-
         order!.TotalPrice -= oi!.TotalPrice;
         oi.Amount = newAmount;
         oi.TotalPrice = newAmount * oi.Price;

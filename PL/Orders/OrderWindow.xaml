@@ -20,7 +20,7 @@
         <Label Content="Ship Date:" HorizontalAlignment="Left" Margin="56,248,0,0" VerticalAlignment="Top" Height="31" Width="193" FontFamily="Broadway" FontSize="18"/>
         <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="56,284,0,0" VerticalAlignment="Top" Height="31" Width="153" FontFamily="Broadway" FontSize="18"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="56,320,0,0" VerticalAlignment="Top" Height="31" Width="193" FontFamily="Broadway" FontSize="18"/>
-        <Label Content="Items:" HorizontalAlignment="Left" Margin="477,34,0,0" VerticalAlignment="Top" Height="31" Width="77" FontFamily="Broadway" FontSize="18"/>
+        <Label Content="Items:" HorizontalAlignment="Left" Margin="477,22,0,0" VerticalAlignment="Top" Height="31" Width="77" FontFamily="Broadway" FontSize="18"/>
         <Label x:Name="id" Content="{Binding Order.ID}" HorizontalAlignment="Left" Margin="286,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderThickness="3,3,3,3" Width="120" Height="32" >
             <Label.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
@@ -51,7 +51,7 @@
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <ListView x:Name="itemsListView"  Margin="473,75,10,83" ItemsSource="{Binding Order.Items}">
+        <ListView x:Name="itemsListView"  Margin="473,49,10,165" ItemsSource="{Binding Order.Items}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="auto" x:Name="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
@@ -81,12 +81,12 @@
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Grid  Margin="553,290,29,10" Visibility="{Binding ElementName=deliveryDate, Path=Content, Converter={StaticResource nullToVisebilityConverter}}">
+        <Grid  Margin="553,272,48,38" Visibility="{Binding OrderForCustomer,Converter={StaticResource nullToVisebilityConverter}}">
             <Label Content="Product ID:" HorizontalAlignment="Left" Margin="12,16,0,0" VerticalAlignment="Top" FontFamily="Broadway"/>
             <Label Content="Amount:" HorizontalAlignment="Left" Margin="12,44,0,0" VerticalAlignment="Top" FontFamily="Broadway"/>
             <TextBox x:Name="productIdTxt" HorizontalAlignment="Left" Margin="109,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="69" Height="23"/>
             <TextBox x:Name="Amounttxt" HorizontalAlignment="Left" Margin="109,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="69" Height="23"/>
-            <Button Content="update order" HorizontalAlignment="Left" Margin="67,100,0,0" VerticalAlignment="Top" FontFamily="Broadway" Click="Button_Click_2"/>
+            <Button  Content="update order" HorizontalAlignment="Center" Margin="0,77,0,0" FontFamily="Broadway" VerticalAlignment="Top" Click="Button_Click_2" Height="22" Width="107"/>
         </Grid>
 
     </Grid>

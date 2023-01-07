@@ -55,7 +55,7 @@
                 <Label Content="handMade:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,29,0,0"/>
                 <ListView x:Name="handMade" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding CategoryG[4]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,57,0,34" Grid.RowSpan="3"/>
             </Grid>
-            <Button Margin="191,4,525,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click"/>
+            <Button Margin="191,0,525,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click" Height="23" VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>
 </Window>
