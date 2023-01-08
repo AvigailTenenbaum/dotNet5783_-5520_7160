@@ -8,13 +8,13 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,0,0,-6">
         <Grid.Background>
-            <ImageBrush ImageSource="/Hazorfimlogo.jpg"/>
+            <ImageBrush ImageSource="/logoHome.PNG"/>
         </Grid.Background>
-        <Button Content="Admin" HorizontalAlignment="Left" Margin="118,323,0,0" VerticalAlignment="Top" Height="43" Width="119" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click_1"/>
-        <Button Content="new order" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Height="43" Width="148" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click"/>
-        <StackPanel Margin="534,267,70,13" Background="#FFDDDDDD">
+        <Button Background="White" Content="Admin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" Height="28" Width="94" FontSize="20" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click_1"/>
+        <Button Background="White" Content="shop now" HorizontalAlignment="Center" Margin="0,267,0,0" VerticalAlignment="Top" Height="43" Width="148" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click"/>
+        <StackPanel  Margin="513,201,125,94" Background="#FF330F59">
             <TextBox Name="idtxt" TextWrapping="Wrap" Text="" Width="155" Height="33" Margin="20"/>
-            <Button Content="Track" Height="32" Width="114" FontFamily="Broadway"  FontSize="20" Click="Button_Click_2" />
+            <Button Background="White" Content="Track" Height="32" Width="80" FontFamily="Broadway"  FontSize="18" Click="Button_Click_2" />
         </StackPanel>
     </Grid>
 </Window>
