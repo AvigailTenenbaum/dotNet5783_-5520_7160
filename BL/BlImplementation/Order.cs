@@ -26,33 +26,7 @@ internal class Order : BlApi.IOrder
                    AmountOfItems = orderItems.Count(),
                    TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
                };
-        //    List<OrderForList?> orderForLists= new List<OrderForList?>();
-        //    foreach(DO.Order? order in orders)
-        //    { 
-        //    IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
-        //        BO.OrderForList orderForList = new BO.OrderForList
-        //        {
-        //          ID = order?.ID??throw new BO.NullData(),
-        //          CustomerName = order?.CustomerName ?? throw new BO.NullData(),
-        //          AmountOfItems = 0,
-        //         TotalPrice = 0 
-        //        };
-        //        if (order?.OrderDate< DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.Approved;
-        //        if (order?.ShipDate < DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.shipped;
-        //        if (order?.DeliveryDate < DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
-        //        foreach (DO.OrderItem? oi in orderItems)
-        //        {
-        //            orderForList.AmountOfItems++;
-        //            orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
-        //        }
-        //        orderForLists.Add(orderForList);
-        //    }
-        //    return orderForLists;
-        //}
-        //catch (Exception ex) { throw ex; }
+ 
 
     }
     /// <summary>
