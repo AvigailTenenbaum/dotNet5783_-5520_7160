@@ -63,15 +63,7 @@ internal class DalOrder : Iorder
         if (i == -1)
             throw new NotExist();
         DataSource.orders[i] = o;
-        //for (int i = 0; i < DataSource.orders.Count(); i++)
-        //{
-        //    if (DataSource.orders[i]?.ID == o.ID)
-        //    {
-        //        DataSource.orders[i] = o;
-        //        return;
-        //    }
-        //}
-        //throw new NotExist();
+
     }
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
@@ -84,14 +76,7 @@ internal class DalOrder : Iorder
         if (DataSource.orders.FirstOrDefault(item => func!(item)) == null)
             throw new NotExist();
         return DataSource.orders.FirstOrDefault(item => func!(item));
-        //foreach(var order in DataSource.orders)
-        //{
-        //    if(func!(order))
-        //    {
-        //        return order;
-        //    }
-        //}
-        //throw new NotExist();
+        
     }
 }
 

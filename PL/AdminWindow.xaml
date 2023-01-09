@@ -21,7 +21,7 @@
  Y="10" />
             </Button.RenderTransform>
         </Button>
-        <Button Content="Status statistics" HorizontalAlignment="Left" Margin="556,295,0,0" VerticalAlignment="Top" Height="67" Width="155" FontFamily="Broadway" FontSize="18" Click="Button_Click">
+        <Button Content="Status statistics" HorizontalAlignment="Left" Margin="556,295,0,0" VerticalAlignment="Top" Height="67" Width="155" FontFamily="Broadway" FontSize="18" Click="Button_Click_2" >
             <Button.RenderTransform>
                 <TranslateTransform X="-50"
                     Y="10" />

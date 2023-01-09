@@ -65,15 +65,7 @@ internal class DalOrderItem : IorderItem
         if (i == -1)
             throw new NotExist();
         DataSource.items[i] = o;
-        //for (int i = 0; i < DataSource.items.Count(); i++)
-        //{
-        //    if (DataSource.items[i]?.ID == o.ID)
-        //    {
-        //        DataSource.items[i] = o;
-        //        return;
-        //    }
-        //}
-        //throw new NotExist();
+
     }
     /// <summary>
     /// get all the orderItems with this orderId
@@ -106,14 +98,7 @@ internal class DalOrderItem : IorderItem
         if (DataSource.items.FirstOrDefault(item => func!(item)) == null)
             throw new NotExist();
         return DataSource.items.FirstOrDefault(item => func!(item));
-        //foreach (var orderItem in DataSource.items)
-        //{
-        //    if (func!(orderItem))
-        //    {
-        //        return orderItem;
-        //    }
-        //}
-        //throw new NotExist();
+
     }
 
 }

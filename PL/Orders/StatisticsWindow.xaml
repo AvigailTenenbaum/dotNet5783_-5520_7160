@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Orders"
         mc:Ignorable="d"
-        Title="StatisticsWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="StatisticsWindow" Height="385" Width="549"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+    <Grid Margin="0,0,475,102">
+        <ListView  ItemsSource="{Binding Statistics}" Margin="119,42,-312,-32">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" Width="auto" x:Name="id" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                    <GridViewColumn Header="Count" Width="auto" DisplayMemberBinding="{Binding Count }"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>
