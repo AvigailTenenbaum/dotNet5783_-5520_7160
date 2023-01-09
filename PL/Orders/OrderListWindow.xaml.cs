@@ -1,5 +1,7 @@
 ﻿using BO;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,7 +14,7 @@ namespace PL.Orders
     public partial class OrderListWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        //public ObservableCollection<OrderForList?> OrderForLists { get; set; }
+        public ObservableCollection<OrderForList?> OrderForLists { get; set; }
 
         public OrderListWindow()
         {
