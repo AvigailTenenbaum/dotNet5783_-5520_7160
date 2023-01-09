@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace PL.Products
 {
@@ -25,17 +27,23 @@ namespace PL.Products
             DependencyProperty.Register("Cart1", typeof(BO.Cart), typeof(Window), new PropertyMetadata(null));
         public ObservableCollection<ProductItem?> ProductsItemList { get; set; }//List of all products in the display
         private IEnumerable<ProductItem?> productsItemList { get; }//Private product list for filtering changes
-        public ObservableCollection<IGrouping< BO.Category?,ProductItem?>> CategoryG { get; set; }
+
+        ICollectionView collectionView;
+
+        PropertyGroupDescription propertyGroupDescription;
+
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
+
+
+            collectionView = CollectionViewSource.GetDefaultView(ProductsItemList);
+            propertyGroupDescription = new PropertyGroupDescription("Category");
+            //collectionView.GroupDescriptions.Add(propertyGroupDescription);
+
             Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
-            CategoryG = new ObservableCollection<IGrouping<BO.Category?, ProductItem?>>
-                (from product in ProductsItemList
-                 orderby product.Category
-                 group product by product.Category into group1
-                 select group1);
+          
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -99,6 +107,21 @@ namespace PL.Products
             int i = ProductsItemList.IndexOf(p);
             ProductsItemList[i].AmountInCart = product.AmountInCart;
             this.Cart1 = c;
+        }
+
+        private void IsGroupByCategory_Checked(object sender, RoutedEventArgs e)
+        {
+          
+                collectionView.GroupDescriptions.Add(propertyGroupDescription);
+            
+            
+
+        }
+
+        private void IsGroupByCategory_Unchecked(object sender, RoutedEventArgs e)
+        {
+            collectionView.GroupDescriptions.Remove(propertyGroupDescription);
+
         }
     }
 }

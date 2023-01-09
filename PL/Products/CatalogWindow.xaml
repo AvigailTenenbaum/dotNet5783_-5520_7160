@@ -22,39 +22,60 @@
                 </Grid.ColumnDefinitions >
                 <ComboBox Name="CategorySelector"
               Grid.Column="1" FontSize="18" Margin="0,0,10,0" ItemsSource="{Binding array}" SelectionChanged="CategorySelector_SelectionChanged"/>
-                <CheckBox Name="IsGroupByCategory" Content="Sort by category" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="IsGroupByCategory" Content="group by category" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Checked="IsGroupByCategory_Checked" Unchecked="IsGroupByCategory_Unchecked"  />
             </Grid>
             <Label
              Grid.Column="0" Content="Category:" Margin="296,-2,400,0" FontSize="18"/>
-            <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick"
-                      Visibility="{Binding ElementName=IsGroupByCategory, Path=IsChecked, Converter={StaticResource notBoolToVisebilityConverter}}">
+            
+            
+            <ListView Name="ProductsListView" Grid.Row="1" ItemsSource="{Binding ProductsItemList}" MouseDoubleClick="ProductsListView_MouseDoubleClick">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                        <GridViewColumn Header="InStock" DisplayMemberBinding="{Binding InStock}"></GridViewColumn>
+                        <GridViewColumn Header="AmountInCart" DisplayMemberBinding="{Binding AmountInCart}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                
+                
+                <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource PrimaryHueLightBrush}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource PrimaryHueLightBrush}" FontStyle="Italic" VerticalAlignment="Bottom"  />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
             </ListView>
-            <Grid x:Name="GroupByCategory" Grid.Row="1" Grid.Column="0" 
-              Visibility="{Binding ElementName=IsGroupByCategory,Path=IsChecked, Converter={StaticResource boolToVisebilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                    <RowDefinition Height="83.3*"/>
-                </Grid.RowDefinitions>
-                <Label Content="saturday:" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,28"/>
-                <ListView x:Name="saturday" Grid.Column="0" ItemsSource="{Binding CategoryG[0]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,34,0,33" Grid.RowSpan="3"/>
-                <Label Content="holidays:" Grid.Row="2" HorizontalAlignment="Center" Margin="0,29,0,0"/>
-                <ListView x:Name="holidays" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding CategoryG[1]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,57,0,34" Grid.RowSpan="3"/>
-                <Label Content="toSeferTorah:" Grid.Row="4" HorizontalAlignment="Center" Margin="0,28,0,0"/>
-                <ListView x:Name="toSeferTorah" Grid.Row="4" Grid.Column="0" ItemsSource="{Binding CategoryG[2]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,57,0,0" Grid.RowSpan="3"/>
-                <Label Content="giftsForHome:" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0,4,0,28"/>
-                <ListView x:Name="giftsForHome" Grid.Column="1" ItemsSource="{Binding CategoryG[3]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,34,0,33" Grid.RowSpan="3"/>
-                <Label Content="handMade:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,29,0,0"/>
-                <ListView x:Name="handMade" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding CategoryG[4]}" MouseDoubleClick="ProductsListView_MouseDoubleClick" Margin="0,57,0,34" Grid.RowSpan="3"/>
-            </Grid>
+            
+            
+         
             <Button Margin="191,0,525,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click" Height="23" VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>

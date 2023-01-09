@@ -256,6 +256,21 @@ internal class Order : BlApi.IOrder
         dal?.OrderItem.UpDateObject(orderItem);
         return order;
     }
+
+   public IEnumerable<StatisticsOrders> GetStatisticsOrders()
+    {
+        return from order in GetListOfOrder()
+               group order by order.Status into newGroup
+               select new StatisticsOrders
+               {
+                   Status = newGroup.Key,
+                   Count = newGroup.Count()
+               };
+    }
 }
 
-
+public struct StatisticsOrders
+{
+    public OrderStatus? Status{ get; set; }
+    public int Count { get; set; }
+}

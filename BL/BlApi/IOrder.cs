@@ -1,4 +1,6 @@
-﻿namespace BlApi;
+﻿using BlImplementation;
+
+namespace BlApi;
 /// <summary>
 /// Interface for on-order operations
 /// </summary>
@@ -41,5 +43,11 @@ public interface IOrder
     /// <param name="newAmount"></param>
     /// <returns></returns>
     public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<StatisticsOrders> GetStatisticsOrders();
 }
 

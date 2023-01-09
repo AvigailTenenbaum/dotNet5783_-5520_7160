@@ -33,10 +33,11 @@ namespace PL.Products
 
         public CartWindow(Cart myCart,Action action, Action<ProductItem,Cart> action1)
         {
-            InitializeComponent();
             Cart = myCart;
             this.Action = action;
             this.Action1 = action1;
+            InitializeComponent();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

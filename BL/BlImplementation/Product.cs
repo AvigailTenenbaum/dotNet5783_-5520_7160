@@ -119,23 +119,6 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     public void DeleteProduct(int id)
     {
-        //IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject() ?? throw new BO.NullData();
-        //foreach (DO.Order? order in orders)
-        //{
-        //    IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
-        //    foreach (DO.OrderItem? item in orderItems)
-        //    {
-        //        if (item?.ProductID == id)
-        //        {
-        //            throw new BO.NotPossibleToFillRequest();
-        //        }
-        //    }
-        //}
-        //try
-        //{
-        //    dal.Product.DeleteObject(id);
-        //}
-        //catch (DO.NotExist ex) { throw new BO.NotExist(ex); }
 
         IEnumerable<DO.OrderItem?> orderI;
         try { orderI = dal?.OrderItem.GetAllObject() ?? new List<DO.OrderItem?>(); }//gets the al orderItems

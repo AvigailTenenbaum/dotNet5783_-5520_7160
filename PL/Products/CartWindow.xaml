@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
         Title="CartWindow" Height="450" Width="800"
-        DataContext="{Binding Cart,RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding Cart,RelativeSource={RelativeSource Self}}" >
+   
     <Grid>
-        <ListView x:Name="ProductsInCart" ItemsSource="{Binding Items}" Margin="400,0,0,0" >
+        <ListView x:Name="ProductsInCart" ItemsSource="{Binding Items}" Margin="400,0,0,0"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Product ID" Width="auto" x:Name="ID" DisplayMemberBinding="{Binding ProductID}"></GridViewColumn>
