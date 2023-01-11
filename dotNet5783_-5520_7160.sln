@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5ED29666-CC1
 		xml\dal-config.xml = xml\dal-config.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,18 @@ Global
 		{9C045408-AAAD-4F14-9F1A-5324C029C81E}.Release|x64.Build.0 = Release|Any CPU
 		{9C045408-AAAD-4F14-9F1A-5324C029C81E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C045408-AAAD-4F14-9F1A-5324C029C81E}.Release|x86.Build.0 = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|x64.Build.0 = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Debug|x86.Build.0 = Debug|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|x64.ActiveCfg = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|x64.Build.0 = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{66E3CA90-79A1-4516-8C6C-B1D5ADDA2E1E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
