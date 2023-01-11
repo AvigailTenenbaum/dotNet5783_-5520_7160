@@ -30,7 +30,6 @@
                     <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status }"></GridViewColumn>
                     <GridViewColumn Header="AmountOfItems" Width="auto" DisplayMemberBinding="{Binding AmountOfItems}"></GridViewColumn>
                     <GridViewColumn Header="TotalPrice" Width="auto" DisplayMemberBinding="{Binding TotalPrice}"></GridViewColumn>
-                    <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>

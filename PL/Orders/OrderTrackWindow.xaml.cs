@@ -20,22 +20,23 @@ namespace PL.Orders
     public partial class OrderTrackWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        public BO.OrderTracking? Order
+        public BO.OrderTracking? OrderT
         {
-            get { return (BO.OrderTracking?)GetValue(OrderProperty); }
-            set { SetValue(OrderProperty, value); }
+            get { return (BO.OrderTracking?)GetValue(OrderTProperty); }
+            set { SetValue(OrderTProperty, value); }
         }
         public int ID;
-        public static readonly DependencyProperty OrderProperty =
-            DependencyProperty.Register("Order", typeof(BO.OrderTracking), typeof(Window), new PropertyMetadata(null));
+        public static readonly DependencyProperty OrderTProperty =
+            DependencyProperty.Register("OrderT", typeof(BO.OrderTracking), typeof(Window), new PropertyMetadata(null));
         public OrderTrackWindow(int id)
         {
-           
+         
             InitializeComponent();
             this.ID = id;
+
             try
             {
-                Order = bl.Order.OrderTracking(id);
+                OrderT = bl.Order.OrderTracking(id);
             }
             catch(Exception ex)
             {

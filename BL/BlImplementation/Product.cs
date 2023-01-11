@@ -1,4 +1,5 @@
 ﻿using BO;
+using DalApi;
 
 namespace BlImplementation;
 /// <summary>
@@ -88,25 +89,7 @@ internal class Product : BlApi.IProduct
 
             };
 
-            //try
-            //{
-            //    DO.Product? product = dal?.Product.GetObject(id);
-            //    bool inStock = false;
-            //    if (product?.InStock > 0)
-            //        inStock = true;
-            //    int amount = 0;
-            //    if (cart.Items?.Count > 0)
-            //    {
-            //        foreach (BO.OrderItem? orderItem in cart.Items)
-            //        {
-            //            if (orderItem?.ID == product?.ID)
-            //                amount = orderItem?.Amount??0;
-            //        }
-            //    }
-            //    BO.ProductItem productItem = new BO.ProductItem { ID = product?.ID??throw new BO.NullData(), Name = product?.Name ?? throw new BO.NullData(), Category = (BO.Category?)product?.Category, Price = product?.Price ?? throw new BO.NullData(), InStock = inStock, AmountInCart = amount };
-            //    return productItem;
-            //}
-            //catch (DO.NotExist e) { throw new BO.NotExist(e); }
+     
         }
         else
             throw new BO.InCorrectData();
@@ -117,7 +100,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     public void AddProduct(BO.Product product)
     {
-        if (product.ID <= 0 || product.Name == null || product.Price <= 0)
+        if (product.ID <= 100000||product.ID>999999 || product.Name == null || product.Price <= 0)
         {
             throw new BO.InCorrectData();
         }
@@ -136,23 +119,20 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     public void DeleteProduct(int id)
     {
-        IEnumerable<DO.Order?> orders = dal?.Order.GetAllObject() ?? throw new BO.NullData();
-        foreach (DO.Order? order in orders)
+
+        IEnumerable<DO.OrderItem?> orderI;
+        try { orderI = dal?.OrderItem.GetAllObject() ?? new List<DO.OrderItem?>(); }//gets the al orderItems
+        catch (DO.NotExist ex)
         {
-            IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAllObject(item => item?.OrderID == order?.ID);
-            foreach (DO.OrderItem? item in orderItems)
-            {
-                if (item?.ProductID == id)
-                {
-                    throw new BO.NotPossibleToFillRequest();
-                }
-            }
+            throw new NotExist(ex);
         }
-        try
+        DO.OrderItem? exist = orderI.FirstOrDefault(oi => oi?.ProductID == id); //check if the product to delete is exist
+        if (exist != null)// if the product is exist
         {
-            dal.Product.DeleteObject(id);
+            throw new BO.NotPossibleToFillRequest();
         }
-        catch (DO.NotExist ex) { throw new BO.NotExist(ex); }
+        try { dal?.Product.DeleteObject(id); } catch (DO.NotExist ex) { throw new BO.NullData(); }//delete the product
+           
     }
     /// <summary>
     /// A method that receives a product and updates the product to the received product if the data is correct

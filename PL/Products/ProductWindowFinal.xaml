@@ -20,11 +20,12 @@
             <Label x:Name="priceLabel" Content="price:" Height="50" Width="66"/>
             <Label x:Name="inStockLabel" Content="in stock:" Height="50" Width="66"/>
         </StackPanel>
-        <TextBox x:Name="idTextBox" TextWrapping="Wrap"  Margin="340,57,322,333" Text="{Binding Product.ID}" IsReadOnly="{Binding Product, Converter={StaticResource nullToBooleanConverter}}"/>
-        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="{Binding Product.Name}" Margin="340,106,322,282"/>
+        <TextBox x:Name="idTextBox" TextWrapping="Wrap"  Margin="340,57,322,333" Text="{Binding Product.ID,Mode=OneWay}" IsReadOnly="{Binding Product, Converter={StaticResource nullToBooleanConverter}}" PreviewKeyDown="idTextBox_PreviewKeyDown"/>
+        <TextBox x:Name="nameTextBox" TextWrapping="Wrap" Text="{Binding Product.Name,Mode=OneWay}" Margin="340,106,322,282"/>
         <ComboBox x:Name="categorycomboBox" Margin="340,157,322,233" ItemsSource="{Binding array }" SelectedItem="{Binding Product.Category}" />
-        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="{Binding Product.Price}" Margin="340,206,322,183" />
-        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="{Binding Product.InStock}" Margin="340,256,322,133" />
+        <TextBox x:Name="priceTextBox" TextWrapping="Wrap" Text="{Binding Product.Price, Mode=OneWay}" Margin="340,206,322,183" PreviewKeyDown="priceTextBox_PreviewKeyDown" />
+        <TextBox x:Name="inStockTextBox" TextWrapping="Wrap" Text="{Binding Product.InStock, Mode=OneWay}" Margin="340,256,322,133"  PreviewKeyDown="inStockTextBox_PreviewKeyDown" />
+        <Button   Content="Delete" HorizontalAlignment="Left" Margin="264,346,0,0" VerticalAlignment="Top"  Visibility="{Binding Product, Converter={StaticResource notNullToVisebilityConverter}}" Click="Button_Click"/>
 
     </Grid>
 </Window>

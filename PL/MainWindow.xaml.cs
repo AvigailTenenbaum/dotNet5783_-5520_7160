@@ -11,9 +11,10 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        public BlApi.IBl? bl = BlApi.Factory.Get();
+
         public MainWindow()
         {
-            BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
 
         }
@@ -30,7 +31,17 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                 bl!.Order.OrderTracking(Convert.ToInt32(idtxt.Text));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             new OrderTrackWindow(Convert.ToInt32( idtxt.Text)).ShowDialog();
+            idtxt.Clear();
         }
     }
 }

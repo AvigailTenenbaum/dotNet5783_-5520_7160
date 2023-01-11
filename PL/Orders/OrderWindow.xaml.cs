@@ -1,5 +1,7 @@
 ﻿using BO;
+using DO;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace PL.Orders
@@ -10,10 +12,19 @@ namespace PL.Orders
     public partial class OrderWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public BO.Order Order { set; get; }
-        public BO.Order OrderForCustomer { set; get; }
-        public OrderWindow(int id)
+       
+        public BO.Order Order
         {
+            get { return (BO.Order)GetValue(OrderProperty); }
+            set { SetValue(OrderProperty, value); }
+        }
+        public static readonly DependencyProperty OrderProperty =
+            DependencyProperty.Register("Order", typeof(BO.Order), typeof(Window), new PropertyMetadata(null));
+        public BO.Order OrderForCustomer { set; get; }
+        private Action<OrderForList> action;//A variable for an action to be performed in the list in the previous window
+        public OrderWindow(int id, Action<OrderForList> action)//Constructor for update mode
+        {
+            this.action= action;
             try
             {
                 Order = bl!.Order.GetOrderDetails(id);
@@ -24,7 +35,7 @@ namespace PL.Orders
             }
             InitializeComponent();
         }
-        public OrderWindow(Order o)
+        public OrderWindow(BO.Order o)//Constructor for view mode
         {
             Order= o;
             OrderForCustomer = o;
@@ -35,6 +46,7 @@ namespace PL.Orders
         {
             bl!.Order.OrderShippingUpdate((int)id.Content);
             Order = bl.Order.GetOrderDetails(Order.ID);
+            action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -42,22 +54,21 @@ namespace PL.Orders
 
             bl!.Order.OrderDeliveryUpdate((int)id.Content);
             Order = bl.Order.GetOrderDetails(Order.ID);
+            action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault());
         }
 
-        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
+       private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             try
             {
-                FrameworkElement? framework = sender as FrameworkElement;
-                OrderItem? orderItem = (OrderItem?)framework?.DataContext;
-                int productId = orderItem!.ProductID;
-                int amount = orderItem.Amount;
-                int orderId = orderItem.ID;
-                Order = bl!.Order.UpdateOrder((int)id.Content, productId,amount);
+                Order = bl!.Order.UpdateOrder((int)id.Content, Convert.ToInt32(productIdTxt.Text), Convert.ToInt32(Amounttxt.Text));
+                MessageBox.Show("The order has been successfully updated");
+                action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault());
                 itemsListView.Items.Refresh();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             { MessageBox.Show(ex.Message); }
+            
         }
     }
 }

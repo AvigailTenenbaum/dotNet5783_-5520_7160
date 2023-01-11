@@ -1,4 +1,6 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
+using DalApi;
 
 namespace BlImplementation;
 
@@ -24,33 +26,7 @@ internal class Order : BlApi.IOrder
                    AmountOfItems = orderItems.Count(),
                    TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
                };
-        //    List<OrderForList?> orderForLists= new List<OrderForList?>();
-        //    foreach(DO.Order? order in orders)
-        //    { 
-        //    IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.GetAllObject();
-        //        BO.OrderForList orderForList = new BO.OrderForList
-        //        {
-        //          ID = order?.ID??throw new BO.NullData(),
-        //          CustomerName = order?.CustomerName ?? throw new BO.NullData(),
-        //          AmountOfItems = 0,
-        //         TotalPrice = 0 
-        //        };
-        //        if (order?.OrderDate< DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.Approved;
-        //        if (order?.ShipDate < DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.shipped;
-        //        if (order?.DeliveryDate < DateTime.Now)
-        //            orderForList.Status = BO.OrderStatus.deliveredTotheCustomer;
-        //        foreach (DO.OrderItem? oi in orderItems)
-        //        {
-        //            orderForList.AmountOfItems++;
-        //            orderForList.TotalPrice += oi?.Price ?? throw new BO.NullData();
-        //        }
-        //        orderForLists.Add(orderForList);
-        //    }
-        //    return orderForLists;
-        //}
-        //catch (Exception ex) { throw ex; }
+ 
 
     }
     /// <summary>
@@ -207,40 +183,94 @@ internal class Order : BlApi.IOrder
     /// <summary>
     /// A method for updating an order to the manager
     /// </summary>
-    /// <param name="IDOrder"></param>
-    /// <param name="IDProduct"></param>
+    /// <param name="orderId"></param>
+    /// <param name="productId"></param>
     /// <param name="newAmount"></param>
     /// <returns></returns>
     /// <exception cref="BO.InCorrectData"></exception>
     /// <exception cref="BO.NotExist"></exception>
     /// <exception cref="BO.NotPossibleToFillRequest"></exception>
-    public BO.Order UpdateOrder(int IDOrder, int IDProduct, int newAmount)
+    public BO.Order UpdateOrder(int orderId, int productId, int newAmount)
     {
-        if (IDOrder < 0)
+
+        if (orderId < 0)
             throw new BO.InCorrectData();
-        if (IDProduct < 0)
+        if (productId < 0)
             throw new BO.InCorrectData();
         if (newAmount < 0)
             throw new BO.InCorrectData();
-        try { dal?.Order.GetObject(IDOrder); }
+        try { dal?.Order.GetObject(orderId); }
         catch (Exception ex)
         {
-            throw new BO.NotExist(ex);
+            throw new NotExist(ex);
         }
-        if (dal?.Order.GetObject(IDOrder)?.ShipDate !=null)
-            throw new BO.NotPossibleToFillRequest();
-        BO.Order order = GetOrderDetails(IDOrder);
-        foreach (BO.OrderItem? orderItem in order.Items ?? throw new BO.NullData())
+        if (dal?.Order.GetObject(orderId)?.ShipDate!=null)
+            throw new NotPossibleToFillRequest();
+     
+        BO.Order? order = GetOrderDetails(orderId);
+      
+        BO.OrderItem? oi = order?.Items?.FirstOrDefault(oi => oi?.ProductID == productId);
+        if (dal!.Product.GetObject(productId)?.InStock < 0 || dal.Product.GetObject(productId)?.InStock < newAmount)
+            throw new NotPossibleToFillRequest();
+        if (newAmount == 0)
         {
-            if (orderItem?.ProductID == IDProduct)
-            {
-                order.TotalPrice -= orderItem.TotalPrice;//for calculate the new total price of the order
-                orderItem.Amount = newAmount;
-                orderItem.TotalPrice = newAmount * orderItem.Price;
-                order.TotalPrice += orderItem.TotalPrice;//for calculate the new total price of the order
-            }
+            int x = order.Items!.ToList().FindIndex(x => x?.ProductID == productId);
+            ((List<BO.OrderItem?>)order.Items!).RemoveAt(x);
+
         }
+        if (oi == null)//if he product is not in the order, add it
+        {
+            oi = new OrderItem()
+            {
+                ID = dal?.OrderItem.GetAllObject().Last()?.ID + 1 ?? 0,
+                Amount = newAmount,
+                Name = dal?.Product.GetObject(productId)?.Name,
+                Price = dal?.Product.GetObject(productId)?.Price ?? 0,
+                ProductID = productId,
+                TotalPrice = newAmount * dal?.Product.GetObject(productId)?.Price ?? 0,
+            };
+            DO.OrderItem add = new DO.OrderItem()//orderItem in the daa layer
+            {
+                ID = oi.ID,
+                Amount = oi.Amount,
+                OrderID = orderId,
+                Price = oi.Price,
+                ProductID = productId
+            };
+            order?.Items?.Add(oi);
+            dal?.OrderItem.AddObject(add);
+            return order;
+        }
+        order!.TotalPrice -= oi!.TotalPrice;
+        oi.Amount = newAmount;
+        oi.TotalPrice = newAmount * oi.Price;
+        order.TotalPrice += oi.TotalPrice;
+        DO.OrderItem orderItem = new DO.OrderItem()
+        {
+            ID = oi.ID,
+            Amount = oi.Amount,
+            OrderID = orderId,
+            Price = oi.Price,
+            ProductID = productId
+        };
+        dal?.OrderItem.UpDateObject(orderItem);
         return order;
+    }
+
+   public IEnumerable<StatisticsOrders> GetStatisticsOrders()
+    {
+        return from order in GetListOfOrder()
+               group order by order.Status into newGroup
+               select new StatisticsOrders
+               {
+                   Status = newGroup.Key,
+                   Count = newGroup.Count()
+               };
     }
 }
 
+public struct StatisticsOrders
+{
+    public OrderStatus? Status{ get; set; }
+    public int Count { get; set; }
+}

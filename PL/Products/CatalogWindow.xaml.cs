@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace PL.Products
 {
@@ -16,20 +18,32 @@ namespace PL.Products
         BlApi.IBl? bl = BlApi.Factory.Get();
         public Array array { get; set; } = Enum.GetValues(typeof(Category));
 
-        public Cart Cart { get; set; }
-        public ObservableCollection<ProductItem?> ProductsItemList { get; set; }
-        private IEnumerable<ProductItem?> productsItemList { get; }
-        public ObservableCollection<IGrouping< BO.Category?,ProductItem?>> CategoryG { get; set; }
+        public BO.Cart Cart1
+        {
+            get { return (BO.Cart)GetValue(Cart1Property); }
+            set { SetValue(Cart1Property, value); }
+        }
+        public static readonly DependencyProperty Cart1Property =
+            DependencyProperty.Register("Cart1", typeof(BO.Cart), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<ProductItem?> ProductsItemList { get; set; }//List of all products in the display
+        private IEnumerable<ProductItem?> productsItemList { get; }//Private product list for filtering changes
+
+        ICollectionView collectionView;
+
+        PropertyGroupDescription propertyGroupDescription;
+
         public CatalogWindow()
         {
             productsItemList = bl!.Product.GetListOfProductsItem();
             ProductsItemList = new ObservableCollection<ProductItem?>(productsItemList);
-            Cart = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
-            CategoryG = new ObservableCollection<IGrouping<BO.Category?, ProductItem?>>
-                (from product in ProductsItemList
-                 orderby product.Category
-                 group product by product.Category into group1
-                 select group1);
+
+
+            collectionView = CollectionViewSource.GetDefaultView(ProductsItemList);
+            propertyGroupDescription = new PropertyGroupDescription("Category");
+            //collectionView.GroupDescriptions.Add(propertyGroupDescription);
+
+            Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+          
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,6 +63,10 @@ namespace PL.Products
                 }
             }
         }
+        /// <summary>
+        /// Private function for updating the list after changes made in category filtering
+        /// </summary>
+        /// <param name="productsItems"></param>
         private void addProductsItem(IEnumerable<ProductItem> productsItems)
         {
             if (productsItems.Any())
@@ -63,14 +81,47 @@ namespace PL.Products
 
         private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
-            if (ProductsListView.SelectedItem == null) return;
-            new ProductDetailsWindow(((ProductItem)ProductsListView.SelectedItem),Cart).ShowDialog();
+            ListView list=sender as ListView;
+            if (list.SelectedItem == null) return;
+            new ProductDetailsWindow(((ProductItem)list.SelectedItem),Cart1,UpdateProduct).ShowDialog();
+            ProductsListView.Items.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow(Cart).ShowDialog();
+            new CartWindow(Cart1,DelCart, UpdateProduct).ShowDialog();
+            ProductsListView.Items.Refresh();
+        }
+        /// <summary>
+        /// Private function for deleting the basket after placing the order in the next window
+        /// </summary>
+        private void DelCart()
+        {
+            this.Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
+            var productsI = bl!.Product.GetListOfProductsItem().ToList();
+            addProductsItem(productsI);
+        }
+        private void UpdateProduct(ProductItem product,Cart c)
+        {
+            var p = ProductsItemList?.FirstOrDefault(item => item?.ID == product.ID);
+            int i = ProductsItemList.IndexOf(p);
+            ProductsItemList[i].AmountInCart = product.AmountInCart;
+            this.Cart1 = c;
+        }
+
+        private void IsGroupByCategory_Checked(object sender, RoutedEventArgs e)
+        {
+          
+                collectionView.GroupDescriptions.Add(propertyGroupDescription);
+            
+            
+
+        }
+
+        private void IsGroupByCategory_Unchecked(object sender, RoutedEventArgs e)
+        {
+            collectionView.GroupDescriptions.Remove(propertyGroupDescription);
+
         }
     }
 }

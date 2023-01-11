@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <None Remove="Hazorfimlogo.jpg" />
-    <None Remove="Products\hazorfimLogo.png" />
-    <None Remove="Products\hazorfimLogo1.jpg" />
+    <None Remove="logoHome.PNG" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,8 +23,7 @@
 
   <ItemGroup>
     <Resource Include="Hazorfimlogo.jpg" />
-    <Resource Include="Products\hazorfimLogo.png" />
-    <Resource Include="Products\hazorfimLogo1.jpg" />
+    <Resource Include="logoHome.PNG" />
   </ItemGroup>
 
 </Project>

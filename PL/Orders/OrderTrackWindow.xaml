@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Orders"
         mc:Ignorable="d"
-        Title="OrderTrackWindow" Height="450" Width="800"
-        DataContext="{Binding Order,RelativeSource={RelativeSource Self}}">
-    <Grid Margin="0,0,372,0">
+        Title="OrderTrackWindow" Height="422" Width="360"
+        DataContext="{Binding OrderT,RelativeSource={RelativeSource Self}}">
+    <Grid Margin="0,0,39,0">
 
-        <DataGrid x:Name="trackingDataGrid" IsReadOnly="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding TrackingInformation}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="10,10,10,149">
+        <DataGrid x:Name="trackingDataGrid" IsReadOnly="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding TrackingInformation}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="26,10,-6,149">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="item1Column" Binding="{Binding Item1}" Header="Description" IsReadOnly="True" Width="200" />
 
                 <DataGridTextColumn x:Name="item2Column" Binding="{Binding Item2}" Header="Date" IsReadOnly="True" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="My Order Deteils" HorizontalAlignment="Left" Margin="100,316,0,0" VerticalAlignment="Top" Height="63" Width="137" FontFamily="Broadway" Click="Button_Click"/>
+        <Button Content="My Order Deteils" HorizontalAlignment="Left" Margin="87,303,0,0" VerticalAlignment="Top" Height="63" Width="143" FontFamily="Broadway" Click="Button_Click"/>
 
 
     </Grid>
