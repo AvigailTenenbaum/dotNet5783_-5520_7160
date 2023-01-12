@@ -114,7 +114,6 @@ namespace PL.Products
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
             try
             {
                 bl?.Product.DeleteProduct(Product.ID);

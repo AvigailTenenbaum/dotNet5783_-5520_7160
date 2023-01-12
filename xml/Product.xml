@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <ID>100000</ID>
+    <Name>candlesticks</Name>
+    <Price>2327</Price>
+    <Category>saturday</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>100001</ID>
+    <Name>goblet</Name>
+    <Price>2995</Price>
+    <Category>saturday</Category>
+    <InStock>99</InStock>
+  </Product>
+  <Product>
+    <ID>100002</ID>
+    <Name>challahTray</Name>
+    <Price>2010</Price>
+    <Category>saturday</Category>
+    <InStock>93</InStock>
+  </Product>
+  <Product>
+    <ID>100003</ID>
+    <Name> HavdalahSet</Name>
+    <Price>2355</Price>
+    <Category>saturday</Category>
+    <InStock>82</InStock>
+  </Product>
+  <Product>
+    <ID>100004</ID>
+    <Name> lastWater</Name>
+    <Price>2035</Price>
+    <Category>saturday</Category>
+    <InStock>77</InStock>
+  </Product>
+  <Product>
+    <ID>100005</ID>
+    <Name>candlestickTray</Name>
+    <Price>2858</Price>
+    <Category>saturday</Category>
+    <InStock>83</InStock>
+  </Product>
+  <Product>
+    <ID>100006</ID>
+    <Name> knife</Name>
+    <Price>2760</Price>
+    <Category>saturday</Category>
+    <InStock>96</InStock>
+  </Product>
+  <Product>
+    <ID>100007</ID>
+    <Name> honeycomb</Name>
+    <Price>4899</Price>
+    <Category>holidays</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>100008</ID>
+    <Name> etrogBox</Name>
+    <Price>3423</Price>
+    <Category>holidays</Category>
+    <InStock>71</InStock>
+  </Product>
+  <Product>
+    <ID>100009</ID>
+    <Name> menorah</Name>
+    <Price>4442</Price>
+    <Category>holidays</Category>
+    <InStock>77</InStock>
+  </Product>
+  <Product>
+    <ID>100010</ID>
+    <Name> sederPlate</Name>
+    <Price>3979</Price>
+    <Category>holidays</Category>
+    <InStock>72</InStock>
+  </Product>
+  <Product>
+    <ID>100011</ID>
+    <Name> scrollBag</Name>
+    <Price>4374</Price>
+    <Category>holidays</Category>
+    <InStock>75</InStock>
+  </Product>
+  <Product>
+    <ID>100012</ID>
+    <Name>eliyahuCup</Name>
+    <Price>3669</Price>
+    <Category>holidays</Category>
+    <InStock>59</InStock>
+  </Product>
+  <Product>
+    <ID>100013</ID>
+    <Name>crown</Name>
+    <Price>1516</Price>
+    <Category>toSeferTorah</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>100014</ID>
+    <Name> breastplate</Name>
+    <Price>1029</Price>
+    <Category>toSeferTorah</Category>
+    <InStock>94</InStock>
+  </Product>
+  <Product>
+    <ID>100015</ID>
+    <Name>finger</Name>
+    <Price>1033</Price>
+    <Category>toSeferTorah</Category>
+    <InStock>52</InStock>
+  </Product>
+  <Product>
+    <ID>100016</ID>
+    <Name> pomegranates</Name>
+    <Price>1481</Price>
+    <Category>toSeferTorah</Category>
+    <InStock>95</InStock>
+  </Product>
+  <Product>
+    <ID>100017</ID>
+    <Name>mezuzah</Name>
+    <Price>224</Price>
+    <Category>giftsForHome</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>100018</ID>
+    <Name> fruitBowl</Name>
+    <Price>425</Price>
+    <Category>giftsForHome</Category>
+    <InStock>95</InStock>
+  </Product>
+  <Product>
+    <ID>100019</ID>
+    <Name>charityBox</Name>
+    <Price>276</Price>
+    <Category>giftsForHome</Category>
+    <InStock>88</InStock>
+  </Product>
+  <Product>
+    <ID>100020</ID>
+    <Name> waza</Name>
+    <Price>402</Price>
+    <Category>giftsForHome</Category>
+    <InStock>79</InStock>
+  </Product>
+  <Product>
+    <ID>100021</ID>
+    <Name>lampStand</Name>
+    <Price>775</Price>
+    <Category>giftsForHome</Category>
+    <InStock>97</InStock>
+  </Product>
+  <Product>
+    <ID>100022</ID>
+    <Name>goblet</Name>
+    <Price>5871</Price>
+    <Category>handMade</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>100023</ID>
+    <Name>chanukah</Name>
+    <Price>5939</Price>
+    <Category>handMade</Category>
+    <InStock>82</InStock>
+  </Product>
+  <Product>
+    <ID>100024</ID>
+    <Name> havdalahSet</Name>
+    <Price>5886</Price>
+    <Category>handMade</Category>
+    <InStock>96</InStock>
+  </Product>
+  <Product>
+    <ID>100025</ID>
+    <Name> candlesticks</Name>
+    <Price>6764</Price>
+    <Category>handMade</Category>
+    <InStock>91</InStock>
+  </Product>
+</ArrayOfProduct>

@@ -1,20 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-<PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Dal</RootNamespace>
-    <BaseOutputPath> $(SolutionDir)\bin\</BaseOutputPath>
     <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
     <OutputPath>$(SolutionDir)\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
     <RootNamespace>Dal</RootNamespace>
-  </PropertyGroup>  
+    <OutputPath>$(SolutionDir)\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+    <RootNamespace>Dal</RootNamespace>
+    <BaseOutputPath>Dal</BaseOutputPath>
+  </PropertyGroup> 
 
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
   </ItemGroup>
 

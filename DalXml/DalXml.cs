@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -10,8 +11,10 @@ namespace Dal;
 
 sealed internal class DalXml : IDal
 {
-    public Iproduct Product { get; } = new Dal.Product();
-    public Iorder Order { get; } = new Dal.Order();
-    public IorderItem OrderItem { get; } = new Dal.OrderItem();
-    
+   
+    public static IDal Instance { get; } = new DalXml();
+    public Iorder Order { get; } = new Order();
+    public Iproduct Product { get; } = new Product();
+    public IorderItem OrderItem { get; } = new OrderItem();
+    private DalXml() { }
 }

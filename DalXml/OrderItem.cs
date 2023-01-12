@@ -10,7 +10,11 @@ using DalApi;
 using DO;
 internal class OrderItem:IorderItem
 {
-    static string orderItemPath = @"Order.xml";
+    string dir = "..\\xml\\";
+    static string orderItemPath = @"OrderItem.xml";
+
+    public int ID { get; internal set; }
+
     /// <summary>
     /// A function for adding an object
     /// </summary>
@@ -18,13 +22,14 @@ internal class OrderItem:IorderItem
     /// <returns></returns>
     public int AddObject(DO.OrderItem o1)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
+        o1.ID = DataSourceXml.getLastOrderItemsID();
         if (orders.FirstOrDefault(item => item?.ID == o1.ID) != null)
         {
             throw new AllReadyExist();
         }
         orders.Add(o1);
-        Tools<DO.OrderItem?>.SaveListToXml(orders, orderItemPath);
+        Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
         return o1.ID;
     }
     /// <summary>
@@ -35,7 +40,7 @@ internal class OrderItem:IorderItem
     /// <exception cref="Exception"></exception>
     public DO.OrderItem? GetObject(int id)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
         return orders.FirstOrDefault(order => order?.ID == id) ?? throw new NotExist();
     }
     /// <summary>
@@ -44,7 +49,7 @@ internal class OrderItem:IorderItem
     /// <returns></returns>
     public IEnumerable<DO.OrderItem?> GetAllObject(Func<DO.OrderItem?, bool>? func = null)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
         if (func == null)
         {
             return orders.Select(order => order).OrderBy(order => order?.ID);
@@ -59,12 +64,12 @@ internal class OrderItem:IorderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
         if (orders.RemoveAll(item => item?.ID == id) == 0)
         {
             throw new NotExist();
         }
-        Tools<DO.OrderItem?>.SaveListToXml(orders, orderItemPath);
+        Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
     }
     /// <summary>
     /// Function for updating an object if the ID number exists
@@ -104,7 +109,7 @@ internal class OrderItem:IorderItem
     /// <exception cref="CanNotFound"></exception>
     public DO.OrderItem? GetObjectByFilter(Func<DO.OrderItem?, bool>? func)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
         return orders.FirstOrDefault(order => func!(order)) ?? throw new NotExist();
 
     }

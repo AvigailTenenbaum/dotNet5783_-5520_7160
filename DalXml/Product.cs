@@ -5,27 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using BO;
 using DalApi;
 using DO;
 namespace Dal;
 internal class  Product:Iproduct
     {
     static XElement? productRoot;
+    string dir = "..\\xml\\";
     string productPath = @"Product.xml";
     public Product()
     {
-        if (!File.Exists(productPath))
+        
+        if (!File.Exists(dir+productPath))
             CreateFiles();
     }
     private void CreateFiles()
     {
         productRoot = new XElement("products");
-        productRoot.Save(productPath);
+        productRoot.Save(dir + productPath);
     }
     private void LoadData()
     {
-        try { productRoot = XElement.Load(productPath); }
+        try { productRoot = XElement.Load(dir + productPath); }
         catch { throw new Exception("file upload problem"); }
     }
     public int AddObject(DO.Product o1)
@@ -36,7 +37,7 @@ internal class  Product:Iproduct
         XElement inStock = new XElement("InStock", o1.InStock);
         XElement Category = new XElement("Category", o1.Category);
         productRoot?.Add(new XElement("Product", id, name, Price, inStock, Category));
-        productRoot?.Save(productPath);
+        productRoot?.Save(dir + productPath);
         return o1.ID;
     }
     /// <summary>
@@ -121,6 +122,8 @@ internal class  Product:Iproduct
             productElement = (from p in productRoot?.Elements()
                               where Convert.ToInt32(p.Element("ID")!.Value) == id
                               select p).FirstOrDefault();
+            productElement!.Remove();
+            productRoot?.Save(dir + productPath);
         }
         catch
         {
@@ -145,7 +148,7 @@ internal class  Product:Iproduct
             productElement!.Element("InStock")!.Value = pro.InStock.ToString()!;
             productElement!.Element("Category")!.Value = pro.Category.ToString()!;
 
-            productRoot?.Save( productPath);
+            productRoot?.Save( dir + productPath);
         }
         catch
         {

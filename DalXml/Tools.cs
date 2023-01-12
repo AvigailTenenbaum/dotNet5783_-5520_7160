@@ -20,6 +20,7 @@ internal static class Tools<T>
         string dir = "..\\xml\\";
         FileStream file = new FileStream(dir + path,FileMode.Create);
         xml.Serialize(file, l);
+        file.Close();
     }
     /// <summary>
     /// Loading an Excel file into a generic list
@@ -33,6 +34,7 @@ internal static class Tools<T>
         string dir = "..\\xml\\";
         FileStream file = new FileStream(dir + path, FileMode.Open);
         l =(List<T?>)xml.Deserialize(file);
+        file.Close();
         return l.ToList<T?>();
     }
 }
