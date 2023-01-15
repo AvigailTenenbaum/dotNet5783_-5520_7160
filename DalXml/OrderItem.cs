@@ -13,7 +13,7 @@ internal class OrderItem:IorderItem
     string dir = "..\\xml\\";
     static string orderItemPath = @"OrderItem.xml";
 
-    public int ID { get; internal set; }
+   // public int ID { get; internal set; }
 
     /// <summary>
     /// A function for adding an object
@@ -23,10 +23,9 @@ internal class OrderItem:IorderItem
     public int AddObject(DO.OrderItem o1)
     {
         List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
-        o1.ID = DataSourceXml.getLastOrderItemsID();
-        if (orders.FirstOrDefault(item => item?.ID == o1.ID) != null)
+        if (o1.ID== null||o1.ID==0)
         {
-            throw new AllReadyExist();
+            o1.ID = Tools<int>.GetLastOrderItemID();
         }
         orders.Add(o1);
         Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);

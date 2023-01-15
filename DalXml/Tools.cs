@@ -37,4 +37,26 @@ internal static class Tools<T>
         file.Close();
         return l.ToList<T?>();
     }
+    public static int GetLastOrderID()
+    {
+        string dir = "..\\xml\\";
+        string ConfigPath= @"Config.xml";
+        XElement root = XElement.Load(dir + ConfigPath);
+        int id=Convert.ToInt32(root.Element("IDorder")!.Value);
+        id++;
+        root.Element("IDorder")!.SetValue(id);
+        root.Save(dir+ ConfigPath);
+        return id;
+    }
+    public static int GetLastOrderItemID()
+    {
+        string dir = "..\\xml\\";
+        string ConfigPath = @"Config.xml";
+        XElement root = XElement.Load(dir + ConfigPath);
+        int id = Convert.ToInt32(root.Element("IDorderItem")!.Value);
+        id++;
+        root.Element("IDorderItem")!.SetValue(id);
+        root.Save(dir + ConfigPath);
+        return id;
+    }
 }

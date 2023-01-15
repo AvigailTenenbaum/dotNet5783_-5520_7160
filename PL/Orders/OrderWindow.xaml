@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="450" Width="800"
+        Title="OrderWindow" Height="444" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Window.Resources>
         <Color x:Key="SolidColorBrushColor1">Black</Color>
@@ -81,12 +81,12 @@
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
             </Label.BorderBrush>
         </Label>
-        <Grid  Margin="553,272,48,38" Visibility="{Binding OrderForCustomer,Converter={StaticResource nullToVisebilityConverter}}">
+        <Grid  Margin="553,260,48,50" Visibility="{Binding OrderForCustomer,Converter={StaticResource nullToVisebilityConverter}}">
             <Label Content="Product ID:" HorizontalAlignment="Left" Margin="12,16,0,0" VerticalAlignment="Top" FontFamily="Broadway"/>
             <Label Content="Amount:" HorizontalAlignment="Left" Margin="12,44,0,0" VerticalAlignment="Top" FontFamily="Broadway"/>
             <TextBox x:Name="productIdTxt" HorizontalAlignment="Left" Margin="109,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="69" Height="23"/>
             <TextBox x:Name="Amounttxt" HorizontalAlignment="Left" Margin="109,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="69" Height="23"/>
-            <Button  Content="update order" HorizontalAlignment="Center" Margin="0,77,0,0" FontFamily="Broadway" VerticalAlignment="Top" Click="Button_Click_2" Height="22" Width="107"/>
+            <Button  Content="update order" HorizontalAlignment="Center"  FontFamily="Broadway" Click="Button_Click_2" Width="107" Margin="0,77,0,0"/>
         </Grid>
 
     </Grid>

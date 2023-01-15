@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
+using System.Xml.Serialization;
 
 namespace PL.Products
 {
@@ -113,9 +116,6 @@ namespace PL.Products
         {
           
                 collectionView.GroupDescriptions.Add(propertyGroupDescription);
-            
-            
-
         }
 
         private void IsGroupByCategory_Unchecked(object sender, RoutedEventArgs e)

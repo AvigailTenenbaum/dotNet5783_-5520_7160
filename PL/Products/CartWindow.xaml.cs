@@ -65,6 +65,15 @@ namespace PL.Products
         /// <param name="e"></param>
         private void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
+            TextBox textbox = sender as TextBox;
+            if (textbox != null)
+            {
+                int parsedValue;
+                if (!int.TryParse(textbox.Text, out parsedValue))
+                {
+                    textbox.Text = "";
+                }
+            }
             try
             {
                 FrameworkElement? framework = sender as FrameworkElement;
@@ -84,6 +93,36 @@ namespace PL.Products
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }
             
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            if (text == null) return;
+
+            if (e == null) return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+            //allow control system keys
+
+            if (Char.IsControl(c)) return;
+
+
+            if (Char.IsDigit(c))
+
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+
+                    return;
+
+
+
+            e.Handled = true;
+
+
+
+            return;
         }
     }
 }

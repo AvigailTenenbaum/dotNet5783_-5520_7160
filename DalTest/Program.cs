@@ -157,7 +157,8 @@ namespace DalTest
                             Console.WriteLine("Enter the order id");
                             int.TryParse(Console.ReadLine(), out id); dal.Order.DeleteObject(id); break;
                         }
-                    default: Console.WriteLine("finish"); break;
+                    default: Console.WriteLine("finish");
+                        Exit(0);  break;
                 }
             } while (tav != 'f');
         }

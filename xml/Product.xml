@@ -26,7 +26,7 @@
     <Name> HavdalahSet</Name>
     <Price>2355</Price>
     <Category>saturday</Category>
-    <InStock>82</InStock>
+    <InStock>79</InStock>
   </Product>
   <Product>
     <ID>100004</ID>
@@ -40,7 +40,7 @@
     <Name>candlestickTray</Name>
     <Price>2858</Price>
     <Category>saturday</Category>
-    <InStock>83</InStock>
+    <InStock>85</InStock>
   </Product>
   <Product>
     <ID>100006</ID>
@@ -54,14 +54,14 @@
     <Name> honeycomb</Name>
     <Price>4899</Price>
     <Category>holidays</Category>
-    <InStock>0</InStock>
+    <InStock>19</InStock>
   </Product>
   <Product>
     <ID>100008</ID>
     <Name> etrogBox</Name>
     <Price>3423</Price>
     <Category>holidays</Category>
-    <InStock>71</InStock>
+    <InStock>70</InStock>
   </Product>
   <Product>
     <ID>100009</ID>
@@ -82,7 +82,7 @@
     <Name> scrollBag</Name>
     <Price>4374</Price>
     <Category>holidays</Category>
-    <InStock>75</InStock>
+    <InStock>72</InStock>
   </Product>
   <Product>
     <ID>100012</ID>
@@ -96,7 +96,7 @@
     <Name>crown</Name>
     <Price>1516</Price>
     <Category>toSeferTorah</Category>
-    <InStock>0</InStock>
+    <InStock>3</InStock>
   </Product>
   <Product>
     <ID>100014</ID>
@@ -131,7 +131,7 @@
     <Name> fruitBowl</Name>
     <Price>425</Price>
     <Category>giftsForHome</Category>
-    <InStock>95</InStock>
+    <InStock>102</InStock>
   </Product>
   <Product>
     <ID>100019</ID>

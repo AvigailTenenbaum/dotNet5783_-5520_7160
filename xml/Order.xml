@@ -46,15 +46,6 @@
     <DeliveryDate>2023-01-14T16:22:02.6298215+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>6</ID>
-    <CustomerName>Daniel Levi</CustomerName>
-    <CustomerEmail>DanielLevi@gmail.com</CustomerEmail>
-    <CustomerAddress>Petach-Tiqwa Brand 36</CustomerAddress>
-    <OrderDate>2023-01-12T14:26:02.6298252+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
     <ID>7</ID>
     <CustomerName>Daniel Poper</CustomerName>
     <CustomerEmail>DanielPoper@gmail.com</CustomerEmail>
@@ -73,60 +64,6 @@
     <DeliveryDate>2023-01-14T16:47:02.6298292+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>10</ID>
-    <CustomerName>Efrat Kaminer</CustomerName>
-    <CustomerEmail>EfratKaminer@gmail.com</CustomerEmail>
-    <CustomerAddress>Jerusalem Brand 143</CustomerAddress>
-    <OrderDate>2023-01-12T15:31:02.6298412+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>11</ID>
-    <CustomerName>Yair Rhein</CustomerName>
-    <CustomerEmail>YairRhein@gmail.com</CustomerEmail>
-    <CustomerAddress>Petach-Tiqwa Sechtman 137</CustomerAddress>
-    <OrderDate>2023-01-12T15:30:02.6298424+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>12</ID>
-    <CustomerName>Avigail Atzmon</CustomerName>
-    <CustomerEmail>AvigailAtzmon@gmail.com</CustomerEmail>
-    <CustomerAddress>Lod Sechtman 107</CustomerAddress>
-    <OrderDate>2023-01-12T14:51:02.6298435+02:00</OrderDate>
-    <ShipDate>2023-01-12T16:18:02.6298435+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>13</ID>
-    <CustomerName>Yair Kaminer</CustomerName>
-    <CustomerEmail>YairKaminer@gmail.com</CustomerEmail>
-    <CustomerAddress>Jerusalem Brand 22</CustomerAddress>
-    <OrderDate>2023-01-12T14:43:02.6298446+02:00</OrderDate>
-    <ShipDate>2023-01-12T15:01:02.6298446+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>14</ID>
-    <CustomerName>Rinat Kaminer</CustomerName>
-    <CustomerEmail>RinatKaminer@gmail.com</CustomerEmail>
-    <CustomerAddress>Haifa Rojovski 144</CustomerAddress>
-    <OrderDate>2023-01-12T15:06:02.6298457+02:00</OrderDate>
-    <ShipDate>2023-01-12T15:48:02.6298457+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>15</ID>
-    <CustomerName>Daniel Miller</CustomerName>
-    <CustomerEmail>DanielMiller@gmail.com</CustomerEmail>
-    <CustomerAddress>Tzfat Admor Meruzin 3</CustomerAddress>
-    <OrderDate>2023-01-12T15:47:02.6298476+02:00</OrderDate>
-    <ShipDate>2023-01-12T17:26:02.6298476+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
     <ID>16</ID>
     <CustomerName>Daniel Poper</CustomerName>
     <CustomerEmail>DanielPoper@gmail.com</CustomerEmail>
@@ -134,15 +71,6 @@
     <OrderDate>2023-01-12T14:27:02.6298489+02:00</OrderDate>
     <ShipDate>2023-01-12T15:15:02.6298489+02:00</ShipDate>
     <DeliveryDate>2023-01-14T15:15:02.6298489+02:00</DeliveryDate>
-  </Order>
-  <Order>
-    <ID>17</ID>
-    <CustomerName>Rinat Kaminer</CustomerName>
-    <CustomerEmail>RinatKaminer@gmail.com</CustomerEmail>
-    <CustomerAddress>Petach-Tiqwa Yafo 140</CustomerAddress>
-    <OrderDate>2023-01-12T15:17:02.6298502+02:00</OrderDate>
-    <ShipDate>2023-01-12T15:51:02.6298502+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
     <ID>18</ID>
@@ -163,15 +91,6 @@
     <DeliveryDate>2023-01-15T16:44:02.6298529+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>20</ID>
-    <CustomerName>David Miller</CustomerName>
-    <CustomerEmail>DavidMiller@gmail.com</CustomerEmail>
-    <CustomerAddress>Lod Chai-Taib 45</CustomerAddress>
-    <OrderDate>2023-01-12T14:36:02.6298545+02:00</OrderDate>
-    <ShipDate>2023-01-12T15:03:02.6298545+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
     <ID>8</ID>
     <CustomerName>Avigail Levi</CustomerName>
     <CustomerEmail>AvigailLevi@gmail.com</CustomerEmail>
@@ -181,7 +100,7 @@
     <DeliveryDate>2023-01-12T16:31:06.6411442+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>0</ID>
+    <ID>15</ID>
     <CustomerName>shira</CustomerName>
     <CustomerEmail>shir123@gmail.com</CustomerEmail>
     <CustomerAddress>ruzin</CustomerAddress>
@@ -190,12 +109,84 @@
     <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>61</ID>
-    <CustomerName>leah</CustomerName>
-    <CustomerEmail>lali1122@gmail.com</CustomerEmail>
-    <CustomerAddress>malcha</CustomerAddress>
-    <OrderDate>2023-01-12T00:00:00+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
+    <ID>22</ID>
+    <CustomerName>Avigail Atzmon</CustomerName>
+    <CustomerEmail>AvigailAtzmon@gmail.com</CustomerEmail>
+    <CustomerAddress>Lod Sechtman 107</CustomerAddress>
+    <OrderDate>2023-01-12T14:51:02.6298435+02:00</OrderDate>
+    <ShipDate>2023-01-12T16:18:02.6298435+02:00</ShipDate>
+    <DeliveryDate>2023-01-12T22:52:40.1483319+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>26</ID>
+    <CustomerName>Daniel Levi</CustomerName>
+    <CustomerEmail>DanielLevi@gmail.com</CustomerEmail>
+    <CustomerAddress>Petach-Tiqwa Brand 36</CustomerAddress>
+    <OrderDate>2023-01-12T14:26:02.6298252+02:00</OrderDate>
+    <ShipDate>2023-01-12T23:08:37.4403519+02:00</ShipDate>
     <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>27</ID>
+    <CustomerName>Yair Kaminer</CustomerName>
+    <CustomerEmail>YairKaminer@gmail.com</CustomerEmail>
+    <CustomerAddress>Jerusalem Brand 22</CustomerAddress>
+    <OrderDate>2023-01-12T14:43:02.6298446+02:00</OrderDate>
+    <ShipDate>2023-01-12T15:01:02.6298446+02:00</ShipDate>
+    <DeliveryDate>2023-01-12T23:48:44.8511516+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>28</ID>
+    <CustomerName>Rinat Kaminer</CustomerName>
+    <CustomerEmail>RinatKaminer@gmail.com</CustomerEmail>
+    <CustomerAddress>Haifa Rojovski 144</CustomerAddress>
+    <OrderDate>2023-01-12T15:06:02.6298457+02:00</OrderDate>
+    <ShipDate>2023-01-12T15:48:02.6298457+02:00</ShipDate>
+    <DeliveryDate>2023-01-13T10:23:06.8637666+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>29</ID>
+    <CustomerName>Daniel Miller</CustomerName>
+    <CustomerEmail>DanielMiller@gmail.com</CustomerEmail>
+    <CustomerAddress>Tzfat Admor Meruzin 3</CustomerAddress>
+    <OrderDate>2023-01-12T15:47:02.6298476+02:00</OrderDate>
+    <ShipDate>2023-01-12T17:26:02.6298476+02:00</ShipDate>
+    <DeliveryDate>2023-01-13T10:36:29.8950362+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>23</ID>
+    <CustomerName>Efrat Kaminer</CustomerName>
+    <CustomerEmail>EfratKaminer@gmail.com</CustomerEmail>
+    <CustomerAddress>Jerusalem Brand 143</CustomerAddress>
+    <OrderDate>2023-01-12T15:31:02.6298412+02:00</OrderDate>
+    <ShipDate>2023-01-12T22:57:18.2711937+02:00</ShipDate>
+    <DeliveryDate>2023-01-13T10:39:55.6628051+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>17</ID>
+    <CustomerName>Rinat Kaminer</CustomerName>
+    <CustomerEmail>RinatKaminer@gmail.com</CustomerEmail>
+    <CustomerAddress>Petach-Tiqwa Yafo 140</CustomerAddress>
+    <OrderDate>2023-01-12T15:17:02.6298502+02:00</OrderDate>
+    <ShipDate>2023-01-12T15:51:02.6298502+02:00</ShipDate>
+    <DeliveryDate>2023-01-13T10:47:44.9472489+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>20</ID>
+    <CustomerName>David Miller</CustomerName>
+    <CustomerEmail>DavidMiller@gmail.com</CustomerEmail>
+    <CustomerAddress>Lod Chai-Taib 45</CustomerAddress>
+    <OrderDate>2023-01-12T14:36:02.6298545+02:00</OrderDate>
+    <ShipDate>2023-01-12T15:03:02.6298545+02:00</ShipDate>
+    <DeliveryDate>2023-01-15T22:29:30.7697028+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>25</ID>
+    <CustomerName>Noa</CustomerName>
+    <CustomerEmail>n@gmail.com</CustomerEmail>
+    <CustomerAddress>chayTayeb</CustomerAddress>
+    <OrderDate>2023-01-12T00:00:00+02:00</OrderDate>
+    <ShipDate>2023-01-12T23:03:20.271015+02:00</ShipDate>
+    <DeliveryDate>2023-01-15T23:45:03.3360189+02:00</DeliveryDate>
   </Order>
 </ArrayOfOrder>
