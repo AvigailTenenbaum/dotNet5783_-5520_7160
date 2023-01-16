@@ -194,68 +194,6 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateOrder(int orderId, int productId, int newAmount)
     {
 
-        //if (orderId < 0)
-        //    throw new BO.InCorrectData();
-        //if (productId < 0)
-        //    throw new BO.InCorrectData();
-        //if (newAmount < 0)
-        //    throw new BO.InCorrectData();
-        //try { dal?.Order.GetObject(orderId); }
-        //catch (Exception ex)
-        //{
-        //    throw new NotExist(ex);
-        //}
-        //if (dal?.Order.GetObject(orderId)?.ShipDate!=null)
-        //    throw new NotPossibleToFillRequest();
-
-        //BO.Order? order = GetOrderDetails(orderId);
-
-        //BO.OrderItem? oi = order?.Items?.FirstOrDefault(oi => oi?.ProductID == productId);
-        //if (dal!.Product.GetObject(productId)?.InStock < 0 || dal.Product.GetObject(productId)?.InStock < newAmount)
-        //    throw new NotPossibleToFillRequest();
-        //if (newAmount == 0)
-        //{
-        //    int x = order.Items!.ToList().FindIndex(x => x?.ProductID == productId);
-        //    ((List<BO.OrderItem?>)order.Items!).RemoveAt(x);
-
-        //}
-        //if (oi == null)//if he product is not in the order, add it
-        //{
-        //    oi = new OrderItem()
-        //    {
-        //        ID = dal?.OrderItem.GetAllObject().Last()?.ID + 1 ?? 0,
-        //        Amount = newAmount,
-        //        Name = dal?.Product.GetObject(productId)?.Name,
-        //        Price = dal?.Product.GetObject(productId)?.Price ?? 0,
-        //        ProductID = productId,
-        //        TotalPrice = newAmount * dal?.Product.GetObject(productId)?.Price ?? 0,
-        //    };
-        //    DO.OrderItem add = new DO.OrderItem()//orderItem in the daa layer
-        //    {
-        //        ID = oi.ID,
-        //        Amount = oi.Amount,
-        //        OrderID = orderId,
-        //        Price = oi.Price,
-        //        ProductID = productId
-        //    };
-        //    order?.Items?.Add(oi);
-        //    dal?.OrderItem.AddObject(add);
-        //    return order;
-        //}
-        //order!.TotalPrice -= oi!.TotalPrice;
-        //oi.Amount = newAmount;
-        //oi.TotalPrice = newAmount * oi.Price;
-        //order.TotalPrice += oi.TotalPrice;
-        //DO.OrderItem orderItem = new DO.OrderItem()
-        //{
-        //    ID = oi.ID,
-        //    Amount = oi.Amount,
-        //    OrderID = orderId,
-        //    Price = oi.Price,
-        //    ProductID = productId
-        //};
-        //dal?.OrderItem.UpDateObject(orderItem);
-        //return order;
         if (orderId < 0)
             throw new BO.InCorrectData();
         if (productId < 0)
@@ -287,7 +225,7 @@ internal class Order : BlApi.IOrder
                 IEnumerable<DO.OrderItem?> orderItems = dal?.OrderItem.GetAllObject();
                 oi = new BO.OrderItem()
                 {
-                    ID = orderItems?.Last()?.ID + 1 ?? 0,
+                    
                     Amount = newAmount,
                     Name = productHelp?.Name,
                     Price = productHelp?.Price ?? 0,
@@ -296,7 +234,7 @@ internal class Order : BlApi.IOrder
                 };
                 DO.OrderItem add = new DO.OrderItem()//update in the data layer
                 {
-                    ID = oi.ID,
+                    
                     Amount = oi.Amount,
                     OrderID = orderId,
                     Price = oi.Price,
