@@ -88,6 +88,7 @@ namespace PL.Products
                     AmountInCart = amount,
 
                 };
+                Tprice.Content = Cart.TotalPrice;//just for meantime, we going to change it
                 Action1(p,Cart);
             }
             catch(Exception ex)

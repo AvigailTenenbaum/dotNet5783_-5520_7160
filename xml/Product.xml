@@ -68,7 +68,7 @@
     <Name> menorah</Name>
     <Price>4442</Price>
     <Category>holidays</Category>
-    <InStock>77</InStock>
+    <InStock>76</InStock>
   </Product>
   <Product>
     <ID>100010</ID>
@@ -89,7 +89,7 @@
     <Name>eliyahuCup</Name>
     <Price>3669</Price>
     <Category>holidays</Category>
-    <InStock>59</InStock>
+    <InStock>57</InStock>
   </Product>
   <Product>
     <ID>100013</ID>
@@ -103,7 +103,7 @@
     <Name> breastplate</Name>
     <Price>1029</Price>
     <Category>toSeferTorah</Category>
-    <InStock>94</InStock>
+    <InStock>93</InStock>
   </Product>
   <Product>
     <ID>100015</ID>

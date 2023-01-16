@@ -189,4 +189,22 @@
     <ShipDate>2023-01-12T23:03:20.271015+02:00</ShipDate>
     <DeliveryDate>2023-01-15T23:45:03.3360189+02:00</DeliveryDate>
   </Order>
+  <Order>
+    <ID>34</ID>
+    <CustomerName>Noa Landman</CustomerName>
+    <CustomerEmail>landmanoa@gmail.com</CustomerEmail>
+    <CustomerAddress>silver 17</CustomerAddress>
+    <OrderDate>2023-01-16T14:39:59.9166945+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>35</ID>
+    <CustomerName>Avigail Tenenbaum</CustomerName>
+    <CustomerEmail>at123@gmail.com</CustomerEmail>
+    <CustomerAddress>ruzin 27</CustomerAddress>
+    <OrderDate>2023-01-16T14:40:48.5000236+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
 </ArrayOfOrder>

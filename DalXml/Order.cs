@@ -21,7 +21,7 @@ internal class Order:Iorder
     public int AddObject(DO.Order o1)
     {
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir+orderPath);
-        if(o1.ID==null||o1.ID==0)
+        if(o1.ID==null||o1.ID==0)//check because the update action
         {
             o1.ID = Tools<int>.GetLastOrderID();
         }

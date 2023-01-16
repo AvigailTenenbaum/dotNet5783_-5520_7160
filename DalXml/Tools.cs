@@ -37,6 +37,10 @@ internal static class Tools<T>
         file.Close();
         return l.ToList<T?>();
     }
+    /// <summary>
+    /// A running variable for an order number
+    /// </summary>
+    /// <returns></returns>
     public static int GetLastOrderID()
     {
         string dir = "..\\xml\\";
@@ -48,6 +52,10 @@ internal static class Tools<T>
         root.Save(dir+ ConfigPath);
         return id;
     }
+    /// <summary>
+    /// A running variable for an order item number
+    /// </summary>
+    /// <returns></returns>
     public static int GetLastOrderItemID()
     {
         string dir = "..\\xml\\";
