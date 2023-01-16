@@ -124,7 +124,7 @@ internal class Cart : BlApi.ICart
             throw new InCorrectData();
         }
         IEnumerable<DO.Product?> products = dal?.Product.GetAllObject() ?? throw new NullData(); 
-        if (finalCart.CostumerAdress == null || finalCart.CustomerName == null || finalCart.CustomerEmail == null 
+        if (finalCart.CostumerAdress == "" || finalCart.CustomerName == "" || finalCart.CustomerEmail == "" 
                 || finalCart.CustomerEmail[0] == '@' || finalCart.CustomerEmail[finalCart.CustomerEmail.Length - 1] == '@')
             throw new BO.InCorrectData();
 
@@ -149,13 +149,12 @@ internal class Cart : BlApi.ICart
             throw new InCorrectData();
 
       
-        DO.Order op = dal.Order.GetAllObject().Last() ?? throw new NullData();
         DO.Order finalOrder = new DO.Order
         {
             CustomerAddress = finalCart!.CostumerAdress,   
             CustomerName = finalCart.CustomerName,
             CustomerEmail = finalCart.CustomerEmail,
-            OrderDate = DateTime.Today,
+            OrderDate = DateTime.Now,
             DeliveryDate = null,
             ShipDate = null,
            
@@ -164,12 +163,6 @@ internal class Cart : BlApi.ICart
         try { id=dal.Order.AddObject(finalOrder); }   
         catch (AllReadyExist ex) { throw new AllReadyExist(ex); }
         IEnumerable<DO.OrderItem> orderitems;
-        bool flag = false;
-        while (!flag)//while he id is in he store
-        {
-            try { DO.OrderItem? o = dal.OrderItem.GetObject(id); }
-            catch (DO.NotExist x) { flag = true; break; }
-        }
         try
         {
             orderitems = from o in finalCart?.Items//converts the all orderItems to DO 

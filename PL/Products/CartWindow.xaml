@@ -18,7 +18,7 @@
                     <GridViewColumn Header="Amount">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Width="auto" LostFocus="TextBox_TextChanged"/>
+                                <TextBox Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Width="auto" LostFocus="TextBox_TextChanged" PreviewKeyDown="TextBox_PreviewKeyDown" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -26,13 +26,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="confirm order" HorizontalAlignment="Left" Margin="105,322,0,0" VerticalAlignment="Top" Height="57" Width="106" FontFamily="Broadway" Click="Button_Click"/>
+        <Button Content="confirm order" HorizontalAlignment="Left" Margin="48,319,0,0" VerticalAlignment="Top" Height="57" Width="106" FontFamily="Broadway" Click="Button_Click" RenderTransformOrigin="-0.057,0.134"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="65,78,0,0" VerticalAlignment="Top" Height="35" Width="73" FontSize="14" FontFamily="Broadway"/>
         <Label Content="Email:" HorizontalAlignment="Left" Margin="65,142,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
         <Label Content="Address:" HorizontalAlignment="Left" Margin="65,204,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
         <TextBox Name="Nametxt" TextWrapping="Wrap" Text="" Margin="158,65,454,309"/>
         <TextBox Name="Emailtxt" TextWrapping="Wrap" Text="" Margin="158,130,454,244"/>
         <TextBox Name="AddressTxt" TextWrapping="Wrap" Text="" Margin="158,195,454,177"/>
+        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="62,276,0,0" VerticalAlignment="Top" Height="31" Width="92" FontSize="14" FontFamily="Broadway"/>
+        <Label Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="188,276,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
 
     </Grid>
 </Window>

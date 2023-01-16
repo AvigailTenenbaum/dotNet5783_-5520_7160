@@ -3,6 +3,7 @@ using PL.Products;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL
 {
@@ -42,6 +43,36 @@ namespace PL
             }
             new OrderTrackWindow(Convert.ToInt32( idtxt.Text)).ShowDialog();
             idtxt.Clear();
+        }
+
+        private void idtxt_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            if (text == null) return;
+
+            if (e == null) return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+            //allow control system keys
+
+            if (Char.IsControl(c)) return;
+
+
+            if (Char.IsDigit(c))
+
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+
+                    return;
+
+
+
+            e.Handled = true;
+
+
+
+            return;
         }
     }
 }

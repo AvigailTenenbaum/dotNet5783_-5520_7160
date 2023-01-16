@@ -35,9 +35,18 @@ namespace PL.Orders
         }
         private void UpdateOrder(OrderForList order)//A function for updating the list every time an order is updated
         {
-            var p = OrderForLists?.FirstOrDefault(item => item?.ID == order.ID);
-            int i = OrderForLists.IndexOf(p);
-            OrderForLists[i] = order;
+            if (order.CustomerName == null)
+            {
+                var p = OrderForLists?.FirstOrDefault(item => item?.ID == order.ID);
+                int i = OrderForLists.IndexOf(p);
+                OrderForLists.RemoveAt(i);
+            }
+            else
+            {
+                var p = OrderForLists?.FirstOrDefault(item => item?.ID == order.ID);
+                int i = OrderForLists.IndexOf(p);
+                OrderForLists[i] = order;
+            }
         }
 
     }

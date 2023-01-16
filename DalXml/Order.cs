@@ -21,10 +21,9 @@ internal class Order:Iorder
     public int AddObject(DO.Order o1)
     {
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir+orderPath);
-        o1.ID = DataSourceXml.getLastOrderID();
-        if (orders.FirstOrDefault(item=> item?.ID==o1.ID)!=null)
+        if(o1.ID==null||o1.ID==0)
         {
-            throw new AllReadyExist();
+            o1.ID = Tools<int>.GetLastOrderID();
         }
        orders.Add(o1);
         Tools<DO.Order?>.SaveListToXml(orders, dir+orderPath);
