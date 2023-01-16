@@ -32,14 +32,7 @@ internal static class DataSourceXml
     {
         return _lastProductID++;
     }
-    internal static int getLastOrderID()
-    {
-        return _lastOrderID++;
-    }
-    internal static int getLastOrderItemsID()
-    {
-        return _lastOrderItemsID++;
-    }
+  
     static DataSourceXml()
     {
         s_Initialize();
