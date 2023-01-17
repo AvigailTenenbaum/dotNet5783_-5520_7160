@@ -34,7 +34,7 @@
         <TextBox Name="Emailtxt" TextWrapping="Wrap" Text="" Margin="158,130,454,244"/>
         <TextBox Name="AddressTxt" TextWrapping="Wrap" Text="" Margin="158,195,454,177"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="62,276,0,0" VerticalAlignment="Top" Height="31" Width="92" FontSize="14" FontFamily="Broadway"/>
-        <Label Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="188,276,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
+        <Label x:Name="Tprice" Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="188,276,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
 
     </Grid>
 </Window>

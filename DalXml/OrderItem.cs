@@ -23,7 +23,7 @@ internal class OrderItem:IorderItem
     public int AddObject(DO.OrderItem o1)
     {
         List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
-        if (o1.ID== null||o1.ID==0)
+        if (o1.ID== null||o1.ID==0)//check because the update action
         {
             o1.ID = Tools<int>.GetLastOrderItemID();
         }

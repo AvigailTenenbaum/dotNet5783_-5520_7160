@@ -15,20 +15,32 @@ internal class  Product:Iproduct
     string productPath = @"Product.xml";
     public Product()
     {
-        
+        //create file if it doesn't exist
         if (!File.Exists(dir+productPath))
             CreateFiles();
     }
+    /// <summary>
+    /// A method to create a new file
+    /// </summary>
     private void CreateFiles()
     {
         productRoot = new XElement("products");
         productRoot.Save(dir + productPath);
     }
+    /// <summary>
+    /// Loading the data from the file
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     private void LoadData()
     {
         try { productRoot = XElement.Load(dir + productPath); }
         catch { throw new Exception("file upload problem"); }
     }
+    /// <summary>
+    /// Adding a new product
+    /// </summary>
+    /// <param name="o1"></param>
+    /// <returns></returns>
     public int AddObject(DO.Product o1)
     {
         XElement id = new XElement("ID", o1.ID);
