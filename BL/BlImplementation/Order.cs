@@ -290,6 +290,25 @@ internal class Order : BlApi.IOrder
                    Count = newGroup.Count()
                };
     }
+    public DateTime? LastChange(int id)
+    {
+        try
+        {
+            BO.Order order = GetOrderDetails(id);
+            if (order.Status == BO.OrderStatus.shipped)
+                return order.ShipDate;
+            if (order.Status == BO.OrderStatus.Approved)
+                return order.OrderDate;
+            else
+                return null;
+        }
+        catch(DO.NotExist ex)
+        {
+            throw new BO.NotExist(ex);
+        }
+
+
+    }
 }
 
 public struct StatisticsOrders
