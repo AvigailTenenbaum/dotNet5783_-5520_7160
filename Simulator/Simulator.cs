@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace Simulator;
 
 internal static class Simulator
 {
-    public BlApi.IBl? bl = BlApi.Factory.Get();
-   public static BackgroundWorker orderWorker=new BackgroundWorker;
-   static List<BO.Order> orders=;//נקסל את רשימת הזמנות
+    BlApi.IBl? bl = BlApi.Factory.Get();
+    public static BackgroundWorker orderWorker = new BackgroundWorker;
+    static List<BO.Order> orders =;//נקסל את רשימת הזמנות
 
     public static void StartSimulation()
     {
@@ -22,24 +21,24 @@ internal static class Simulator
         orderWorker.RunWorkerAsync();
     }
 
-   
+
 
     private static void OrderWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-        while(!orderWorker.CancellationPending)
+        while (!orderWorker.CancellationPending)
         {
             Thread.Sleep(1000);//צריך להרגיל מספר שניות
-            //לבדוק לפי הסטטוס ולעדכן תאריך בהתאם
+                               //לבדוק לפי הסטטוס ולעדכן תאריך בהתאם
         }
     }
 
     public static void StoptSimulation()
     {
-       
+
     }
     private static void NextOrder()
     {
-        BO.Order ord = orders.OrderBy(order => (DateTime.Now-).Ticks).FirstOrDefault();
+        BO.Order ord = orders.OrderBy(order => (DateTime.Now -).Ticks).FirstOrDefault();
         //עדכון תאריך השילוח
         //מחיקה מהרשימה והוספת חדש
         orderWorker.ReportProgress(1, ord);
