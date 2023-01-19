@@ -5,43 +5,130 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
+using BlApi;
+using BO;
+
 namespace Simulator;
 
-internal static class Simulator
+public static class Simulator
 {
-    BlApi.IBl? bl = BlApi.Factory.Get();
-    public static BackgroundWorker orderWorker = new BackgroundWorker;
-    static List<BO.Order> orders =;//נקסל את רשימת הזמנות
+    static IBl? bl = Factory.Get();
 
-    public static void StartSimulation()
+    /// <summary>
+    /// a random variable to use when it's needed.
+    /// </summary>
+    public static readonly Random random = new Random(DateTime.Now.Millisecond);
+
+    private const int c_timeSleep = 1000;
+
+    private static volatile bool stopSimulation;
+
+    private static event Action? s_stopSimulation;
+
+    public static event Action? s_StopSimulation
     {
-        orderWorker.ProgressChanged += OrderWorker_ProgressChanged;
-        orderWorker.WorkerReportsProgress = true;
-        orderWorker.WorkerSupportsCancellation = true;
-        orderWorker.RunWorkerAsync();
+        add => s_stopSimulation += value;
+        remove => s_StopSimulation -= value;
     }
 
+    private static event Action<int, object?>? s_updateSimulation;
 
-
-    private static void OrderWorker_DoWork(object sender, DoWorkEventArgs e)
+    public static event Action<int, object>? s_UpdateSimulation
     {
-        while (!orderWorker.CancellationPending)
+        add => s_updateSimulation += value;
+        remove => s_updateSimulation -= value;
+    }
+
+    public static void StartSimulator()
+    {
+        Thread thread = new Thread(simulatorAction);
+        thread.Start();
+       
+    }
+
+    private static void simulatorAction(object? obj)
+    {
+        while (!stopSimulation)
         {
-            Thread.Sleep(1000);//צריך להרגיל מספר שניות
-                               //לבדוק לפי הסטטוס ולעדכן תאריך בהתאם
+            int? orderId = bl!.Order.nextOrderSending();
+
+            if (orderId is null)
+                Thread.Sleep(c_timeSleep);
+
+            else
+            {
+                int _orderId = orderId ?? throw new InvalidCastException("");
+
+                Order order = bl.Order.GetOrderDetails(_orderId);
+
+                int nextOrderStatus = ((int)order.Status! + 1);
+                int TreatmentTime = random.Next(3, 11);
+                OrderProcess orderProcess = new OrderProcess
+                {
+                    CurrentOrder = order,
+                    NextOrderStatus =
+                    (BO.OrderStatus)nextOrderStatus,
+                    EndTreatment = DateTime.Now.AddSeconds(TreatmentTime).ToString("HH:mm:ss")
+            };
+
+                s_updateSimulation?.Invoke(1, orderProcess);
+                Thread.Sleep(TreatmentTime*1000);
+
+                switch (orderProcess.CurrentOrder.Status)
+                {
+                    case OrderStatus.shipped:
+                         orderProcess.CurrentOrder= bl.Order.OrderDeliveryUpdate(order.ID);
+                        break;
+                    case OrderStatus.Approved:
+                        orderProcess.CurrentOrder = bl.Order.OrderShippingUpdate(order.ID);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                orderProcess.CurrentOrder = bl.Order.GetOrderDetails(_orderId);
+                orderProcess.CurrentTime = null;
+                orderProcess.EndTreatment = null;
+                orderProcess.NextOrderStatus = orderProcess.CurrentOrder.Status == OrderStatus.deliveredTotheCustomer ? null :
+                    (BO.OrderStatus)((int)orderProcess.CurrentOrder.Status! + 1);
+
+            }
+            Thread.Sleep(c_timeSleep);
         }
     }
 
-    public static void StoptSimulation()
+    public static void StopSimulator()
     {
-
-    }
-    private static void NextOrder()
-    {
-        BO.Order ord = orders.OrderBy(order => (DateTime.Now -).Ticks).FirstOrDefault();
-        //עדכון תאריך השילוח
-        //מחיקה מהרשימה והוספת חדש
-        orderWorker.ReportProgress(1, ord);
+        stopSimulation = true;
+        s_stopSimulation?.Invoke();
     }
 }
+
+public class OrderProcess
+{
+    public BO.Order? CurrentOrder { get; set; }
+
+    public string? CurrentTime { get; set; } = DateTime.Now.ToString("HH:mm:ss");
+
+    public BO.OrderStatus? NextOrderStatus { get; set; }
+
+    public string? EndTreatment { get; set; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

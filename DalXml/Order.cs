@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 namespace Dal;
@@ -12,6 +13,7 @@ internal class Order:Iorder
 {
     string dir = "..\\xml\\";
     static string orderPath = @"Order.xml";
+    [MethodImpl(MethodImplOptions.Synchronized)]
     //static XElement? 
     /// <summary>
     /// A function for adding an object
@@ -29,6 +31,8 @@ internal class Order:Iorder
         Tools<DO.Order?>.SaveListToXml(orders, dir+orderPath);
         return o1.ID;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and returns the object if it exists
     /// </summary>
@@ -40,6 +44,8 @@ internal class Order:Iorder
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir + orderPath);
         return orders.FirstOrDefault(order => order?.ID == id)??throw new NotExist();
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
@@ -53,6 +59,8 @@ internal class Order:Iorder
         }
         return orders.Where(order => func(order)).OrderBy(order => order?.ID);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
     /// </summary>
@@ -67,6 +75,8 @@ internal class Order:Iorder
         }
         Tools<DO.Order?>.SaveListToXml(orders, dir + orderPath);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Function for updating an object if the ID number exists
     /// </summary>
@@ -77,6 +87,8 @@ internal class Order:Iorder
         DeleteObject(o.ID);
         AddObject(o);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
     /// </summary>

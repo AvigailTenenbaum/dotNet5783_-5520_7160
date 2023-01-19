@@ -19,24 +19,6 @@
     <DeliveryDate>2023-01-13T15:24:02.629803+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>3</ID>
-    <CustomerName>Noa Cohen</CustomerName>
-    <CustomerEmail>NoaCohen@gmail.com</CustomerEmail>
-    <CustomerAddress>Lod Yafo 120</CustomerAddress>
-    <OrderDate>2023-01-12T15:44:02.6298181+02:00</OrderDate>
-    <ShipDate>2023-01-12T17:07:02.6298181+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
-    <ID>4</ID>
-    <CustomerName>Chaya Levi</CustomerName>
-    <CustomerEmail>ChayaLevi@gmail.com</CustomerEmail>
-    <CustomerAddress>Herzelia Booblik 24</CustomerAddress>
-    <OrderDate>2023-01-12T15:37:02.6298201+02:00</OrderDate>
-    <ShipDate>2023-01-12T16:48:02.6298201+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
     <ID>5</ID>
     <CustomerName>Chaya Atzmon</CustomerName>
     <CustomerEmail>ChayaAtzmon@gmail.com</CustomerEmail>
@@ -100,15 +82,6 @@
     <DeliveryDate>2023-01-12T16:31:06.6411442+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>15</ID>
-    <CustomerName>shira</CustomerName>
-    <CustomerEmail>shir123@gmail.com</CustomerEmail>
-    <CustomerAddress>ruzin</CustomerAddress>
-    <OrderDate>2023-01-12T00:00:00+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
-  </Order>
-  <Order>
     <ID>22</ID>
     <CustomerName>Avigail Atzmon</CustomerName>
     <CustomerEmail>AvigailAtzmon@gmail.com</CustomerEmail>
@@ -116,15 +89,6 @@
     <OrderDate>2023-01-12T14:51:02.6298435+02:00</OrderDate>
     <ShipDate>2023-01-12T16:18:02.6298435+02:00</ShipDate>
     <DeliveryDate>2023-01-12T22:52:40.1483319+02:00</DeliveryDate>
-  </Order>
-  <Order>
-    <ID>26</ID>
-    <CustomerName>Daniel Levi</CustomerName>
-    <CustomerEmail>DanielLevi@gmail.com</CustomerEmail>
-    <CustomerAddress>Petach-Tiqwa Brand 36</CustomerAddress>
-    <OrderDate>2023-01-12T14:26:02.6298252+02:00</OrderDate>
-    <ShipDate>2023-01-12T23:08:37.4403519+02:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
     <ID>27</ID>
@@ -190,13 +154,49 @@
     <DeliveryDate>2023-01-15T23:45:03.3360189+02:00</DeliveryDate>
   </Order>
   <Order>
+    <ID>4</ID>
+    <CustomerName>Chaya Levi</CustomerName>
+    <CustomerEmail>ChayaLevi@gmail.com</CustomerEmail>
+    <CustomerAddress>Herzelia Booblik 24</CustomerAddress>
+    <OrderDate>2023-01-12T15:37:02.6298201+02:00</OrderDate>
+    <ShipDate>2023-01-12T16:48:02.6298201+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:12.5624726+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>3</ID>
+    <CustomerName>Noa Cohen</CustomerName>
+    <CustomerEmail>NoaCohen@gmail.com</CustomerEmail>
+    <CustomerAddress>Lod Yafo 120</CustomerAddress>
+    <OrderDate>2023-01-12T15:44:02.6298181+02:00</OrderDate>
+    <ShipDate>2023-01-12T17:07:02.6298181+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:13.5887953+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>26</ID>
+    <CustomerName>Daniel Levi</CustomerName>
+    <CustomerEmail>DanielLevi@gmail.com</CustomerEmail>
+    <CustomerAddress>Petach-Tiqwa Brand 36</CustomerAddress>
+    <OrderDate>2023-01-12T14:26:02.6298252+02:00</OrderDate>
+    <ShipDate>2023-01-12T23:08:37.4403519+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:14.6145348+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>15</ID>
+    <CustomerName>shira</CustomerName>
+    <CustomerEmail>shir123@gmail.com</CustomerEmail>
+    <CustomerAddress>ruzin</CustomerAddress>
+    <OrderDate>2023-01-12T00:00:00+02:00</OrderDate>
+    <ShipDate>2023-01-18T21:51:11.5168191+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:17.7030583+02:00</DeliveryDate>
+  </Order>
+  <Order>
     <ID>34</ID>
     <CustomerName>Noa Landman</CustomerName>
     <CustomerEmail>landmanoa@gmail.com</CustomerEmail>
     <CustomerAddress>silver 17</CustomerAddress>
     <OrderDate>2023-01-16T14:39:59.9166945+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
+    <ShipDate>2023-01-18T21:51:15.6435239+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:18.729336+02:00</DeliveryDate>
   </Order>
   <Order>
     <ID>35</ID>
@@ -204,7 +204,16 @@
     <CustomerEmail>at123@gmail.com</CustomerEmail>
     <CustomerAddress>ruzin 27</CustomerAddress>
     <OrderDate>2023-01-16T14:40:48.5000236+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
+    <ShipDate>2023-01-18T21:51:16.6726759+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T21:51:19.7574865+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>36</ID>
+    <CustomerName>lali luli</CustomerName>
+    <CustomerEmail>laliluli@gmail.com</CustomerEmail>
+    <CustomerAddress>lolik17</CustomerAddress>
+    <OrderDate>2023-01-18T22:05:40.3600009+02:00</OrderDate>
+    <ShipDate>2023-01-18T22:06:09.6835569+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T22:06:14.7063315+02:00</DeliveryDate>
   </Order>
 </ArrayOfOrder>

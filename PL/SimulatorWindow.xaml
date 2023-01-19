@@ -5,15 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SimulatorWindow" Height="450" Width="800">
+        Title="SimulatorWindow" Height="450" Width="800" Closing="Window_Closing"  >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="759*"/>
-            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="656*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="32*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="stop" HorizontalAlignment="Left" Margin="170,242,0,0" VerticalAlignment="Top" Height="65" Width="111" Click="Button_Click"/>
-        <Button Content="start" HorizontalAlignment="Left" Margin="460,247,0,0" VerticalAlignment="Top" Height="60" Width="108"/>
-        <TextBlock x:Name="txtBlock" HorizontalAlignment="Left" Margin="514,122,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Button Content="stop" HorizontalAlignment="Left" Margin="539,374,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Button_Click" FontFamily="Broadway" FontSize="18" Grid.Column="2"/>
+        <TextBlock x:Name="txtBlock" HorizontalAlignment="Left" Margin="26,374,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="130" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Grid Margin="48,33,20,65" Grid.ColumnSpan="4" Grid.Column="1">
+            <Label Content="ID:" HorizontalAlignment="Left" Margin="39,27,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="39,75,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Order Date:" HorizontalAlignment="Left" Margin="39,130,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Future Status:" HorizontalAlignment="Left" Margin="39,211,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Total Price:" HorizontalAlignment="Left" Margin="39,268,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Start Time:" HorizontalAlignment="Left" Margin="326,130,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="Expected End Time:" HorizontalAlignment="Left" Margin="326,179,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <Label Content="{Binding orderProcess.CurrentOrder.ID}" HorizontalAlignment="Left" Margin="185,19,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="43" Width="129"/>
+            <Label Content="{Binding orderProcess.CurrentOrder.CustomerName}" HorizontalAlignment="Left" Margin="185,69,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="49" Width="129"/>
+            <Label Content="{Binding orderProcess.CurrentOrder.OrderDate}" HorizontalAlignment="Left" Margin="185,125,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="40" Width="129"/>
+            <Label Content="{Binding orderProcess.NextOrderStatus}" HorizontalAlignment="Left" Margin="185,208,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="47" Width="129"/>
+            <Label Content="{Binding orderProcess.CurrentOrder.TotalPrice}" HorizontalAlignment="Left" Margin="185,266,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="43" Width="129"/>
+            <Label Content="{Binding orderProcess.CurrentTime}" HorizontalAlignment="Left" Margin="522,121,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="44" Width="166"/>
+            <Label Content="{Binding orderProcess.EndTreatment}" HorizontalAlignment="Left" Margin="522,174,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="44" Width="166"/>
+            <Label Content="{Binding orderProcess.CurrentOrder.Status}" HorizontalAlignment="Left" Margin="185,170,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="35" Width="129"/>
+            <Label Content="Current Status:" HorizontalAlignment="Left" Margin="39,175,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+        </Grid>
 
     </Grid>
 </Window>

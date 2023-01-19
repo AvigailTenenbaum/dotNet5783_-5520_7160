@@ -16,5 +16,6 @@
             <TextBox Name="idtxt" TextWrapping="Wrap" Text="" Width="122" Height="33" Margin="20" PreviewKeyDown="idtxt_PreviewKeyDown"/>
             <Button Background="White" Content="Track" Height="32" Width="80" FontFamily="Broadway"  FontSize="18" Click="Button_Click_2" />
         </StackPanel>
+        <Button Background="White" Content="Simulator" HorizontalAlignment="Left" Margin="594,72,0,0" VerticalAlignment="Top" Height="43" Width="148" FontSize="22" FontWeight="SemiBold" FontFamily="Broadway" Click="Button_Click_3"/>
     </Grid>
 </Window>
