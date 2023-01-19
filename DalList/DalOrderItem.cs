@@ -1,4 +1,4 @@
-﻿
+﻿using System.Runtime.CompilerServices;
 
 using DalApi;
 using DO;
@@ -7,6 +7,7 @@ namespace Dal;
 
 internal class DalOrderItem : IorderItem
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     /// A function for adding an object
     /// </summary>
@@ -18,6 +19,8 @@ internal class DalOrderItem : IorderItem
         DataSource.items.Add(o1);
         return o1.ID;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and returns the object if it exists
     /// </summary>
@@ -29,6 +32,8 @@ internal class DalOrderItem : IorderItem
         OrderItem? orderItem = GetObjectByFilter(orderItem => orderItem?.ID == id);
         return orderItem;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
@@ -42,6 +47,8 @@ internal class DalOrderItem : IorderItem
         return DataSource.items.Where(orderItem => func(orderItem));
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
     /// </summary>
@@ -54,6 +61,8 @@ internal class DalOrderItem : IorderItem
             throw new NotExist();
         DataSource.items.Remove(o1.Value);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Function for updating an object if the ID number exists
     /// </summary>
@@ -67,6 +76,8 @@ internal class DalOrderItem : IorderItem
         DataSource.items[i] = o;
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// get all the orderItems with this orderId
     /// </summary>
@@ -76,6 +87,8 @@ internal class DalOrderItem : IorderItem
     {
         return GetAllObject(item => item?.OrderID == orderId);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// get orderItem by two orderId
     /// </summary>
@@ -87,6 +100,8 @@ internal class DalOrderItem : IorderItem
     {
         return GetObjectByFilter(item => item?.OrderID == orderId && item?.ProductID == productId);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
     /// </summary>

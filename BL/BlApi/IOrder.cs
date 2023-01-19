@@ -49,5 +49,10 @@ public interface IOrder
     /// </summary>
     /// <returns></returns>
     IEnumerable<StatisticsOrders> GetStatisticsOrders();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public int? nextOrderSending();
 }
 

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 namespace Dal;
 internal class  Product:Iproduct
     {
     static XElement? productRoot;
     string dir = "..\\xml\\";
     string productPath = @"Product.xml";
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product()
     {
         //create file if it doesn't exist
@@ -36,6 +38,8 @@ internal class  Product:Iproduct
         try { productRoot = XElement.Load(dir + productPath); }
         catch { throw new Exception("file upload problem"); }
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Adding a new product
     /// </summary>
@@ -52,6 +56,8 @@ internal class  Product:Iproduct
         productRoot?.Save(dir + productPath);
         return o1.ID;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and returns the object if it exists
     /// </summary>
@@ -81,6 +87,8 @@ internal class  Product:Iproduct
         }
         return product;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
@@ -121,6 +129,8 @@ internal class  Product:Iproduct
         }
         return products;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
     /// </summary>
@@ -142,6 +152,8 @@ internal class  Product:Iproduct
             throw new DO.NotExist();
         }
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Function for updating an object if the ID number exists
     /// </summary>
@@ -169,6 +181,8 @@ internal class  Product:Iproduct
         }
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
     /// </summary>

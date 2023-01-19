@@ -1,4 +1,4 @@
-﻿
+﻿using System.Runtime.CompilerServices;
 
 using DalApi;
 using DO;
@@ -7,6 +7,7 @@ namespace Dal;
 
 internal class DalProduct : Iproduct
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     /// A function for adding an object
     /// </summary>
@@ -20,16 +21,21 @@ internal class DalProduct : Iproduct
         DataSource.products.Add(o1);
         return o1.ID;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and returns the object if it exists
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+
     public Product? GetObject(int id)
     {
         return GetObjectByFilter(item => item?.ID == id);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
@@ -42,6 +48,8 @@ internal class DalProduct : Iproduct
         }
         return DataSource.products.Where(product => func(product));
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
     /// </summary>
@@ -54,6 +62,8 @@ internal class DalProduct : Iproduct
             throw new NotExist();
         DataSource.products.Remove(p1.Value);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Function for updating an object if the ID number exists
     /// </summary>
@@ -67,6 +77,8 @@ internal class DalProduct : Iproduct
         DataSource.products[i] = p;
   
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
     /// </summary>

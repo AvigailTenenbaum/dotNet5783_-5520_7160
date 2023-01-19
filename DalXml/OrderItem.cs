@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 using DalApi;
@@ -12,8 +13,7 @@ internal class OrderItem:IorderItem
 {
     string dir = "..\\xml\\";
     static string orderItemPath = @"OrderItem.xml";
-
-   // public int ID { get; internal set; }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     /// <summary>
     /// A function for adding an object
@@ -31,6 +31,8 @@ internal class OrderItem:IorderItem
         Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
         return o1.ID;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and returns the object if it exists
     /// </summary>
@@ -42,6 +44,8 @@ internal class OrderItem:IorderItem
         List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
         return orders.FirstOrDefault(order => order?.ID == id) ?? throw new NotExist();
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that returns an array of all objects
     /// </summary>
@@ -56,6 +60,8 @@ internal class OrderItem:IorderItem
         return orders.Where(order => func(order)).OrderBy(order => order?.ID);
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A function that receives an ID number of an object and deletes it if it exists
     /// </summary>
@@ -70,6 +76,8 @@ internal class OrderItem:IorderItem
         }
         Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Function for updating an object if the ID number exists
     /// </summary>
@@ -80,6 +88,8 @@ internal class OrderItem:IorderItem
         DeleteObject(o.ID);
         AddObject(o);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// get all the orderItems with this orderId
     /// </summary>
@@ -89,6 +99,8 @@ internal class OrderItem:IorderItem
     {
         return GetAllObject(item => item?.OrderID == orderId);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// get orderItem by two orderId
     /// </summary>
@@ -100,6 +112,8 @@ internal class OrderItem:IorderItem
     {
         return GetObjectByFilter(item => item?.OrderID == orderId && item?.ProductID == productId);
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// Accepts a condition and returns the first object that meets this condition
     /// </summary>

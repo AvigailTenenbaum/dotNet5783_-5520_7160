@@ -1,5 +1,6 @@
 ﻿using BO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 /// <summary>
@@ -94,6 +95,9 @@ internal class Product : BlApi.IProduct
         else
             throw new BO.InCorrectData();
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method that receives a product and adds it to the list if the data is correct
     /// </summary>
@@ -114,6 +118,9 @@ internal class Product : BlApi.IProduct
             catch (DO.AllReadyExist e) { throw new BO.AllReadyExist(e); }
         }
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// A method that receives a product and deletes it from the list if it is in it and is not found in any order
     /// </summary>
     /// <param name="id"></param>
@@ -134,6 +141,9 @@ internal class Product : BlApi.IProduct
         try { dal?.Product.DeleteObject(id); } catch (DO.NotExist ex) { throw new BO.NullData(); }//delete the product
            
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method that receives a product and updates the product to the received product if the data is correct
     /// </summary>

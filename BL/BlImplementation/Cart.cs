@@ -1,12 +1,15 @@
 ﻿using BO;
 using DalApi;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 
 internal class Cart : BlApi.ICart
 {
     private DalApi.IDal? dal = DalApi.Factory.Get();
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method for adding a product to the shopping cart, receives a shopping cart and a product ID and returns a checked shopping cart if everything is correct
     /// </summary>
@@ -64,6 +67,8 @@ internal class Cart : BlApi.ICart
         return cart;
     
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method for updating the quantity of a product in the basket, receives a shopping basket, identifies a new product and quantity and returns an updated basket if everything is correct
     /// </summary>
@@ -116,87 +121,91 @@ internal class Cart : BlApi.ICart
     /// Method for placing the order, receives a shopping basket and adds the order if everything is in order
     /// </summary>
     /// <param name="cart"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void OrderConfirmation(BO.Cart finalCart)
     {
-        if (finalCart.Items?.Count() == 0)
+        lock (dal)
         {
-            throw new InCorrectData();
-        }
-        IEnumerable<DO.Product?> products = dal?.Product.GetAllObject() ?? throw new NullData(); 
-        if (finalCart.CostumerAdress == "" || finalCart.CustomerName == "" || finalCart.CustomerEmail == "" 
-                || finalCart.CustomerEmail[0] == '@' || finalCart.CustomerEmail[finalCart.CustomerEmail.Length - 1] == '@')
-            throw new BO.InCorrectData();
+            if (finalCart.Items?.Count() == 0)
+            {
+                throw new InCorrectData();
+            }
+            IEnumerable<DO.Product?> products = dal?.Product.GetAllObject() ?? throw new NullData();
+            if (finalCart.CostumerAdress == "" || finalCart.CustomerName == "" || finalCart.CustomerEmail == ""
+                    || finalCart.CustomerEmail[0] == '@' || finalCart.CustomerEmail[finalCart.CustomerEmail.Length - 1] == '@')
+                throw new BO.InCorrectData();
 
-        bool isExistTab = finalCart.CustomerEmail.Contains(' ');
-        if (isExistTab)
-            throw new BO.InCorrectData();
+            bool isExistTab = finalCart.CustomerEmail.Contains(' ');
+            if (isExistTab)
+                throw new BO.InCorrectData();
 
-        bool isExistShtrudel = finalCart.CustomerEmail.Contains('@');
-        if (!isExistShtrudel)
-            throw new BO.InCorrectData();
+            bool isExistShtrudel = finalCart.CustomerEmail.Contains('@');
+            if (!isExistShtrudel)
+                throw new BO.InCorrectData();
 
-        OrderItem? WrongAmount = finalCart?.Items?.Find(o => o?.Amount <= 0);
-        if (WrongAmount != null)
-            throw new InCorrectData();
+            OrderItem? WrongAmount = finalCart?.Items?.Find(o => o?.Amount <= 0);
+            if (WrongAmount != null)
+                throw new InCorrectData();
 
-        IEnumerable<OrderItem?>? checkExistProduct = finalCart?.Items?.Where
-            (oi => products.Any(p => p?.ID == oi?.ProductID)); 
-        if (!checkExistProduct?.Any() ?? throw new NullData()) 
-            throw new InCorrectData();
+            IEnumerable<OrderItem?>? checkExistProduct = finalCart?.Items?.Where
+                (oi => products.Any(p => p?.ID == oi?.ProductID));
+            if (!checkExistProduct?.Any() ?? throw new NullData())
+                throw new InCorrectData();
 
-        if (!checkExistProduct!.Any(oi => products.Any(p => p?.ID == oi?.ProductID)))
-            throw new InCorrectData();
+            if (!checkExistProduct!.Any(oi => products.Any(p => p?.ID == oi?.ProductID)))
+                throw new InCorrectData();
 
-      
-        DO.Order finalOrder = new DO.Order
-        {
-            CustomerAddress = finalCart!.CostumerAdress,   
-            CustomerName = finalCart.CustomerName,
-            CustomerEmail = finalCart.CustomerEmail,
-            OrderDate = DateTime.Now,
-            DeliveryDate = null,
-            ShipDate = null,
-           
-        };
-        int id;
-        try { id=dal.Order.AddObject(finalOrder); }   
-        catch (AllReadyExist ex) { throw new AllReadyExist(ex); }
-        IEnumerable<DO.OrderItem> orderitems;
-        try
-        {
-            orderitems = from o in finalCart?.Items//converts the all orderItems to DO 
-                         let orderItem111 = new DO.OrderItem()
-                         {
-                             Amount = o.Amount,
-                             OrderID = id,
-                             Price = o.Price,
-                             ProductID = o.ProductID,
-                         }
-                         let t = dal.OrderItem.AddObject(orderItem111)
-                         select orderItem111;
 
-        }
-        //Insert the order items details to the order items list.
-        catch (DO.NotExist ex) { throw new NotExist(ex); }
-        IEnumerable<DO.Product> productsInCart = new List<DO.Product>();
-        try
-        {
-            productsInCart = from o in orderitems
-                             let productInCart = dal.Product.GetObject(o.ProductID)
-                             let productToSelect = new DO.Product()//Update the new amount.
+            DO.Order finalOrder = new DO.Order
+            {
+                CustomerAddress = finalCart!.CostumerAdress,
+                CustomerName = finalCart.CustomerName,
+                CustomerEmail = finalCart.CustomerEmail,
+                OrderDate = DateTime.Now,
+                DeliveryDate = null,
+                ShipDate = null,
+
+            };
+            int id;
+            try { id = dal.Order.AddObject(finalOrder); }
+            catch (AllReadyExist ex) { throw new AllReadyExist(ex); }
+            IEnumerable<DO.OrderItem> orderitems;
+            try
+            {
+                orderitems = from o in finalCart?.Items//converts the all orderItems to DO 
+                             let orderItem111 = new DO.OrderItem()
                              {
-                                 ID = productInCart?.ID??throw new NullData(),
-                                 InStock = productInCart?.InStock - o.Amount?? throw new NullData(),
-                                 Category = productInCart?.Category,
-                                 Name = productInCart?.Name,
-                                 Price = productInCart?.Price?? throw new NullData()
+                                 Amount = o.Amount,
+                                 OrderID = id,
+                                 Price = o.Price,
+                                 ProductID = o.ProductID,
                              }
-                             select productToSelect;
+                             let t = dal.OrderItem.AddObject(orderItem111)
+                             select orderItem111;
+
+            }
+            //Insert the order items details to the order items list.
+            catch (DO.NotExist ex) { throw new NotExist(ex); }
+            IEnumerable<DO.Product> productsInCart = new List<DO.Product>();
+            try
+            {
+                productsInCart = from o in orderitems
+                                 let productInCart = dal.Product.GetObject(o.ProductID)
+                                 let productToSelect = new DO.Product()//Update the new amount.
+                                 {
+                                     ID = productInCart?.ID ?? throw new NullData(),
+                                     InStock = productInCart?.InStock - o.Amount ?? throw new NullData(),
+                                     Category = productInCart?.Category,
+                                     Name = productInCart?.Name,
+                                     Price = productInCart?.Price ?? throw new NullData()
+                                 }
+                                 select productToSelect;
+            }
+            catch (DO.AllReadyExist ex) { throw new BO.AllReadyExist(ex); }
+            try { productsInCart.ToList().ForEach((p => dal.Product.UpDateObject(p))); }//Update the new amount of each product in the cart, in the database. 
+            catch (DO.AllReadyExist ex) { throw new BO.AllReadyExist(ex); }
         }
-        catch (DO.AllReadyExist ex) { throw new BO.AllReadyExist(ex); }
-        try { productsInCart.ToList().ForEach((p => dal.Product.UpDateObject(p))); }//Update the new amount of each product in the cart, in the database. 
-        catch (DO.AllReadyExist ex) { throw new BO.AllReadyExist(ex); }
     }
 
 }

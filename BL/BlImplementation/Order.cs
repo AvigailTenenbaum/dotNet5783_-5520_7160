@@ -2,6 +2,7 @@
 using BO;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 
@@ -122,6 +123,7 @@ internal class Order : BlApi.IOrder
                    ProductID = dal.Product.GetObject(item.ProductID)?.ID ?? throw new BO.NullData()
                };
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     /// <summary>
     /// A method for updating an order shipment that receives an order number and updates the ship date if the order exists
@@ -138,6 +140,9 @@ internal class Order : BlApi.IOrder
         BO.Order logicOrder = new BO.Order { ID = order.ID, CustomerName = order.CustomerName, CustomerEmail = order.CustomerEmail, CustomerAdress = order.CustomerAddress, ShipDate = order.ShipDate, DeliveryDate = order.DeliveryDate, Status = BO.OrderStatus.shipped, Items = new List<BO.OrderItem?>(), OrderDate = order.OrderDate };
         return logicOrder;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method for updating an order delivery that receives an order number and updates the delivery date if the order exists
     /// </summary>
@@ -181,6 +186,9 @@ internal class Order : BlApi.IOrder
         }
         return orderTracking;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     /// <summary>
     /// A method for updating an order to the manager
     /// </summary>
@@ -193,90 +201,92 @@ internal class Order : BlApi.IOrder
     /// <exception cref="BO.NotPossibleToFillRequest"></exception>
     public BO.Order UpdateOrder(int orderId, int productId, int newAmount)
     {
-
-        if (orderId < 0)
-            throw new BO.InCorrectData();
-        if (productId < 0)
-            throw new BO.InCorrectData();
-        if (newAmount < 0)
-            throw new BO.InCorrectData();
-        DO.Order? order;
-        try { order = dal?.Order.GetObject(orderId); }
-        catch (Exception ex)
+        lock (dal)
         {
-            throw new BO.NotExist(ex);
-        }
-        if (order?.DeliveryDate <= DateTime.Today)
-            throw new NotPossibleToFillRequest();
-        DO.Product product;
-        try { product = (DO.Product)dal!.Product.GetObject(productId); }//for update in stock field
-        catch (Exception ex) { throw new BO.NotExist(ex); }
-        BO.Order? wantedOrder = GetOrderDetails(orderId);
-        BO.OrderItem? oi = wantedOrder?.Items?.FirstOrDefault(oi => oi?.ProductID == productId);
-        if (product.InStock<=0 || product.InStock < newAmount)
-            throw new NotPossibleToFillRequest();
-        if (newAmount > product.InStock - oi?.Amount)
-            throw new NotPossibleToFillRequest();
-        if (newAmount != 0)
-        {
-            if (oi == null)//if he product is not in the order, add it
+            if (orderId < 0)
+                throw new BO.InCorrectData();
+            if (productId < 0)
+                throw new BO.InCorrectData();
+            if (newAmount < 0)
+                throw new BO.InCorrectData();
+            DO.Order? order;
+            try { order = dal?.Order.GetObject(orderId); }
+            catch (Exception ex)
             {
-                DO.Product? productHelp = dal?.Product.GetObject(productId);
-                IEnumerable<DO.OrderItem?> orderItems = dal?.OrderItem.GetAllObject();
-                oi = new BO.OrderItem()
+                throw new BO.NotExist(ex);
+            }
+            if (order?.DeliveryDate <= DateTime.Today)
+                throw new NotPossibleToFillRequest();
+            DO.Product product;
+            try { product = (DO.Product)dal!.Product.GetObject(productId); }//for update in stock field
+            catch (Exception ex) { throw new BO.NotExist(ex); }
+            BO.Order? wantedOrder = GetOrderDetails(orderId);
+            BO.OrderItem? oi = wantedOrder?.Items?.FirstOrDefault(oi => oi?.ProductID == productId);
+            if (product.InStock <= 0 || product.InStock < newAmount)
+                throw new NotPossibleToFillRequest();
+            if (newAmount > product.InStock - oi?.Amount)
+                throw new NotPossibleToFillRequest();
+            if (newAmount != 0)
+            {
+                if (oi == null)//if he product is not in the order, add it
                 {
-                    
-                    Amount = newAmount,
-                    Name = productHelp?.Name,
-                    Price = productHelp?.Price ?? 0,
-                    ProductID = productId,
-                    TotalPrice = newAmount * productHelp?.Price ?? 0,
-                };
-                DO.OrderItem add = new DO.OrderItem()//update in the data layer
+                    DO.Product? productHelp = dal?.Product.GetObject(productId);
+                    IEnumerable<DO.OrderItem?> orderItems = dal?.OrderItem.GetAllObject();
+                    oi = new BO.OrderItem()
+                    {
+
+                        Amount = newAmount,
+                        Name = productHelp?.Name,
+                        Price = productHelp?.Price ?? 0,
+                        ProductID = productId,
+                        TotalPrice = newAmount * productHelp?.Price ?? 0,
+                    };
+                    DO.OrderItem add = new DO.OrderItem()//update in the data layer
+                    {
+
+                        Amount = oi.Amount,
+                        OrderID = orderId,
+                        Price = oi.Price,
+                        ProductID = productId
+                    };
+                    wantedOrder?.Items?.Add(oi);
+                    dal?.OrderItem.AddObject(add);
+                    product.InStock -= add.Amount;
+                    dal?.Product.UpDateObject(product);//update the amount in stocp of product
+                    return wantedOrder!;
+                }
+                //if the product has been in the order already
+                product.InStock += oi.Amount;
+                wantedOrder!.TotalPrice -= oi!.TotalPrice;//for calculate the new total price of the order
+                oi.Amount = newAmount;
+                oi.TotalPrice = newAmount * oi.Price;
+                wantedOrder.TotalPrice += oi.TotalPrice;//for calculate the new total price of the order
+                DO.OrderItem update = new DO.OrderItem()
                 {
-                    
+                    ID = oi.ID,
                     Amount = oi.Amount,
                     OrderID = orderId,
                     Price = oi.Price,
                     ProductID = productId
                 };
-                wantedOrder?.Items?.Add(oi);
-                dal?.OrderItem.AddObject(add);
-                product.InStock -= add.Amount;
-                dal?.Product.UpDateObject(product);//update the amount in stocp of product
-                return wantedOrder!;
-            }
-            //if the product has been in the order already
-            product.InStock += oi.Amount;
-            wantedOrder!.TotalPrice -= oi!.TotalPrice;//for calculate the new total price of the order
-            oi.Amount = newAmount;
-            oi.TotalPrice = newAmount * oi.Price;
-            wantedOrder.TotalPrice += oi.TotalPrice;//for calculate the new total price of the order
-            DO.OrderItem update = new DO.OrderItem()
-            {
-                ID = oi.ID,
-                Amount = oi.Amount,
-                OrderID = orderId,
-                Price = oi.Price,
-                ProductID = productId
-            };
 
-            product.InStock -= oi.Amount;
-            dal.Product.UpDateObject(product);
-            dal?.OrderItem.UpDateObject(update);
-            return wantedOrder;
-        }
-        else
-        {
-            product.InStock += oi.Amount;
-            dal.Product.UpDateObject(product);
-            wantedOrder?.Items?.Remove(oi);
-            dal?.OrderItem.DeleteObject(oi.ID);
-            if (wantedOrder?.Items?.Count() == 0)
-            {
-                dal?.Order.DeleteObject(orderId);
+                product.InStock -= oi.Amount;
+                dal.Product.UpDateObject(product);
+                dal?.OrderItem.UpDateObject(update);
+                return wantedOrder;
             }
-            return wantedOrder;
+            else
+            {
+                product.InStock += oi.Amount;
+                dal.Product.UpDateObject(product);
+                wantedOrder?.Items?.Remove(oi);
+                dal?.OrderItem.DeleteObject(oi.ID);
+                if (wantedOrder?.Items?.Count() == 0)
+                {
+                    dal?.Order.DeleteObject(orderId);
+                }
+                return wantedOrder;
+            }
         }
     }
 
@@ -290,24 +300,20 @@ internal class Order : BlApi.IOrder
                    Count = newGroup.Count()
                };
     }
-    public DateTime? LastChange(int id)
+    public int? nextOrderSending()
     {
         try
         {
-            BO.Order order = GetOrderDetails(id);
-            if (order.Status == BO.OrderStatus.shipped)
-                return order.ShipDate;
-            if (order.Status == BO.OrderStatus.Approved)
-                return order.OrderDate;
-            else
-                return null;
+            IEnumerable<OrderTracking> orderTrackings = dal!.Order.GetAllObject(order => order?.DeliveryDate is null).Select(order => OrderTracking(order.GetValueOrDefault().ID));
+            return orderTrackings.MinBy(orderTracking =>
+                                        orderTracking.TrackingInformation![orderTracking.TrackingInformation.Count() - 1].Item2
+                                        .GetValueOrDefault())?.ID;
         }
-        catch(DO.NotExist ex)
+        catch (Exception)
         {
-            throw new BO.NotExist(ex);
+
+            throw;
         }
-
-
     }
 }
 
