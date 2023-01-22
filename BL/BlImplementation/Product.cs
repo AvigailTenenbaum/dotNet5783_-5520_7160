@@ -1,5 +1,4 @@
 ﻿using BO;
-using DalApi;
 using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
@@ -90,7 +89,7 @@ internal class Product : BlApi.IProduct
 
             };
 
-     
+
         }
         else
             throw new BO.InCorrectData();
@@ -104,7 +103,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     public void AddProduct(BO.Product product)
     {
-        if (product.ID <= 100000||product.ID>999999 || product.Name == null || product.Price <= 0)
+        if (product.ID <= 100000 || product.ID > 999999 || product.Name == null || product.Price <= 0)
         {
             throw new BO.InCorrectData();
         }
@@ -139,7 +138,7 @@ internal class Product : BlApi.IProduct
             throw new BO.NotPossibleToFillRequest();
         }
         try { dal?.Product.DeleteObject(id); } catch (DO.NotExist ex) { throw new BO.NullData(); }//delete the product
-           
+
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]

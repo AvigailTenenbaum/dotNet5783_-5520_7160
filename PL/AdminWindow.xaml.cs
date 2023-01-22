@@ -1,5 +1,4 @@
-﻿using BO;
-using PL.Orders;
+﻿using PL.Orders;
 using PL.Products;
 using System.Windows;
 

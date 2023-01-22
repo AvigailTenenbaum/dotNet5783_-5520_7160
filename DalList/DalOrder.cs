@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-
-using DalApi;
+﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 internal class DalOrder : Iorder
@@ -87,7 +86,7 @@ internal class DalOrder : Iorder
         if (DataSource.orders.FirstOrDefault(item => func!(item)) == null)
             throw new NotExist();
         return DataSource.orders.FirstOrDefault(item => func!(item));
-        
+
     }
 }
 

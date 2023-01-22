@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DalApi;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using DalApi;
-using DO;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 namespace Dal;
-internal class  Product:Iproduct
-    {
+internal class Product : Iproduct
+{
     static XElement? productRoot;
     string dir = "..\\xml\\";
     string productPath = @"Product.xml";
@@ -18,7 +12,7 @@ internal class  Product:Iproduct
     public Product()
     {
         //create file if it doesn't exist
-        if (!File.Exists(dir+productPath))
+        if (!File.Exists(dir + productPath))
             CreateFiles();
     }
     /// <summary>
@@ -68,7 +62,7 @@ internal class  Product:Iproduct
     {
         LoadData();
         DO.Product product;
-        try 
+        try
         {
             product = (from p in productRoot.Elements()
                        where Convert.ToInt32(p.Element("ID")!.Value) == id
@@ -165,14 +159,14 @@ internal class  Product:Iproduct
         try
         {
             productElement = (from p in productRoot?.Elements()
-                              where Convert.ToInt32(p.Element("ID")!.Value) ==pro.ID
+                              where Convert.ToInt32(p.Element("ID")!.Value) == pro.ID
                               select p).FirstOrDefault();
             productElement!.Element("Name")!.Value = pro.Name!;
-            productElement!.Element("Price")!.Value =pro.Price.ToString();
+            productElement!.Element("Price")!.Value = pro.Price.ToString();
             productElement!.Element("InStock")!.Value = pro.InStock.ToString()!;
             productElement!.Element("Category")!.Value = pro.Category.ToString()!;
 
-            productRoot?.Save( dir + productPath);
+            productRoot?.Save(dir + productPath);
         }
         catch
         {

@@ -1,7 +1,6 @@
 ﻿using BO;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace PL.Products
 {
@@ -21,12 +20,12 @@ namespace PL.Products
         }
         public static readonly DependencyProperty ProductItemProperty =
             DependencyProperty.Register("ProductItem", typeof(BO.ProductItem), typeof(Window), new PropertyMetadata(null));
-        public ProductDetailsWindow(ProductItem productItem,Cart myCart, Action<ProductItem, Cart> action1)
+        public ProductDetailsWindow(ProductItem productItem, Cart myCart, Action<ProductItem, Cart> action1)
         {
-            this.Action1= action1;
-            ProductItem= productItem;
+            this.Action1 = action1;
+            ProductItem = productItem;
             InitializeComponent();
-            this.cart= myCart;
+            this.cart = myCart;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,11 +33,11 @@ namespace PL.Products
             try
             {
                 cart = bl!.Cart.AddProductToCart(cart, (int)idLbl.Content);
-                ProductItem= bl!.Product.GetProductDetails(ProductItem.ID, cart);
-                Action1(ProductItem,cart);
+                ProductItem = bl!.Product.GetProductDetails(ProductItem.ID, cart);
+                Action1(ProductItem, cart);
                 MessageBox.Show("The item has been successfully added");
             }
-            catch(BO.NotExist ex)
+            catch (BO.NotExist ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -52,12 +51,12 @@ namespace PL.Products
         {
             try
             {
-             cart= bl!.Cart.UpdateProductAmount(cart, (int)idLbl.Content,ProductItem.AmountInCart-1);
+                cart = bl!.Cart.UpdateProductAmount(cart, (int)idLbl.Content, ProductItem.AmountInCart - 1);
                 ProductItem = bl!.Product.GetProductDetails(ProductItem.ID, cart);
                 Action1(ProductItem, cart);
                 MessageBox.Show("The item has been successfully removed");
             }
-            catch(BO.NotExist ex)
+            catch (BO.NotExist ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -65,7 +64,7 @@ namespace PL.Products
             {
                 MessageBox.Show(ex.Message);
             }
-            catch(BO.NotPossibleToFillRequest ex)
+            catch (BO.NotPossibleToFillRequest ex)
             {
                 MessageBox.Show(ex.Message);
             }

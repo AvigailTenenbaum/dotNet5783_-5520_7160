@@ -73,10 +73,11 @@
                 </GroupStyle>
             </ListView.GroupStyle>
             </ListView>
-            
-            
-         
-            <Button Margin="191,0,525,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click" Height="23" VerticalAlignment="Bottom"/>
+
+
+
+            <Button Margin="191,0,525,5" Content="My Cart" FontFamily="Broadway" FontSize="16" Click="Button_Click" Height="23" VerticalAlignment="Bottom">
+            </Button>
         </Grid>
     </Grid>
 </Window>

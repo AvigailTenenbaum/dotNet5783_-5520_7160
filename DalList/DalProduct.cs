@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-
-using DalApi;
+﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -75,7 +74,7 @@ internal class DalProduct : Iproduct
         if (i == -1)
             throw new NotExist();
         DataSource.products[i] = p;
-  
+
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 

@@ -86,13 +86,13 @@ namespace PL.Products
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ProductListview.SelectedItem == null) return;
-            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID,UpdateProduct,delProduct).ShowDialog();
+            new ProductWindowFinal(((ProductForList)ProductListview.SelectedItem).ID, UpdateProduct, delProduct).ShowDialog();
         }
         /// <summary>
         /// A private function for updating the list after adding in the next window
         /// </summary>
         /// <param name="product"></param>
-        private void addProduct(ProductForList product) =>ProductsForLists?.Add(product);
+        private void addProduct(ProductForList product) => ProductsForLists?.Add(product);
         /// <summary>
         /// Private function for updating the list after deletion in the next window
         /// </summary>
@@ -109,7 +109,7 @@ namespace PL.Products
         {
             var p = ProductsForLists?.FirstOrDefault(item => item?.ID == product.ID);
             int i = ProductsForLists.IndexOf(p);
-            ProductsForLists[i]= product;
+            ProductsForLists[i] = product;
         }
     }
 

@@ -12,7 +12,7 @@ namespace PL.Orders
     public partial class OrderWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-       
+
         public BO.Order Order
         {
             get { return (BO.Order)GetValue(OrderProperty); }
@@ -24,12 +24,12 @@ namespace PL.Orders
         private Action<OrderForList> action;//A variable for an action to be performed in the list in the previous window
         public OrderWindow(int id, Action<OrderForList> action)//Constructor for update mode
         {
-            this.action= action;
+            this.action = action;
             try
             {
                 Order = bl!.Order.GetOrderDetails(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -37,7 +37,7 @@ namespace PL.Orders
         }
         public OrderWindow(BO.Order o)//Constructor for view mode
         {
-            Order= o;
+            Order = o;
             OrderForCustomer = o;
             InitializeComponent();
         }
@@ -57,22 +57,22 @@ namespace PL.Orders
             action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault());
         }
 
-       private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             try
             {
-                int idForDelete=Order.ID;
+                int idForDelete = Order.ID;
                 Order = bl!.Order.UpdateOrder((int)id.Content, Convert.ToInt32(productIdTxt.Text),
                     Convert.ToInt32(Amounttxt.Text));
                 MessageBox.Show("The order has been successfully updated");
                 action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault()
-                    ??new OrderForList() { ID=idForDelete});
+                    ?? new OrderForList() { ID = idForDelete });
                 itemsListView.Items.Refresh();
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { MessageBox.Show(ex.Message); }
-            
+
         }
     }
 }

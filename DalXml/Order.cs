@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using System.Runtime.CompilerServices;
-using DalApi;
+﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 namespace Dal;
-internal class Order:Iorder
+internal class Order : Iorder
 {
     string dir = "..\\xml\\";
     static string orderPath = @"Order.xml";
@@ -22,13 +15,13 @@ internal class Order:Iorder
     /// <returns></returns>
     public int AddObject(DO.Order o1)
     {
-        List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir+orderPath);
-        if(o1.ID==null||o1.ID==0)//check because the update action
+        List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir + orderPath);
+        if (o1.ID == null || o1.ID == 0)//check because the update action
         {
             o1.ID = Tools<int>.GetLastOrderID();
         }
-       orders.Add(o1);
-        Tools<DO.Order?>.SaveListToXml(orders, dir+orderPath);
+        orders.Add(o1);
+        Tools<DO.Order?>.SaveListToXml(orders, dir + orderPath);
         return o1.ID;
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -42,7 +35,7 @@ internal class Order:Iorder
     public DO.Order? GetObject(int id)
     {
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir + orderPath);
-        return orders.FirstOrDefault(order => order?.ID == id)??throw new NotExist();
+        return orders.FirstOrDefault(order => order?.ID == id) ?? throw new NotExist();
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 
@@ -69,7 +62,7 @@ internal class Order:Iorder
     public void DeleteObject(int id)
     {
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir + orderPath);
-        if (orders.RemoveAll(item => item?.ID == id)==0)
+        if (orders.RemoveAll(item => item?.ID == id) == 0)
         {
             throw new NotExist();
         }
@@ -98,6 +91,6 @@ internal class Order:Iorder
     public DO.Order? GetObjectByFilter(Func<DO.Order?, bool>? func)
     {
         List<DO.Order?> orders = Tools<DO.Order?>.LoadListFromXml(dir + orderPath);
-       return orders.FirstOrDefault(order => func!(order))?? throw new NotExist();
+        return orders.FirstOrDefault(order => func!(order)) ?? throw new NotExist();
     }
 }

@@ -1,15 +1,9 @@
-﻿using DalApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Dal;
 using DalApi;
 using DO;
-internal class OrderItem:IorderItem
+internal class OrderItem : IorderItem
 {
     string dir = "..\\xml\\";
     static string orderItemPath = @"OrderItem.xml";
@@ -22,13 +16,13 @@ internal class OrderItem:IorderItem
     /// <returns></returns>
     public int AddObject(DO.OrderItem o1)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
-        if (o1.ID== null||o1.ID==0)//check because the update action
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir + orderItemPath);
+        if (o1.ID == null || o1.ID == 0)//check because the update action
         {
             o1.ID = Tools<int>.GetLastOrderItemID();
         }
         orders.Add(o1);
-        Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
+        Tools<DO.OrderItem?>.SaveListToXml(orders, dir + orderItemPath);
         return o1.ID;
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -41,7 +35,7 @@ internal class OrderItem:IorderItem
     /// <exception cref="Exception"></exception>
     public DO.OrderItem? GetObject(int id)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir + orderItemPath);
         return orders.FirstOrDefault(order => order?.ID == id) ?? throw new NotExist();
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -52,7 +46,7 @@ internal class OrderItem:IorderItem
     /// <returns></returns>
     public IEnumerable<DO.OrderItem?> GetAllObject(Func<DO.OrderItem?, bool>? func = null)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir + orderItemPath);
         if (func == null)
         {
             return orders.Select(order => order).OrderBy(order => order?.ID);
@@ -69,12 +63,12 @@ internal class OrderItem:IorderItem
     /// <exception cref="Exception"></exception>
     public void DeleteObject(int id)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir + orderItemPath);
         if (orders.RemoveAll(item => item?.ID == id) == 0)
         {
             throw new NotExist();
         }
-        Tools<DO.OrderItem?>.SaveListToXml(orders, dir+orderItemPath);
+        Tools<DO.OrderItem?>.SaveListToXml(orders, dir + orderItemPath);
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 
@@ -122,7 +116,7 @@ internal class OrderItem:IorderItem
     /// <exception cref="CanNotFound"></exception>
     public DO.OrderItem? GetObjectByFilter(Func<DO.OrderItem?, bool>? func)
     {
-        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir+orderItemPath);
+        List<DO.OrderItem?> orders = Tools<DO.OrderItem?>.LoadListFromXml(dir + orderItemPath);
         return orders.FirstOrDefault(order => func!(order)) ?? throw new NotExist();
 
     }

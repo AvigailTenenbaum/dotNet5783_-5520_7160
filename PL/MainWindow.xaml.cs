@@ -34,14 +34,14 @@ namespace PL
         {
             try
             {
-                 bl!.Order.OrderTracking(Convert.ToInt32(idtxt.Text));
+                bl!.Order.OrderTracking(Convert.ToInt32(idtxt.Text));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
             }
-            new OrderTrackWindow(Convert.ToInt32( idtxt.Text)).ShowDialog();
+            new OrderTrackWindow(Convert.ToInt32(idtxt.Text)).ShowDialog();
             idtxt.Clear();
         }
 
@@ -78,6 +78,6 @@ namespace PL
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             new SimulatorWindow().Show();
-         }
+        }
     }
 }

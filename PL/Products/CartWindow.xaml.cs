@@ -1,17 +1,8 @@
 ﻿using BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Products
 {
@@ -29,15 +20,15 @@ namespace PL.Products
         public static readonly DependencyProperty CartProperty =
             DependencyProperty.Register("Cart", typeof(BO.Cart), typeof(Window), new PropertyMetadata(null));
         public Action Action;
-        public Action<ProductItem,Cart> Action1;
+        public Action<ProductItem, Cart> Action1;
 
-        public CartWindow(Cart myCart,Action action, Action<ProductItem,Cart> action1)
+        public CartWindow(Cart myCart, Action action, Action<ProductItem, Cart> action1)
         {
             Cart = myCart;
             this.Action = action;
             this.Action1 = action1;
             InitializeComponent();
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -79,8 +70,8 @@ namespace PL.Products
                 FrameworkElement? framework = sender as FrameworkElement;
                 OrderItem? orderItem = (OrderItem?)framework?.DataContext;
                 int productId = orderItem!.ProductID;
-                int amount= orderItem.Amount;
-                Cart=bl!.Cart.UpdateProductAmount(Cart, productId, amount);
+                int amount = orderItem.Amount;
+                Cart = bl!.Cart.UpdateProductAmount(Cart, productId, amount);
                 ProductsInCart.Items.Refresh();
                 ProductItem p = new ProductItem()
                 {
@@ -89,11 +80,11 @@ namespace PL.Products
 
                 };
                 Tprice.Content = Cart.TotalPrice;//just for meantime, we going to change it
-                Action1(p,Cart);
+                Action1(p, Cart);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { MessageBox.Show(ex.Message); }
-            
+
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)

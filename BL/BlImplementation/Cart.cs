@@ -1,6 +1,4 @@
 ﻿using BO;
-using DalApi;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
@@ -65,7 +63,7 @@ internal class Cart : BlApi.ICart
 
         cart.TotalPrice += product?.Price ?? throw new BO.NullData();
         return cart;
-    
+
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 

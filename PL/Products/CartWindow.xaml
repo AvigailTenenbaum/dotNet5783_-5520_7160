@@ -26,7 +26,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="confirm order" HorizontalAlignment="Left" Margin="48,319,0,0" VerticalAlignment="Top" Height="57" Width="106" FontFamily="Broadway" Click="Button_Click" RenderTransformOrigin="-0.057,0.134"/>
+        <Button Content="confirm order" HorizontalAlignment="Left" Margin="48,319,0,0" VerticalAlignment="Top" Height="57" Width="106" FontFamily="Broadway" Click="Button_Click" >
+          
+        </Button>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="65,78,0,0" VerticalAlignment="Top" Height="35" Width="73" FontSize="14" FontFamily="Broadway"/>
         <Label Content="Email:" HorizontalAlignment="Left" Margin="65,142,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>
         <Label Content="Address:" HorizontalAlignment="Left" Margin="65,204,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>

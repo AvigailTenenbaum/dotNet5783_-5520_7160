@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SimulatorWindow" Height="450" Width="800" Closing="Window_Closing"  >
+        Title="SimulatorWindow" Height="450" Width="800" Closing="Window_Closing"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18*"/>
@@ -15,7 +16,7 @@
             <ColumnDefinition Width="32*"/>
         </Grid.ColumnDefinitions>
         <Button Content="stop" HorizontalAlignment="Left" Margin="539,374,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Button_Click" FontFamily="Broadway" FontSize="18" Grid.Column="2"/>
-        <TextBlock x:Name="txtBlock" HorizontalAlignment="Left" Margin="26,374,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="130" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <TextBlock x:Name="txtBlock" HorizontalAlignment="Left" Margin="26,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="130" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Grid Margin="48,33,20,65" Grid.ColumnSpan="4" Grid.Column="1">
             <Label Content="ID:" HorizontalAlignment="Left" Margin="39,27,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
             <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="39,75,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>

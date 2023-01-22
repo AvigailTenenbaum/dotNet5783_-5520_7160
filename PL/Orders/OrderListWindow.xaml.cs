@@ -1,9 +1,7 @@
 ﻿using BO;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 public enum OrderStatus { Approved, shipped, deliveredTotheCustomer };
 namespace PL.Orders
@@ -15,7 +13,7 @@ namespace PL.Orders
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         public ObservableCollection<OrderForList?> OrderForLists { get; set; }
-    
+
         public OrderListWindow()
         {
             OrderForLists = new ObservableCollection<OrderForList?>(bl!.Order.GetListOfOrder());
@@ -31,7 +29,7 @@ namespace PL.Orders
         private void OrderListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (OrderListview.SelectedItem == null) return;
-            new OrderWindow(((OrderForList)OrderListview.SelectedItem).ID,UpdateOrder).ShowDialog();
+            new OrderWindow(((OrderForList)OrderListview.SelectedItem).ID, UpdateOrder).ShowDialog();
         }
         private void UpdateOrder(OrderForList order)//A function for updating the list every time an order is updated
         {
@@ -50,5 +48,5 @@ namespace PL.Orders
         }
 
     }
- 
+
 }

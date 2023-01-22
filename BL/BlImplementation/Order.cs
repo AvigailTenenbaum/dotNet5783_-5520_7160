@@ -1,7 +1,4 @@
-﻿using BlApi;
-using BO;
-using DalApi;
-using DO;
+﻿using BO;
 using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
@@ -28,7 +25,7 @@ internal class Order : BlApi.IOrder
                    AmountOfItems = orderItems.Count(),
                    TotalPrice = orderItems.Sum(items => items!.Value.Amount * items.Value.Price)
                };
- 
+
 
     }
     /// <summary>
@@ -169,7 +166,7 @@ internal class Order : BlApi.IOrder
         try { order = (DO.Order)dal?.Order.GetObject(id)!; } catch (DO.NotExist e) { throw new BO.NotExist(e); }
         BO.OrderTracking orderTracking = new BO.OrderTracking { ID = order.ID };
         orderTracking.TrackingInformation = new List<Tuple<string?, DateTime?>>();
-        if (order.OrderDate !=null)
+        if (order.OrderDate != null)
         {
             orderTracking.orderStatus = BO.OrderStatus.Approved;
             orderTracking.TrackingInformation.Add(new Tuple<string?, DateTime?>("The order has been created", order.OrderDate));
@@ -290,7 +287,7 @@ internal class Order : BlApi.IOrder
         }
     }
 
-   public IEnumerable<StatisticsOrders> GetStatisticsOrders()
+    public IEnumerable<StatisticsOrders> GetStatisticsOrders()
     {
         return from order in GetListOfOrder()
                group order by order.Status into newGroup
@@ -319,6 +316,6 @@ internal class Order : BlApi.IOrder
 
 public struct StatisticsOrders
 {
-    public OrderStatus? Status{ get; set; }
+    public OrderStatus? Status { get; set; }
     public int Count { get; set; }
 }

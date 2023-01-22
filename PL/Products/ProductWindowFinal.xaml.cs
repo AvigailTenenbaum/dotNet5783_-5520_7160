@@ -24,7 +24,7 @@ namespace PL.Products
         /// <param name="action"></param>
         public ProductWindowFinal(Action<ProductForList> action)
         {
-            this.action = action;  
+            this.action = action;
             InitializeComponent();
         }
         /// <summary>
@@ -74,7 +74,7 @@ namespace PL.Products
                 messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (BO.AllReadyExist ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
-            catch(Exception ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
+            catch (Exception ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
         }
         /// <summary>
         /// Update an existing product
@@ -102,7 +102,7 @@ namespace PL.Products
                     Price = double.Parse(priceTextBox.Text),
                 };
                 bl?.Product.UpdateProduct(product);
-                action(bl?.Product.GetListOfProducts(p=>p.ID== product?.ID).FirstOrDefault());
+                action(bl?.Product.GetListOfProducts(p => p.ID == product?.ID).FirstOrDefault());
                 this.Close();
             }
             catch (BO.InCorrectData ex) { messageBoxResult = MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Information); }
@@ -120,7 +120,7 @@ namespace PL.Products
                 action1();
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

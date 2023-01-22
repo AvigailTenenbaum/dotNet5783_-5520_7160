@@ -3,13 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Xml.Serialization;
 
 namespace PL.Products
 {
@@ -46,7 +43,7 @@ namespace PL.Products
             //collectionView.GroupDescriptions.Add(propertyGroupDescription);
 
             Cart1 = new Cart { CostumerAdress = "", CustomerName = "", TotalPrice = 0, Items = new List<OrderItem?>(), CustomerEmail = "" };
-          
+
             InitializeComponent();
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,15 +81,15 @@ namespace PL.Products
 
         private void ProductsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ListView list=sender as ListView;
+            ListView list = sender as ListView;
             if (list.SelectedItem == null) return;
-            new ProductDetailsWindow(((ProductItem)list.SelectedItem),Cart1,UpdateProduct).ShowDialog();
+            new ProductDetailsWindow(((ProductItem)list.SelectedItem), Cart1, UpdateProduct).ShowDialog();
             ProductsListView.Items.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow(Cart1,DelCart, UpdateProduct).ShowDialog();
+            new CartWindow(Cart1, DelCart, UpdateProduct).ShowDialog();
             ProductsListView.Items.Refresh();
         }
         /// <summary>
@@ -104,7 +101,7 @@ namespace PL.Products
             var productsI = bl!.Product.GetListOfProductsItem().ToList();
             addProductsItem(productsI);
         }
-        private void UpdateProduct(ProductItem product,Cart c)
+        private void UpdateProduct(ProductItem product, Cart c)
         {
             var p = ProductsItemList?.FirstOrDefault(item => item?.ID == product.ID);
             int i = ProductsItemList.IndexOf(p);
@@ -114,8 +111,8 @@ namespace PL.Products
 
         private void IsGroupByCategory_Checked(object sender, RoutedEventArgs e)
         {
-          
-                collectionView.GroupDescriptions.Add(propertyGroupDescription);
+
+            collectionView.GroupDescriptions.Add(propertyGroupDescription);
         }
 
         private void IsGroupByCategory_Unchecked(object sender, RoutedEventArgs e)
