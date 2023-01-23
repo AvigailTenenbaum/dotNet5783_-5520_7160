@@ -34,6 +34,7 @@
             <Label Content="{Binding orderProcess.EndTreatment}" HorizontalAlignment="Left" Margin="522,174,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="44" Width="166"/>
             <Label Content="{Binding orderProcess.CurrentOrder.Status}" HorizontalAlignment="Left" Margin="185,170,0,0" VerticalAlignment="Top" BorderThickness="3,3,3,3" BorderBrush="Black" Height="35" Width="129"/>
             <Label Content="Current Status:" HorizontalAlignment="Left" Margin="39,175,0,0" VerticalAlignment="Top" FontFamily="Broadway" FontSize="14"/>
+            <ProgressBar Name="progressbar" HorizontalAlignment="Left" Height="15" Margin="491,266,0,0" VerticalAlignment="Top" Width="213"/>
         </Grid>
 
     </Grid>

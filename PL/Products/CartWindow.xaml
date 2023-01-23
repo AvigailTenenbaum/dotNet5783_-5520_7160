@@ -27,7 +27,16 @@
             </ListView.View>
         </ListView>
         <Button Content="confirm order" HorizontalAlignment="Left" Margin="48,319,0,0" VerticalAlignment="Top" Height="57" Width="106" FontFamily="Broadway" Click="Button_Click" >
-          
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="red"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                    </Style>
+            </Button.Style>
         </Button>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="65,78,0,0" VerticalAlignment="Top" Height="35" Width="73" FontSize="14" FontFamily="Broadway"/>
         <Label Content="Email:" HorizontalAlignment="Left" Margin="65,142,0,0" VerticalAlignment="Top" Height="31" Width="73" FontSize="14" FontFamily="Broadway"/>

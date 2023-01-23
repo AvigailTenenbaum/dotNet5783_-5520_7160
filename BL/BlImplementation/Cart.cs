@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
@@ -125,6 +126,8 @@ internal class Cart : BlApi.ICart
     {
         lock (dal)
         {
+            if (finalCart.Items.All(items => Check(items.ProductID, items.Amount) == true) == false)//no items in cart
+                throw new BO.OutOfStock();
             if (finalCart.Items?.Count() == 0)
             {
                 throw new InCorrectData();
@@ -204,6 +207,21 @@ internal class Cart : BlApi.ICart
             try { productsInCart.ToList().ForEach((p => dal.Product.UpDateObject(p))); }//Update the new amount of each product in the cart, in the database. 
             catch (DO.AllReadyExist ex) { throw new BO.AllReadyExist(ex); }
         }
+    }
+    private bool Check(int productID, int Amount)
+    {
+        DO.Product? product;
+        try
+        {
+            product = dal!.Product.GetObject(productID);
+        }
+        catch (DO.NotExist ex)
+        {
+            throw new BO.NotExist( ex);
+        }
+        if (product?.InStock >= Amount)
+            return true;
+        return false;
     }
 
 }

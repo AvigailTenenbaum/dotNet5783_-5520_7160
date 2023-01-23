@@ -19,7 +19,7 @@
     <Name>challahTray</Name>
     <Price>2010</Price>
     <Category>saturday</Category>
-    <InStock>93</InStock>
+    <InStock>92</InStock>
   </Product>
   <Product>
     <ID>100003</ID>
@@ -75,7 +75,7 @@
     <Name> sederPlate</Name>
     <Price>3979</Price>
     <Category>holidays</Category>
-    <InStock>72</InStock>
+    <InStock>21</InStock>
   </Product>
   <Product>
     <ID>100011</ID>
@@ -181,5 +181,12 @@
     <Price>6764</Price>
     <Category>handMade</Category>
     <InStock>91</InStock>
+  </Product>
+  <Product>
+    <ID>444444</ID>
+    <Name>goldcup</Name>
+    <Price>4567</Price>
+    <InStock>0</InStock>
+    <Category>holidays</Category>
   </Product>
 </ArrayOfProduct>

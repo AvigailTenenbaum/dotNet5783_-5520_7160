@@ -65,12 +65,16 @@ public partial class SimulatorWindow : Window
         Simulator.Simulator.s_StopSimulation -= () => backgroundWorker.CancelAsync();
 
         Simulator.Simulator.s_UpdateSimulation -= onProgressChangedClock;
+
     }
 
     private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
     {
         if (_actions.ContainsKey(e.ProgressPercentage))
+        {
             _actions[e.ProgressPercentage]?.Invoke(e.UserState);
+            progressbar.Value = 0;
+        }
     }
 
     private void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -88,7 +92,6 @@ public partial class SimulatorWindow : Window
             Thread.Sleep(c_timeSleep);
             onProgressChangedClock(0, DateTime.Now);
         }
-
     }
 
 
@@ -113,6 +116,12 @@ public partial class SimulatorWindow : Window
     {
         display = display.AddSeconds(e.ProgressPercentage);
         ShowTime();
+        if (orderProcess!=null&&orderProcess.EndTreatment != null)
+        {
+            double duration = Duration(orderProcess.CurrentTime, orderProcess.EndTreatment);
+            duration = 100.0 / duration;
+            progressbar.Value += duration;
+        }
     }
 
     private void ClockWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -142,6 +151,13 @@ public partial class SimulatorWindow : Window
         {
             e.Cancel = true;
         }
+    }
+    private int Duration (string startTime,string endTime)
+    {
+        int startTime_secs = Convert.ToInt32(startTime.Split(':')[0]) * 3600 + Convert.ToInt32(startTime.Split(':')[1]) * 60 + Convert.ToInt32(startTime.Split(':')[2]);
+        int endTime_secs = Convert.ToInt32(endTime.Split(':')[0]) * 3600 + Convert.ToInt32(endTime.Split(':')[1]) * 60 + Convert.ToInt32(endTime.Split(':')[2]);
+        return endTime_secs - startTime_secs;
+
     }
 }
 
