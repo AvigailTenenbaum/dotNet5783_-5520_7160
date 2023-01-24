@@ -1,4 +1,5 @@
 ﻿using DalApi;
+using DO;
 using System.Data;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
@@ -41,6 +42,9 @@ internal class Product : Iproduct
     /// <returns></returns>
     public int AddObject(DO.Product o1)
     {
+        DO.Product? pro =GetObject(o1.ID);
+        if (pro?.ID!=0)
+            throw new DO.AllReadyExist();
         XElement id = new XElement("ID", o1.ID);
         XElement name = new XElement("Name", o1.Name);
         XElement Price = new XElement("Price", o1.Price);
@@ -121,7 +125,7 @@ internal class Product : Iproduct
                         where func(pro)
                         select pro).Cast<DO.Product?>();
         }
-        return products;
+        return products!;
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 

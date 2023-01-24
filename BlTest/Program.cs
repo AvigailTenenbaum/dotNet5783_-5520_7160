@@ -268,7 +268,7 @@ namespace BlTest
                             ActionsOnCart();
                             break;
                         default:
-                            break;
+                            return;
                     }
                     Console.WriteLine(@"Choose one of the following options:
 1: Products

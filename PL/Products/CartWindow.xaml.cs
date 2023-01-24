@@ -59,11 +59,14 @@ namespace PL.Products
             TextBox textbox = sender as TextBox;
             if (textbox != null)
             {
-                int parsedValue;
-                if (!int.TryParse(textbox.Text, out parsedValue))
-                {
-                    textbox.Text = "";
-                }
+               
+                    int parsedValue;
+                    if (!int.TryParse(textbox.Text, out parsedValue))
+                    {
+                        MessageBox.Show("Error, please try again");
+                    }
+                 
+
             }
             try
             {
@@ -90,6 +93,14 @@ namespace PL.Products
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
+            try
+            {
+                Convert.ToInt32(text.Text);
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message);
+                text.Text = "1";
+            }
 
             if (text == null) return;
 

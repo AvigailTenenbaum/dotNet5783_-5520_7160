@@ -118,7 +118,7 @@ public partial class SimulatorWindow : Window
         ShowTime();
         if (orderProcess!=null&&orderProcess.EndTreatment != null)
         {
-            double duration = Duration(orderProcess.CurrentTime, orderProcess.EndTreatment);
+            double duration = Duration(orderProcess?.CurrentTime, orderProcess.EndTreatment);
             duration = 100.0 / duration;
             progressbar.Value += duration;
         }

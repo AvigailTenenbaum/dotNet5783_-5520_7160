@@ -231,7 +231,7 @@
     <CustomerEmail>asdcf@gmail.com</CustomerEmail>
     <CustomerAddress>sddd</CustomerAddress>
     <OrderDate>2023-01-23T16:34:27.8276595+02:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
+    <ShipDate>2023-01-23T22:46:16.9232782+02:00</ShipDate>
+    <DeliveryDate>2023-01-23T22:46:25.9699203+02:00</DeliveryDate>
   </Order>
 </ArrayOfOrder>

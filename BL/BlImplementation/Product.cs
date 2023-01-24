@@ -103,7 +103,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     public void AddProduct(BO.Product product)
     {
-        if (product.ID <= 100000 || product.ID > 999999 || product.Name == null || product.Price <= 0)
+        if (product.ID < 100000 || product.ID > 999999 || product.Name == null || product.Price <= 0||product.InStock<0)
         {
             throw new BO.InCorrectData();
         }
@@ -180,6 +180,6 @@ internal class Product : BlApi.IProduct
     }
 
     public IEnumerable<ProductForList?> GetListOfProductsByCondition(IEnumerable<ProductForList?> productForLists, Func<ProductForList?, bool>? func)
-    => productForLists.Where(func);
+    => productForLists.Where(func!);
 }
 

@@ -159,7 +159,7 @@ namespace DalTest
                         }
                     default:
                         Console.WriteLine("finish");
-                        Exit(0); break;
+                        break; 
                 }
             } while (tav != 'f');
         }
@@ -246,7 +246,7 @@ namespace DalTest
                         case '1': program.productFunction(); break;
                         case '2': program.orderFunction(); break;
                         case '3': program.orderItemFunction(); break;
-                        default: Console.WriteLine("finish"); break;
+                        default: Console.WriteLine("finish"); return;
                     }
 
                 } while (ch != 0);
