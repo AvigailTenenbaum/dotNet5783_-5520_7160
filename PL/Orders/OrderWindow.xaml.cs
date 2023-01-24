@@ -63,7 +63,7 @@ namespace PL.Orders
             {
                 int idForDelete = Order.ID;
                 Order = bl!.Order.UpdateOrder((int)id.Content, Convert.ToInt32(productIdTxt.Text),
-                    Convert.ToInt32(Amounttxt.Text));
+                Convert.ToInt32(Amounttxt.Text));
                 MessageBox.Show("The order has been successfully updated");
                 action(bl?.Order.GetListOfOrder().Where((p => p.ID == Order?.ID)).FirstOrDefault()
                     ?? new OrderForList() { ID = idForDelete });

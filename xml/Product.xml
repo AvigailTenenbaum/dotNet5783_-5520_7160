@@ -12,7 +12,7 @@
     <Name>goblet</Name>
     <Price>2995</Price>
     <Category>saturday</Category>
-    <InStock>99</InStock>
+    <InStock>97</InStock>
   </Product>
   <Product>
     <ID>100002</ID>
@@ -82,7 +82,7 @@
     <Name> scrollBag</Name>
     <Price>4374</Price>
     <Category>holidays</Category>
-    <InStock>72</InStock>
+    <InStock>69</InStock>
   </Product>
   <Product>
     <ID>100012</ID>
