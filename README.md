@@ -4,15 +4,17 @@ Welcome Avigail
 my name is Noa
 bye
 
-בונוסים:
-שימוש בtryParse שלב 1 ו2
-שימוש במתודה גנרית הרחבה על מנת להדפיס את ישויות הנתונים והישויות הלוגיות
-עדכון הזמנה דרך מסך מנהל
-שימוש בdata template
-שימוש בישויות תצוגה PO וב-data binding מלא דרך ישויות אלה
-טרנספורמציות של פקדים
-שימוש בסטייל
-אייקון בכותרת החלון ושורת המשימות
-פרוגרסבר 
-טריגר
-שימוש בבינדינג מלא
+
+Bonuses:
+
+* Using tryParse step 1 and 2
+* Using an extended generic method to print the data entities and logical entities
+* Order update via admin screen
+* Using a data template
+* Using PO display entities and full data binding through these entities
+* Transformations of controls
+* Using style
+* icon in the window header and taskbar
+* Progressbar
+* trigger
+* Using full binding

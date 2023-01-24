@@ -73,7 +73,7 @@ public partial class SimulatorWindow : Window
         if (_actions.ContainsKey(e.ProgressPercentage))
         {
             _actions[e.ProgressPercentage]?.Invoke(e.UserState);
-            progressbar.Value = 0;
+            progressbar.Value = ((int) orderProcess.CurrentOrder?.Status)*33.3333;
         }
     }
 
@@ -116,12 +116,12 @@ public partial class SimulatorWindow : Window
     {
         display = display.AddSeconds(e.ProgressPercentage);
         ShowTime();
-        if (orderProcess!=null&&orderProcess.EndTreatment != null)
-        {
-            double duration = Duration(orderProcess?.CurrentTime, orderProcess.EndTreatment);
-            duration = 100.0 / duration;
-            progressbar.Value += duration;
-        }
+        //if (orderProcess != null && orderProcess.EndTreatment != null)
+        //{
+        //    double duration = Duration(orderProcess?.CurrentTime, orderProcess.EndTreatment);
+        //    duration = 100.0 / duration;
+        //    progressbar.Value += duration;
+        //}
     }
 
     private void ClockWorker_DoWork(object sender, DoWorkEventArgs e)

@@ -45,14 +45,14 @@
   <Product>
     <ID>100006</ID>
     <Name> knife</Name>
-    <Price>2760</Price>
+    <Price>2762</Price>
     <Category>saturday</Category>
     <InStock>96</InStock>
   </Product>
   <Product>
     <ID>100007</ID>
     <Name> honeycomb</Name>
-    <Price>4899</Price>
+    <Price>900</Price>
     <Category>holidays</Category>
     <InStock>19</InStock>
   </Product>
